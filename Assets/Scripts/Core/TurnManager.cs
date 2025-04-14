@@ -1,48 +1,62 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
-public class TurnManager : MonoBehaviour
+public class TurnManager
 {
-    public PlayerController player1;
-    public PlayerController player2;
-    public TokenUI tokenUI;
-    public RegionUI regionUI;
-    public InvestmentManager investmentManager;
+    private List<PlayerController> players;
+    private int currentPlayerIndex = 0;
+    private PlayerController currentPlayer;
+    private int turnNumber = 1;
+
+    public PlayerController CurrentPlayer => currentPlayer;
+
     public TextMeshProUGUI turnHeaderText;
     public TextMeshProUGUI turnNumberText;
-    public TokenUI GetTokenUI() => tokenUI;
-    public DevTools devTools;
-    
-    
-    private int turnNumber = 1;
-    private PlayerController currentPlayer;
+    public TokenUI tokenUI;
+    public RegionUI regionUI;
+//    public DevTools devTools;
 
-    [SerializeField] private CardSpawner cardSpawner;
-    public static TurnManager Instance { get; private set; }
-
-    void Awake()
+    public void Initialize(List<PlayerController> playerList)
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
+        players = playerList;
+        currentPlayerIndex = 0;
+        currentPlayer = players[currentPlayerIndex];
     }
 
-    void Start()
+    public void StartTurn()
     {
-        currentPlayer = player1;
+        currentPlayer = players[currentPlayerIndex];
+
         currentPlayer.RefillTokens();
         regionUI.SetRegion(currentPlayer, currentPlayer);
         tokenUI.player = currentPlayer;
         tokenUI.UpdateDisplay();
         turnHeaderText.text = $"{currentPlayer.playerName}'s turn";
-        cardSpawner.DrawHand(currentPlayer);
-        Debug.Log($"{currentPlayer.playerName}'s turn!");
-        devTools.SetTargetPlayer(currentPlayer);
+//        devTools.SetTargetPlayer(currentPlayer);
         turnNumberText.text = turnNumber.ToString();
+
+        Debug.Log($"---\n{currentPlayer.playerName}'s turn!");
+
+        GameEvents.OnTurnStart.Raise();
+    }
+
+    public void EndTurn()
+    {
+        GameEvents.OnTurnEnd.Raise();
+
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
+        
+        if (currentPlayerIndex == 0)
+        {
+            turnNumber++;
+            turnNumberText.text = turnNumber.ToString();
+        }
+
+        StartTurn();
     }
 
     public PlayerController GetCurrentPlayer()
@@ -50,10 +64,11 @@ public class TurnManager : MonoBehaviour
         return currentPlayer;
     }
 
+    /* OLD IMPLEMENTAION
     public void EndTurn()
     {
-        cardSpawner.ClearHand();
-        
+        GameEvents.OnTurnEnd.Raise();
+
         //Shifts to the next turn after Player 2 hits "End Turn"
         if (currentPlayer == player2)
         {
@@ -66,9 +81,11 @@ public class TurnManager : MonoBehaviour
         tokenUI.UpdateDisplay();
         turnHeaderText.text = $"{currentPlayer.playerName}'s turn";
         Debug.Log($"---\n{currentPlayer.playerName}'s turn!");
-        cardSpawner.DrawHand(currentPlayer);
+    //    cardSpawner.DrawHand(currentPlayer);
         regionUI.SetRegion(currentPlayer, currentPlayer); // start of player’s own turn
         devTools.SetTargetPlayer(currentPlayer);
         investmentManager.TickInvestments();
+        GameEvents.OnTurnStart.Raise();
     }
+    */
 }

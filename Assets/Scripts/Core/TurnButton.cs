@@ -8,6 +8,6 @@ public class TurnButton : MonoBehaviour
 
     public void OnEndTurnPressed()
     {
-        turnManager.EndTurn();
+        GameServices.Instance.turnManager.EndTurn();
     }
 }

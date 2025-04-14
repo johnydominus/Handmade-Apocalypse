@@ -21,29 +21,29 @@ public class InvestmentButtonRelay : MonoBehaviour
     //Adds a token to a respective developement sphere
     public void OnPlusClicked()
     {
-        investmentManager.InvestToken(investor, sphereOwner, sphereIndex);
+//        investmentManager.InvestToken(investor, sphereOwner, sphereIndex);
         UpdateAmountText();
         Debug.Log("Plus clicked");
         tokenUI.UpdateDisplay();
-        forecastDisplay.UpdateForecast(sphereOwner, investor);
+//        forecastDisplay.UpdateForecast(sphereOwner, investor);
         Debug.Log("Forecast updated for sphere " + sphereIndex);
     }
 
     //Withdraws a token from a respective developement sphere
     public void OnMinusClicked()
     {
-        investmentManager.WithdrawToken(investor, sphereOwner, sphereIndex);
+//        investmentManager.WithdrawToken(investor, sphereOwner, sphereIndex);
         UpdateAmountText();
         Debug.Log("Minus clicked");
         tokenUI.UpdateDisplay();
-        forecastDisplay.UpdateForecast(sphereOwner, investor);
+//        forecastDisplay.UpdateForecast(sphereOwner, investor);
         Debug.Log("Forecast updated for sphere " + sphereIndex);
     }
     
     public void UpdateAmountText()
     {
-        int investorIndex = (investor == TurnManager.Instance.player1) ? 0 : 1;
-        int value = sphereOwner.incomingInvestments[sphereIndex, investorIndex];
-        amountLabel.text = value.ToString();
+//        int investorIndex = (investor == TurnManager.Instance.player1) ? 0 : 1;
+//        int value = sphereOwner.incomingInvestments[sphereIndex, investorIndex];
+//        amountLabel.text = value.ToString();
     }
 }

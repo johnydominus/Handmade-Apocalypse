@@ -9,6 +9,7 @@ public class InvestmentForecastDisplay : MonoBehaviour
     public TextMeshProUGUI twoTurnText;
     public TextMeshProUGUI threeTurnText;
 
+ /* OLD IMPLEMENTATION
     //Updates displayed amount of upcoming dividends
     public void UpdateForecast(PlayerController sphereOwner, PlayerController investor)
     {
@@ -22,5 +23,5 @@ public class InvestmentForecastDisplay : MonoBehaviour
         twoTurnText.text = shortTerm.ToString();
         threeTurnText.text = (shortTerm + leftover).ToString();
     }
-
+ */
 }

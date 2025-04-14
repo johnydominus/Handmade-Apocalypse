@@ -2,6 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CardType 
+{ 
+    PlayerAction, 
+    GlobalEvent,
+    RegionEvent
+}
+
+[CreateAssetMenu(fileName = "Card", menuName = "Game/Card Data")]
+public class CardData : ScriptableObject
+{
+    public string cardName;
+    public string description;
+    public CardType cardType;
+    public ThreatType targetThreat;
+    public int threatModifier;
+    public int tokenCost;
+    public Sprite artWork;
+}
+
+/* OLD IMPLEMENTATION
 public enum ThreatType { Pandemic, NuclearWar, Asteroid }
 
 [System.Serializable]
@@ -22,3 +42,4 @@ public class CardData
         this.cardCost = cardCost;
     }
 }
+*/

@@ -2,8 +2,11 @@
 
 public class InvestmentManager : MonoBehaviour
 {
+
+    /* OLD IMPLEMENTATION
     public PlayerController player1; //Assigned in Inspector
     public PlayerController player2; //Assigned in Inspector
+
 
     public void InvestToken(PlayerController investingPlayer, PlayerController targetPlayer, int sphereIndex)
     {
@@ -60,4 +63,5 @@ public class InvestmentManager : MonoBehaviour
             }
         }
     }
+    */
 }

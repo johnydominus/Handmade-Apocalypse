@@ -1,6 +1,67 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class ThreatManager
+{
+    private Dictionary<ThreatType, Threat> threats = new Dictionary<ThreatType, Threat>();
+    
+    public void Initialize()
+    {
+        threats[ThreatType.Pandemic] = new Threat("Pandemic", 50);
+        threats[ThreatType.NuclearWar] = new Threat("Nuclear War", 50);
+        threats[ThreatType.Asteroid] = new Threat("Asteroid", 50);
+        //threats[ThreatType.Hunger] = new Threat("Hunger", 50);
+        //threats[ThreatType.DarkAges] = new Threat("DarkAges", 50);
+        //threats[ThreatType.ClimateChange] = new Threat("Climate Change", 50);
+    }
+
+    public void ApplyThreatChange(ThreatType type, int amount)
+    {
+        if (!threats.ContainsKey(type)) return;
+
+        var threat = threats[type];
+        threat.threatValue = Mathf.Clamp(threat.threatValue + amount, 0, 100);
+
+        Debug.Log($"Threat {type} changed by {amount}. New value: {threat.threatValue}");
+
+        GameEvents.OnThreatChanged.Raise(type);
+        CheckWinLossConditions();
+    }
+
+    public int GetThreatValue(ThreatType type)
+    {
+        return threats.ContainsKey(type) ? threats[type].threatValue : -1;
+    }
+
+    public void CheckWinLossConditions()
+    {
+        bool allZero = true;
+        foreach (var threat in threats.Values)
+        {
+            if (threat.threatValue > 0)
+            {
+                allZero = false;
+                break;
+            }
+        }
+
+        if (allZero)
+        {
+            GameEvents.OnVictory.Raise();
+            return;
+        }
+
+        foreach (var threat in threats.Values)
+        {
+            if (threat.threatValue >= 100)
+            {
+                GameEvents.OnLoss.Raise();
+            }
+        }
+    }
+}
+
+/* OLD IMPLEMENTATION
 public class ThreatManager : MonoBehaviour
 {
     public List<ThreatUI> threatUIs; // Assigned in inspector
@@ -63,3 +124,4 @@ public class ThreatManager : MonoBehaviour
         }
     }
 }
+*/

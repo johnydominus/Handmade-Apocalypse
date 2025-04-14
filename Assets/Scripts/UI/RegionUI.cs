@@ -34,9 +34,9 @@ public class RegionUI : MonoBehaviour
         UpdateEmergencyBars();
 
         // Update forecasts
-        astroForecast.UpdateForecast(regionOwner, investor);
-        diploForecast.UpdateForecast(regionOwner, investor);
-        medForecast.UpdateForecast(regionOwner, investor);
+//        astroForecast.UpdateForecast(regionOwner, investor);
+//        diploForecast.UpdateForecast(regionOwner, investor);
+//        medForecast.UpdateForecast(regionOwner, investor);
 
         // Update token investment UI
         astroButtonRelay.SetContext(regionOwner, investor);
