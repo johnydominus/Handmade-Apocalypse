@@ -5,13 +5,13 @@ public class CardsListenerTest: MonoBehaviour
     private void OnEnable()
     {
         GameEvents.OnCardDrawn.RegisterListener(OnCardDrawn);
-        GameEvents.OnCardPlayed.RegisterListener(OnCardPlayed);
+        GameEvents.OnCardPlayedWithOwner.RegisterListener(OnCardPlayedWithOwner);
     }
 
     private void OnDisable()
     {
         GameEvents.OnCardDrawn.UnregisterListener(OnCardDrawn);
-        GameEvents.OnCardPlayed.UnregisterListener(OnCardPlayed);
+        GameEvents.OnCardPlayedWithOwner.UnregisterListener(OnCardPlayedWithOwner);
     }
 
     private void OnCardDrawn(CardData card)
@@ -19,9 +19,9 @@ public class CardsListenerTest: MonoBehaviour
         Debug.Log($"🟢 Card Drawn: {card.cardName} [{card.cardType}]");
     }
 
-    private void OnCardPlayed(CardData card)
+    private void OnCardPlayedWithOwner(CardPlayContext cardPlayContext)
     {
-        Debug.Log($"🔴 Card Played: {card.cardName} → Threat {card.targetThreat} change: {card.threatModifier}");
+        Debug.Log($"🔴{cardPlayContext.player.playerName} played card : {cardPlayContext.card.cardName} → Threat {cardPlayContext.card.targetThreat} change: {cardPlayContext.card.threatModifier}");
     }
 }
 

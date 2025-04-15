@@ -13,11 +13,6 @@ public class TurnManager
     private int turnNumber = 1;
 
     public PlayerController CurrentPlayer => currentPlayer;
-
-    public TextMeshProUGUI turnHeaderText;
-    public TextMeshProUGUI turnNumberText;
-    public TokenUI tokenUI;
-    public RegionUI regionUI;
 //    public DevTools devTools;
 
     public void Initialize(List<PlayerController> playerList)
@@ -30,18 +25,8 @@ public class TurnManager
     public void StartTurn()
     {
         currentPlayer = players[currentPlayerIndex];
-
-        currentPlayer.RefillTokens();
-        regionUI.SetRegion(currentPlayer, currentPlayer);
-        tokenUI.player = currentPlayer;
-        tokenUI.UpdateDisplay();
-        turnHeaderText.text = $"{currentPlayer.playerName}'s turn";
-//        devTools.SetTargetPlayer(currentPlayer);
-        turnNumberText.text = turnNumber.ToString();
-
+        GameEvents.OnTurnStarted.Raise(new TurnContext(turnNumber, currentPlayer));
         Debug.Log($"---\n{currentPlayer.playerName}'s turn!");
-
-        GameEvents.OnTurnStart.Raise();
     }
 
     public void EndTurn()
@@ -51,10 +36,7 @@ public class TurnManager
         currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
         
         if (currentPlayerIndex == 0)
-        {
             turnNumber++;
-            turnNumberText.text = turnNumber.ToString();
-        }
 
         StartTurn();
     }

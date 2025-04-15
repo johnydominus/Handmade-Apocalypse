@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     private List<CardData> hand = new List<CardData>();
 
     public string playerName;
-    public int tokens = 6;
+    public int startingTokensAmount = 6;
 
     public bool hasPlayedOnce = false;
     public int[] investmentLevels = new int[3]; // for 2 spheres
@@ -24,33 +24,39 @@ public class PlayerController : MonoBehaviour
     public void Initialize()
     {
         tokenManager = new TokenManager();
-        tokenManager.Initialize(tokens);
-        Debug.Log($"{playerName} initialized with {tokens} tokens.");
+        tokenManager.Initialize(startingTokensAmount, this);
+        Debug.Log($"{playerName} initialized with {startingTokensAmount} tokens.");
     }
 
     private void OnEnable()
     {
-        GameEvents.OnTurnStart.RegisterListener(OnTurnStart);
+        GameEvents.OnTurnStarted.RegisterListener(OnTurnStarted);
     }
 
     private void OnDisable()
     {
-        GameEvents.OnTurnStart.UnregisterListener(OnTurnStart);
+        GameEvents.OnTurnStarted.UnregisterListener(OnTurnStarted);
     }
 
-    private void OnTurnStart()
+    private void OnTurnStarted(TurnContext turnContext)
     {
-        if (!IsMyTurn()) return;
+        if (turnContext.player != this) return;
 
-        int drawCount = hasPlayedOnce ? 1 : 3;
-        hasPlayedOnce = true;
+        if (turnContext.turnNumber == 1)
+            RefillTokens();
+        
+        DrawTurnCards(turnContext.turnNumber);
+    }
+
+    public void DrawTurnCards(int turnNumber)
+    {
+        int drawCount = (turnNumber == 1) ? 3 : 1;
 
         for (int i = 0; i < drawCount; i++)
             DrawCard(CardType.PlayerAction);
 
-        FindFirstObjectByType<CardUIController>().DisplayHand(this);
+        GameEvents.OnHandDrawn.Raise(this);
     }
-
 
     public void DrawCard(CardType type)
     {
@@ -62,24 +68,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void DrawTurnCards()
-    {
-        int drawCount = hasPlayedOnce ? 1 : 3;
-        hasPlayedOnce = true;
-
-        for (int i = 0; i < drawCount; i++)
-            DrawCard(CardType.PlayerAction);
-
-        FindFirstObjectByType<CardUIController>().DisplayHand(this);
-    }
-
-
     public bool SpendToken(int amount)
     {
-        if (tokens >= amount)
+        if (this.tokenManager.GetTokens() >= amount)
         {
-            tokens -= amount;
-            Debug.Log($"{playerName} spent a token. Tokens left: {tokens}");
+            tokenManager.SetTokens(tokenManager.GetTokens() - amount);
+            GameEvents.OnTokenSpent.Raise(this);
+
+            Debug.Log($"{playerName} spent a token. Tokens left: {tokenManager.GetTokens()}");
             return true;
         }
         Debug.Log($"{playerName} has no tokens left.");
@@ -88,15 +84,16 @@ public class PlayerController : MonoBehaviour
 
     public void RefillTokens()
     {
-        tokens = 6;
+        tokenManager.SetTokens(startingTokensAmount);
         Debug.Log($"{playerName}'s tokens refilled.");
     }
 
     public void PlayCard(CardData card)
     {
-        if (!hand.Contains(card)) return;
+        if (!hand.Contains(card) || !tokenManager.HasEnoughTokens(card.tokenCost)) return;
 
         hand.Remove(card);
+        GameEvents.OnCardPlayedWithOwner.Raise(new CardPlayContext(card, this));
         GameServices.Instance.cardSystem.PlayCard(card, this);
     }
 
@@ -106,10 +103,4 @@ public class PlayerController : MonoBehaviour
     {
         hand.Clear();
     }
-
-    public bool IsMyTurn()
-    {
-        return GameServices.Instance.turnManager.CurrentPlayer == this;
-    }
-
 }

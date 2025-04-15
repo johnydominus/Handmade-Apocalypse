@@ -7,6 +7,38 @@ public class CardUIController : MonoBehaviour
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private Transform handAnchor; // empty GameObject to position the hand
 
+    private void OnEnable()
+    {
+        GameEvents.OnCardPlayedWithOwner.RegisterListener(OnCardPlayedWithOwner);
+        GameEvents.OnHandDrawn.RegisterListener(OnHandDrawn);
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnCardPlayedWithOwner.UnregisterListener(OnCardPlayedWithOwner);
+        GameEvents.OnHandDrawn.UnregisterListener(OnHandDrawn);
+    }
+
+    private void OnCardPlayedWithOwner(CardPlayContext context)
+    {
+        // Look for matching visual and destroy it
+        foreach (Transform child in handAnchor)
+        {
+            CardDisplay display = child.GetComponent<CardDisplay>();
+            if (display != null && display.GetCardData() == context.card)
+            {
+                Destroy(display.gameObject);
+                break;
+            }
+        }
+        DisplayHand(context.player); // redraw to center hand
+    }
+
+    private void OnHandDrawn(PlayerController player)
+    {
+        DisplayHand(player);
+    }
+
     public void DisplayHand(PlayerController player)
     {
         ClearHand();

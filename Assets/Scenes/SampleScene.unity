@@ -372,7 +372,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Tokens: 6'
+  m_text: tokens
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2130,7 +2130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   investmentManager: {fileID: 907165176}
   sphereOwner: {fileID: 1735534331}
-  tokenUI: {fileID: 1430207293}
+  tokenUI: {fileID: 0}
   forecastDisplay: {fileID: 1493827515}
   amountLabel: {fileID: 1658999546}
   sphereIndex: 0
@@ -3036,7 +3036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   investmentManager: {fileID: 907165176}
   sphereOwner: {fileID: 1735534331}
-  tokenUI: {fileID: 1430207293}
+  tokenUI: {fileID: 0}
   forecastDisplay: {fileID: 118093978}
   amountLabel: {fileID: 1145977275}
   sphereIndex: 1
@@ -5952,7 +5952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   investmentManager: {fileID: 907165176}
   sphereOwner: {fileID: 1735534331}
-  tokenUI: {fileID: 1430207293}
+  tokenUI: {fileID: 0}
   forecastDisplay: {fileID: 2147269368}
   amountLabel: {fileID: 1318950988}
   sphereIndex: 2
@@ -11226,7 +11226,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tokenText: {fileID: 46868340}
-  player: {fileID: 0}
 --- !u!1 &1435371274
 GameObject:
   m_ObjectHideFlags: 0
@@ -11460,11 +11459,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameServices: {fileID: 11400000, guid: 9c53bcb2a153b5e4685f87250b035246, type: 2}
   cardLibrary: {fileID: 11400000, guid: 48e724ad471d21645992b40d0cf1b0b2, type: 2}
-  turnHeaderText: {fileID: 1224441499}
-  turnNumberText: {fileID: 224150777}
-  tokenUI: {fileID: 1430207293}
-  regionUI: {fileID: 565955077}
-  devTools: {fileID: 1353648039}
 --- !u!1 &1483267598
 GameObject:
   m_ObjectHideFlags: 0
@@ -16135,6 +16129,7 @@ GameObject:
   - component: {fileID: 2097152884}
   - component: {fileID: 2097152886}
   - component: {fileID: 2097152885}
+  - component: {fileID: 2097152887}
   m_Layer: 5
   m_Name: Player's turn textbar
   m_TagString: Untagged
@@ -16201,6 +16196,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097152883}
   m_CullTransparentMesh: 1
+--- !u!114 &2097152887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097152883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bac65d26265483942b965db4af1d2505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playersName: {fileID: 1224441499}
+  turnNumber: {fileID: 224150777}
 --- !u!1 &2100495813
 GameObject:
   m_ObjectHideFlags: 0

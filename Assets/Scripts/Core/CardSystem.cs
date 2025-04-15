@@ -20,15 +20,8 @@ public class CardSystem
 
     public void PlayCard(CardData card, PlayerController player)
     {
-        if (!player.tokenManager.HasEnoughTokens(card.tokenCost))
-        { 
-            Debug.Log($"Not enough tokens to play {card.cardName}");
-            return;
-        }
-
         var command = new ModifyThreatCommand(card, player);
         GameServices.Instance.commandManager.ExecuteCommand(command);
-
-        GameEvents.OnCardPlayed.Raise(card);
+        GameEvents.OnCardPlayedWithOwner.Raise(new CardPlayContext(card, player));
     }
 }

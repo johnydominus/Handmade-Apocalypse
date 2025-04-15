@@ -27,6 +27,21 @@ public class RegionUI : MonoBehaviour
 
     private PlayerController currentPlayer;
 
+    private void OnEnable()
+    {
+        GameEvents.OnTurnStarted.RegisterListener(OnTurnStarted);
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnTurnStarted.UnregisterListener(OnTurnStarted);
+    }
+
+    private void OnTurnStarted(TurnContext turnContext)
+    {
+        SetRegion(turnContext.player, turnContext.player);
+    }
+
     public void SetRegion(PlayerController regionOwner, PlayerController investor)
     {
         currentPlayer = regionOwner;
