@@ -15,6 +15,21 @@ public class TurnManager
     public PlayerController CurrentPlayer => currentPlayer;
 //    public DevTools devTools;
 
+    public void OnEnable()
+    {
+        GameEvents.OnGameInitialized.RegisterListener(OnGameInitialized);
+    }
+
+    public void OnDisable()
+    {
+        GameEvents.OnGameInitialized.UnregisterListener(OnGameInitialized);
+    }
+
+    public void OnGameInitialized()
+    {
+        StartTurn();
+    }
+
     public void Initialize(List<PlayerController> playerList)
     {
         players = playerList;
@@ -39,6 +54,11 @@ public class TurnManager
             turnNumber++;
 
         StartTurn();
+    }
+
+    public List<PlayerController> GetAllPlayers()
+    {
+        return players;
     }
 
     public PlayerController GetCurrentPlayer()

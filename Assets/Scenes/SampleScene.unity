@@ -771,7 +771,7 @@ GameObject:
   - component: {fileID: 110059186}
   - component: {fileID: 110059185}
   m_Layer: 5
-  m_Name: Tokens in astro +
+  m_Name: Tokens +
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2087,8 +2087,9 @@ GameObject:
   m_Component:
   - component: {fileID: 249396722}
   - component: {fileID: 249396724}
+  - component: {fileID: 249396725}
   m_Layer: 5
-  m_Name: AstroInvest
+  m_Name: Sphere 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2106,6 +2107,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 282336290}
   - {fileID: 1377174606}
   - {fileID: 1731355074}
   - {fileID: 884384028}
@@ -2128,11 +2130,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1e472e193501649afc47e1ce05463b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  investmentManager: {fileID: 907165176}
-  sphereOwner: {fileID: 1735534331}
-  tokenUI: {fileID: 0}
-  forecastDisplay: {fileID: 1493827515}
+  tokenUI: {fileID: 1430207293}
   amountLabel: {fileID: 1658999546}
+  sphereName: {fileID: 282336291}
+  forecastDisplay: {fileID: 1493827515}
+  sphereIndex: 0
+--- !u!114 &249396725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249396721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c1e472e193501649afc47e1ce05463b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tokenUI: {fileID: 0}
+  amountLabel: {fileID: 0}
+  sphereName: {fileID: 0}
+  forecastDisplay: {fileID: 0}
   sphereIndex: 0
 --- !u!1 &250872640
 GameObject:
@@ -2434,7 +2452,7 @@ GameObject:
   - component: {fileID: 282336292}
   - component: {fileID: 282336291}
   m_Layer: 5
-  m_Name: Astronautics row
+  m_Name: Sphere name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2452,11 +2470,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1111268835}
+  m_Father: {fileID: 249396722}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -127.8, y: 8.6}
+  m_AnchoredPosition: {x: -78.100006, y: 0.7721038}
   m_SizeDelta: {x: 91.6662, y: 16.7453}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &282336291
@@ -2479,7 +2497,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Astronautics
+  m_text: Sphere 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2767,7 +2785,6 @@ Transform:
   - {fileID: 812823812}
   - {fileID: 1308171289}
   - {fileID: 1205057207}
-  - {fileID: 907165175}
   - {fileID: 1478244999}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2994,7 +3011,7 @@ GameObject:
   - component: {fileID: 389901795}
   - component: {fileID: 389901796}
   m_Layer: 5
-  m_Name: Diploinvest
+  m_Name: Sphere 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3012,6 +3029,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1374156113}
   - {fileID: 571151345}
   - {fileID: 615822048}
   - {fileID: 1671210166}
@@ -3034,11 +3052,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1e472e193501649afc47e1ce05463b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  investmentManager: {fileID: 907165176}
-  sphereOwner: {fileID: 1735534331}
-  tokenUI: {fileID: 0}
-  forecastDisplay: {fileID: 118093978}
+  tokenUI: {fileID: 1430207293}
   amountLabel: {fileID: 1145977275}
+  sphereName: {fileID: 1374156114}
+  forecastDisplay: {fileID: 118093978}
   sphereIndex: 1
 --- !u!1 &391286116
 GameObject:
@@ -4533,15 +4550,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff522702a873b0c4088e4f2abe78122f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spheresUI: []
+  forecastUI: []
   regionHeader: {fileID: 1416224001}
   emergencyPanel: {fileID: 1978943757}
   investmentPanel: {fileID: 1223250852}
-  astroForecast: {fileID: 1493827515}
-  diploForecast: {fileID: 118093978}
-  medForecast: {fileID: 2147269368}
-  astroButtonRelay: {fileID: 249396724}
-  diploButtonRelay: {fileID: 389901796}
-  medButtonRelay: {fileID: 749255243}
   emergencyBars:
   - {fileID: 1673882321}
   - {fileID: 1991878396}
@@ -4715,7 +4728,7 @@ GameObject:
   - component: {fileID: 571151347}
   - component: {fileID: 571151346}
   m_Layer: 5
-  m_Name: Tokens in astro
+  m_Name: Tokens in sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4928,7 +4941,7 @@ GameObject:
   - component: {fileID: 615822050}
   - component: {fileID: 615822049}
   m_Layer: 5
-  m_Name: Tokens in astro -
+  m_Name: Tokens -
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5910,7 +5923,7 @@ GameObject:
   - component: {fileID: 749255242}
   - component: {fileID: 749255243}
   m_Layer: 5
-  m_Name: Medinvest
+  m_Name: Sphere 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5928,6 +5941,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2006495617}
   - {fileID: 240464905}
   - {fileID: 1918072524}
   - {fileID: 110059184}
@@ -5950,11 +5964,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1e472e193501649afc47e1ce05463b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  investmentManager: {fileID: 907165176}
-  sphereOwner: {fileID: 1735534331}
-  tokenUI: {fileID: 0}
-  forecastDisplay: {fileID: 2147269368}
+  tokenUI: {fileID: 1430207293}
   amountLabel: {fileID: 1318950988}
+  sphereName: {fileID: 2006495618}
+  forecastDisplay: {fileID: 2147269368}
   sphereIndex: 2
 --- !u!1 &752602908
 GameObject:
@@ -6718,7 +6731,7 @@ GameObject:
   - component: {fileID: 884384029}
   - component: {fileID: 884384031}
   m_Layer: 5
-  m_Name: Tokens in astro +
+  m_Name: Tokens +
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6838,50 +6851,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &907165174
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 907165175}
-  - component: {fileID: 907165176}
-  m_Layer: 0
-  m_Name: InvestmentManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &907165175
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 907165174}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 361951264}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &907165176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 907165174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d65c767d45c21841af909185d5eb7a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &938715017
 GameObject:
   m_ObjectHideFlags: 0
@@ -8648,44 +8617,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1096410785}
   m_CullTransparentMesh: 1
---- !u!1 &1111268834
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1111268835}
-  m_Layer: 5
-  m_Name: Row titles
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1111268835
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1111268834}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 282336290}
-  - {fileID: 1374156113}
-  - {fileID: 2006495617}
-  m_Father: {fileID: 1223250853}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1120294579
 GameObject:
   m_ObjectHideFlags: 0
@@ -9214,7 +9145,6 @@ RectTransform:
   - {fileID: 749255242}
   - {fileID: 1769232351}
   - {fileID: 707836771}
-  - {fileID: 1111268835}
   - {fileID: 1851134234}
   - {fileID: 1852182887}
   m_Father: {fileID: 565955074}
@@ -10643,7 +10573,7 @@ GameObject:
   - component: {fileID: 1374156115}
   - component: {fileID: 1374156114}
   m_Layer: 5
-  m_Name: Diplomacy row
+  m_Name: Sphere name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10661,11 +10591,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1111268835}
+  m_Father: {fileID: 389901795}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -135.52002, y: -11.782005}
+  m_AnchoredPosition: {x: -85.82002, y: 0.7719927}
   m_SizeDelta: {x: 76.2184, y: 16.7453}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1374156114
@@ -10688,7 +10618,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Diplomacy
+  m_text: Sphere 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10779,7 +10709,7 @@ GameObject:
   - component: {fileID: 1377174608}
   - component: {fileID: 1377174607}
   m_Layer: 5
-  m_Name: Tokens in astro
+  m_Name: Tokens in sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11459,6 +11389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameServices: {fileID: 11400000, guid: 9c53bcb2a153b5e4685f87250b035246, type: 2}
   cardLibrary: {fileID: 11400000, guid: 48e724ad471d21645992b40d0cf1b0b2, type: 2}
+  selectedThreats: 000000000100000002000000
 --- !u!1 &1483267598
 GameObject:
   m_ObjectHideFlags: 0
@@ -11755,16 +11686,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: agagag
-  tokens: 6
-  hasPlayedOnce: 0
-  investmentLevels: 0000000000000000
-  investmentTimers: 0000000000000000
+  startingTokensAmount: 6
   emergencyLevels:
   - 4
   - 7
   - 2
   isEmergencyActive: 000000
-  dividendCounter: 000000000000000000000000
 --- !u!4 &1517960970
 Transform:
   m_ObjectHideFlags: 0
@@ -13415,7 +13342,7 @@ GameObject:
   - component: {fileID: 1671210168}
   - component: {fileID: 1671210167}
   m_Layer: 5
-  m_Name: Tokens in astro +
+  m_Name: Tokens +
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13971,7 +13898,7 @@ GameObject:
   - component: {fileID: 1731355075}
   - component: {fileID: 1731355078}
   m_Layer: 5
-  m_Name: Tokens in astro -
+  m_Name: Tokens -
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14274,16 +14201,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: oderfgad
-  tokens: 6
-  hasPlayedOnce: 0
-  investmentLevels: 0000000000000000
-  investmentTimers: 0000000000000000
+  startingTokensAmount: 6
   emergencyLevels:
   - 4
   - 7
   - 2
   isEmergencyActive: 000000
-  dividendCounter: 000000000000000000000000
 --- !u!4 &1735534332
 Transform:
   m_ObjectHideFlags: 0
@@ -15177,7 +15100,7 @@ GameObject:
   - component: {fileID: 1918072526}
   - component: {fileID: 1918072525}
   m_Layer: 5
-  m_Name: Tokens in astro -
+  m_Name: Tokens -
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15783,7 +15706,7 @@ GameObject:
   - component: {fileID: 2006495619}
   - component: {fileID: 2006495618}
   m_Layer: 5
-  m_Name: Medicine row
+  m_Name: Sphere name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15801,11 +15724,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1111268835}
+  m_Father: {fileID: 749255242}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -135.52002, y: -32.282005}
+  m_AnchoredPosition: {x: -85.82002, y: 0}
   m_SizeDelta: {x: 76.2184, y: 16.7453}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2006495618
@@ -15828,7 +15751,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Medicine
+  m_text: Sphere 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

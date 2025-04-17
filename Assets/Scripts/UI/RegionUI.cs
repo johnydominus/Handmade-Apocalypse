@@ -1,20 +1,17 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using UnityEngine.Windows.Speech;
 
 public class RegionUI : MonoBehaviour
 {
+    public List<InvestmentSphereRelay> spheresUI;
+    public List<InvestmentForecastDisplay> forecastUI;
+
     public TextMeshProUGUI regionHeader;
     public GameObject emergencyPanel;
     public GameObject investmentPanel;
-
-    public InvestmentForecastDisplay astroForecast;
-    public InvestmentForecastDisplay diploForecast;
-    public InvestmentForecastDisplay medForecast;
-
-    public InvestmentButtonRelay astroButtonRelay;
-    public InvestmentButtonRelay diploButtonRelay;
-    public InvestmentButtonRelay medButtonRelay;
 
     public Image[] emergencyBars; // 0–10 fillAmount bars
     public TextMeshProUGUI[] emergencyLabels;
@@ -41,26 +38,20 @@ public class RegionUI : MonoBehaviour
     {
         SetRegion(turnContext.player, turnContext.player);
     }
-
+    
     public void SetRegion(PlayerController regionOwner, PlayerController investor)
     {
         currentPlayer = regionOwner;
         regionHeader.text = $"Region: {regionOwner.playerName}";
         UpdateEmergencyBars();
 
-        // Update forecasts
-//        astroForecast.UpdateForecast(regionOwner, investor);
-//        diploForecast.UpdateForecast(regionOwner, investor);
-//        medForecast.UpdateForecast(regionOwner, investor);
-
-        // Update token investment UI
-        astroButtonRelay.SetContext(regionOwner, investor);
-        diploButtonRelay.SetContext(regionOwner, investor);
-        medButtonRelay.SetContext(regionOwner, investor);
-
-        astroButtonRelay.UpdateAmountText();
-        diploButtonRelay.UpdateAmountText();
-        medButtonRelay.UpdateAmountText();
+        for (int i = 0; i < spheresUI.Count; i++)
+        {
+            spheresUI[i].SetContext(regionOwner, investor);
+            spheresUI[i].name = regionOwner.investments[i].sphereName;
+            spheresUI[i].UpdateAmountText();
+            forecastUI[i].UpdateForecast(regionOwner, investor);
+        }
     }
 
     public void SwitchTab(string tab)

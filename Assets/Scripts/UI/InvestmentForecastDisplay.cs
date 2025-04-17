@@ -9,19 +9,59 @@ public class InvestmentForecastDisplay : MonoBehaviour
     public TextMeshProUGUI twoTurnText;
     public TextMeshProUGUI threeTurnText;
 
- /* OLD IMPLEMENTATION
-    //Updates displayed amount of upcoming dividends
-    public void UpdateForecast(PlayerController sphereOwner, PlayerController investor)
+    private void OnEnable()
     {
-        int investorIndex = (investor == TurnManager.Instance.player1) ? 0 : 1;
-        int invested = sphereOwner.incomingInvestments[sphereIndex, investorIndex];
-
-        int shortTerm = invested / 3;
-        int leftover = invested % 3;
-
-        oneTurnText.text = shortTerm.ToString();
-        twoTurnText.text = shortTerm.ToString();
-        threeTurnText.text = (shortTerm + leftover).ToString();
+        GameEvents.OnTurnStarted.RegisterListener(OnTurnStarted);
+        GameEvents.OnTokensChanged.RegisterListener(OnTokensChanged);
     }
- */
+
+    private void OnDisable()
+    {
+        GameEvents.OnTurnStarted.UnregisterListener(OnTurnStarted);
+        GameEvents.OnTokensChanged.UnregisterListener(OnTokensChanged);
+    }
+
+    private void OnTurnStarted(TurnContext turnContext)
+    {
+        UpdateForecast(turnContext.player, turnContext.player);
+    }
+
+    private void OnTokensChanged(PlayerController player)
+    {
+        UpdateForecast(player, player);
+    }
+
+    public void UpdateForecast(PlayerController owner, PlayerController investor)
+    {
+        if (owner == null)
+        {
+            Debug.Log($"Owner is null!");
+            return;
+        }
+        Debug.Log($"sphereIndex = {sphereIndex.ToString()}");
+        if (owner.investments[sphereIndex] == null)
+        {
+            Debug.Log($"Investment slot is null for sphereIndex {sphereIndex}");
+            return;
+        }
+        var slot = owner.investments[sphereIndex];
+        if (!slot.investors.ContainsKey(investor)) return;
+
+        var data = slot.investors[investor];
+
+        int fastDivs = data.investedTokens / 3;
+        int[] slow = new int[3];
+
+        foreach (int timer in data.slowDividendTimers)
+        {
+            if (timer >= 1 && timer <= 3)
+                slow[timer - 1]++;
+        }
+
+        oneTurnText.text = (fastDivs + slow[0]).ToString();
+        twoTurnText.text = slow[1].ToString();
+        threeTurnText.text = slow[2].ToString();
+
+        Debug.Log($"Forecast updated for {owner.name}");
+    }
 }

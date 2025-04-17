@@ -5,27 +5,32 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public TokenManager tokenManager { get; private set; }
-    private List<CardData> hand = new List<CardData>();
+    private List<CardData> hand = new();
+    public List<InvestmentSlot> investments = new();
 
     public string playerName;
     public int startingTokensAmount = 6;
 
-    public bool hasPlayedOnce = false;
-    public int[] investmentLevels = new int[3]; // for 2 spheres
-    public int[] investmentTimers = new int[3]; // turns held
-
     public float[] emergencyLevels = new float[2];
     public bool[] isEmergencyActive = new bool[2];
 
-    public int[,] incomingInvestments = new int[3, 2];  // [sphereIndex, investorIndex]
-    public int[] dividendCounter = new int[3];          // Tracks turns until 3-turn payout
-    public int[,] slowDividendCounters = new int[3, 2]; // [sphere, sphereOwnerIndex]
-
-    public void Initialize()
+    public List<CardData> GetHand() => hand;
+    public List<InvestmentSlot> GetInvestmentSlots() => investments;
+    public void Initialize(List<string> sphereNames)
     {
         tokenManager = new TokenManager();
         tokenManager.Initialize(startingTokensAmount, this);
         Debug.Log($"{playerName} initialized with {startingTokensAmount} tokens.");
+
+        investments.Clear();
+        foreach (var name in sphereNames)
+        {
+            Debug.Log($"{playerName} initializing {name} investment sphere");
+            var slot = new InvestmentSlot(name);
+            investments.Add(slot);
+            Debug.Log($"{playerName} initialized {slot.sphereName} investment sphere");
+        }
+        Debug.Log($"{investments.Count} investment spheres were initialized!");
     }
 
     private void OnEnable()
@@ -96,8 +101,6 @@ public class PlayerController : MonoBehaviour
         GameEvents.OnCardPlayedWithOwner.Raise(new CardPlayContext(card, this));
         GameServices.Instance.cardSystem.PlayCard(card, this);
     }
-
-    public List<CardData> GetHand() => hand;
 
     public void ClearHand()
     {
