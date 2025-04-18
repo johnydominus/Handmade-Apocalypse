@@ -15,8 +15,7 @@ public class InvestmentManager
 
         int leftover = slot.investors[investor].investedTokens % 3;
 
-        if (leftover == 0 && slot.investors[investor].slowDividendTimers.Count < leftover)
-            slot.investors[investor].slowDividendTimers.Add(0);
+        SyncSlowDividends(slot.investors[investor]);
 
         GameEvents.OnTokensChanged.Raise(investor);
     }
@@ -30,12 +29,25 @@ public class InvestmentManager
 
         int leftover = slot.investors[investor].investedTokens % 3;
 
-        if (slot.investors[investor].slowDividendTimers.Count > leftover)
-            slot.investors[investor].slowDividendTimers.RemoveAt(leftover);
+        SyncSlowDividends(slot.investors[investor]);
 
         investor.tokenManager.AddTokens(1);
         GameEvents.OnTokensChanged.Raise(investor);
     }
+
+    private void SyncSlowDividends(InvestorData data)
+    {
+        int leftover = data.investedTokens % 3;
+
+        // Add missing slow timers
+        while (data.slowDividendTimers.Count < leftover)
+            data.slowDividendTimers.Add(3);
+
+        // Remove excess slow timers
+        while (data.slowDividendTimers.Count > leftover)
+            data.slowDividendTimers.RemoveAt(data.slowDividendTimers.Count - 1);
+    }
+
 
     public void TickInvestments()
     {
@@ -48,21 +60,32 @@ public class InvestmentManager
                     var investor = entry.Key;
                     var data = entry.Value;
 
+                    // Count fast dividends
                     int fastTokens = data.investedTokens / 3;
-                    if (fastTokens > 0)
-                        investor.tokenManager.AddTokens(fastTokens);
 
                     // Tick down each slow timer
+                    int slowTokens = 0;
                     for (int i = data.slowDividendTimers.Count - 1; i >= 0; i--)
                     {
                         data.slowDividendTimers[i]--;
                         if (data.slowDividendTimers[i] <= 0)
                         {
-                            investor.tokenManager.AddTokens(1);
+                            slowTokens++;
                             data.slowDividendTimers.RemoveAt(i);
                         }
                     }
-                    GameEvents.OnTokensChanged.Raise(investor);
+                    // Pay dividends
+                    if (slowTokens + fastTokens > 0)
+                    {
+                        investor.tokenManager.AddTokens(slowTokens + fastTokens);
+                        GameEvents.OnTokensChanged.Raise(investor);
+                        Debug.Log($"[Dividends] {investor.playerName} received {fastTokens} fast + {slowTokens} slow tokens.");
+                    }
+
+                    // Add missing slow timers
+                    int leftover = data.investedTokens % 3;
+                    while (data.slowDividendTimers.Count < leftover)
+                        data.slowDividendTimers.Add(3);
                 }
             }
         }

@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
             Debug.Log($"There is {sphereName} in sphereNames!");
 
         foreach (var player in players)
-            player.Initialize(sphereNames);
+            player.Initialize(sphereNames, players);
 
         GameServices.Initialize(gameServices);
 
@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
         gameServices.cardSystem.Initialize(cardLibrary);
 
         gameServices.investmentManager = new();
-
 
         gameServices.commandManager = new();
         //        gameServices.turnManager.devTools = devTools;

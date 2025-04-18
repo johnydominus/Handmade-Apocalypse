@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
     public List<CardData> GetHand() => hand;
     public List<InvestmentSlot> GetInvestmentSlots() => investments;
-    public void Initialize(List<string> sphereNames)
+    public void Initialize(List<string> sphereNames, List<PlayerController> players)
     {
         tokenManager = new TokenManager();
         tokenManager.Initialize(startingTokensAmount, this);
@@ -27,7 +27,14 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log($"{playerName} initializing {name} investment sphere");
             var slot = new InvestmentSlot(name);
+
+            foreach (var otherPlayer in players)
+            {
+                slot.investors[otherPlayer] = new InvestorData();
+            }
+
             investments.Add(slot);
+
             Debug.Log($"{playerName} initialized {slot.sphereName} investment sphere");
         }
         Debug.Log($"{investments.Count} investment spheres were initialized!");

@@ -28,6 +28,7 @@ public class InvestmentSphereRelay : MonoBehaviour
     private void OnTurnStarted(TurnContext turnContext)
     {
         SetContext(turnContext.player, turnContext.player);
+        UpdateAmountText();
     }
 
     public void Start()
@@ -43,7 +44,6 @@ public class InvestmentSphereRelay : MonoBehaviour
         }
         this.sphereOwner = sphereOwner;
         this.investor = investor;
-
 
         Debug.Log("The context for InvestmentSphereRelay is set!");
     }
@@ -69,6 +69,15 @@ public class InvestmentSphereRelay : MonoBehaviour
 
     public void UpdateAmountText()
     {
-        
+        var slot = sphereOwner.investments[sphereIndex];
+
+        if (slot.investors.TryGetValue(investor, out var data))
+        {
+            amountLabel.text = data.investedTokens.ToString();
+        }
+        else
+        {
+            amountLabel.text = "0";
+        }
     }
 }

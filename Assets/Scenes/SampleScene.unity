@@ -2087,7 +2087,6 @@ GameObject:
   m_Component:
   - component: {fileID: 249396722}
   - component: {fileID: 249396724}
-  - component: {fileID: 249396725}
   m_Layer: 5
   m_Name: Sphere 1
   m_TagString: Untagged
@@ -2134,23 +2133,6 @@ MonoBehaviour:
   amountLabel: {fileID: 1658999546}
   sphereName: {fileID: 282336291}
   forecastDisplay: {fileID: 1493827515}
-  sphereIndex: 0
---- !u!114 &249396725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 249396721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c1e472e193501649afc47e1ce05463b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tokenUI: {fileID: 0}
-  amountLabel: {fileID: 0}
-  sphereName: {fileID: 0}
-  forecastDisplay: {fileID: 0}
   sphereIndex: 0
 --- !u!1 &250872640
 GameObject:
@@ -8765,7 +8747,7 @@ GameObject:
   - component: {fileID: 1145977276}
   - component: {fileID: 1145977275}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 'DS2 - tokens invested '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10177,7 +10159,7 @@ GameObject:
   - component: {fileID: 1318950989}
   - component: {fileID: 1318950988}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: DS3 - tokens invested
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13129,7 +13111,7 @@ GameObject:
   - component: {fileID: 1658999547}
   - component: {fileID: 1658999546}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: DS1 - tokens invested
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

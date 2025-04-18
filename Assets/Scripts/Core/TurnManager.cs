@@ -51,7 +51,10 @@ public class TurnManager
         currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
         
         if (currentPlayerIndex == 0)
+        {
             turnNumber++;
+            GameServices.Instance.investmentManager.TickInvestments();
+        }
 
         StartTurn();
     }

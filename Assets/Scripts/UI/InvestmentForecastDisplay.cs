@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class InvestmentForecastDisplay : MonoBehaviour
 {
@@ -33,20 +34,21 @@ public class InvestmentForecastDisplay : MonoBehaviour
 
     public void UpdateForecast(PlayerController owner, PlayerController investor)
     {
-        if (owner == null)
-        {
-            Debug.Log($"Owner is null!");
-            return;
-        }
-        Debug.Log($"sphereIndex = {sphereIndex.ToString()}");
-        if (owner.investments[sphereIndex] == null)
-        {
-            Debug.Log($"Investment slot is null for sphereIndex {sphereIndex}");
-            return;
-        }
-        var slot = owner.investments[sphereIndex];
-        if (!slot.investors.ContainsKey(investor)) return;
+        Debug.Log($"Owner - {owner.playerName}, Investor - {investor.playerName}");
 
+        if (owner == null || investor == null)
+        {
+            Debug.LogWarning($"Owner or investor is null!");
+            return;
+        }
+        
+        if (sphereIndex < 0 || sphereIndex >= owner.investments.Count)
+        {
+            Debug.LogWarning($"Invalid sphereIndex: {sphereIndex} for {owner.playerName}");
+            return;
+        }
+
+        var slot = owner.investments[sphereIndex];
         var data = slot.investors[investor];
 
         int fastDivs = data.investedTokens / 3;
@@ -54,6 +56,7 @@ public class InvestmentForecastDisplay : MonoBehaviour
 
         foreach (int timer in data.slowDividendTimers)
         {
+            Debug.Log($"Timer: {timer}");
             if (timer >= 1 && timer <= 3)
                 slow[timer - 1]++;
         }
@@ -62,6 +65,6 @@ public class InvestmentForecastDisplay : MonoBehaviour
         twoTurnText.text = slow[1].ToString();
         threeTurnText.text = slow[2].ToString();
 
-        Debug.Log($"Forecast updated for {owner.name}");
+        Debug.Log($"Forecast updated for {owner.playerName} at index {sphereIndex}");
     }
 }
