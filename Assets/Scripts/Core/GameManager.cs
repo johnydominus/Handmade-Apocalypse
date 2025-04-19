@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,12 +11,14 @@ public class GameManager : MonoBehaviour
     public GameServices gameServices;
     [SerializeField] private CardLibrary cardLibrary;
     [SerializeField] private List<ThreatType> selectedThreats;
-    //    [SerializeField] private DevTools devTools;
+    [SerializeField] private DevTools devTools;
 
     private void Awake()
     {
-        players = new List<PlayerController>(FindObjectsByType<PlayerController>(FindObjectsSortMode.InstanceID));
-        var sphereNames = ThreatToSphereMapper.GetSphereNames(selectedThreats);
+        players = new List<PlayerController>(FindObjectsByType<PlayerController>(FindObjectsSortMode.None));
+        players.Sort((a, b) => string.Compare(a.gameObject.name, b.gameObject.name));
+
+        var sphereNames = EmergencyMapping.GetSphereTypesByThreat(selectedThreats);
 
         Debug.Log($"GameManager starts the Big Initialization!");
         foreach (var sphereName in sphereNames)
@@ -35,10 +38,10 @@ public class GameManager : MonoBehaviour
         gameServices.cardSystem = new();
         gameServices.cardSystem.Initialize(cardLibrary);
 
-        gameServices.investmentManager = new();
+        gameServices.soeManager = new();
 
+        gameServices.investmentManager = new();
         gameServices.commandManager = new();
-        //        gameServices.turnManager.devTools = devTools;
 
         GameEvents.OnGameInitialized.Raise();
     }

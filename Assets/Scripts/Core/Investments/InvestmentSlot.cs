@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class InvestmentSlot
 {
-    public string sphereName;
+    public SphereType sphereName;
     public Dictionary<PlayerController, InvestorData> investors = new();
 
-    public InvestmentSlot(string sphereName)
+    public InvestmentSlot(SphereType sphereName)
     {
         this.sphereName = sphereName;
     }

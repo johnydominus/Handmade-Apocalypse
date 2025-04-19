@@ -14,6 +14,7 @@ public class RegionUI : MonoBehaviour
     public GameObject investmentPanel;
 
     public Image[] emergencyBars; // 0–10 fillAmount bars
+    public TextMeshProUGUI[] emergencyCounters;
     public TextMeshProUGUI[] emergencyLabels;
 
     public Button emergenciesTabButton;
@@ -48,7 +49,7 @@ public class RegionUI : MonoBehaviour
         for (int i = 0; i < spheresUI.Count; i++)
         {
             spheresUI[i].SetContext(regionOwner, investor);
-            spheresUI[i].name = regionOwner.investments[i].sphereName;
+            spheresUI[i].name = regionOwner.investments[i].sphereName.ToString();
             spheresUI[i].UpdateAmountText();
             forecastUI[i].UpdateForecast(regionOwner, investor);
         }
@@ -71,15 +72,21 @@ public class RegionUI : MonoBehaviour
 
     public void UpdateEmergencyBars()
     {
-        for (int i = 0; i < emergencyBars.Length; i++)
-        {
-            float level = currentPlayer.emergencyLevels[i];
-            emergencyBars[i].fillAmount = level / 10f;
-            emergencyLabels[i].text = $"{level}/10";
+        Debug.Log("Updating emergency bars");
+        Debug.Log($"There are {currentPlayer.emergencies.Count} emergencies for {currentPlayer.playerName}");
 
-            emergencyLabels[i].color = currentPlayer.isEmergencyActive[i]
+        int i = 0;
+
+        foreach (var emergency in currentPlayer.emergencies)
+        {
+            emergencyLabels[i].text = emergency.emergencyType.ToString();
+            emergencyBars[i].fillAmount = emergency.emergencyLevel / 10f;
+            emergencyCounters[i].text = $"{emergency.emergencyLevel}";
+            emergencyCounters[i].color = emergency.stateOfEmergency.isActive
                 ? Color.red
                 : Color.black;
+            i++;
+            Debug.Log($"Emergency {emergency.emergencyType} updated with level {emergency.emergencyLevel}");
         }
     }
 

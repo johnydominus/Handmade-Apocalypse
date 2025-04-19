@@ -12,6 +12,7 @@ public class GameServices : ScriptableObject
     public CommandManager commandManager;
     public TokenSystem tokenSystem;
     public InvestmentManager investmentManager;
+    public SoEManager soeManager;
 
     public static void Initialize(GameServices asset)
     {

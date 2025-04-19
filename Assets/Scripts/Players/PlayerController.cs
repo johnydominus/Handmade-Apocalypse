@@ -7,31 +7,43 @@ public class PlayerController : MonoBehaviour
     public TokenManager tokenManager { get; private set; }
     private List<CardData> hand = new();
     public List<InvestmentSlot> investments = new();
+    public List<Emergency> emergencies = new();
 
     public string playerName;
     public int startingTokensAmount = 6;
-
-    public float[] emergencyLevels = new float[2];
-    public bool[] isEmergencyActive = new bool[2];
+    public int startingEmergencyLevel = 3;
 
     public List<CardData> GetHand() => hand;
     public List<InvestmentSlot> GetInvestmentSlots() => investments;
-    public void Initialize(List<string> sphereNames, List<PlayerController> players)
+    public void Initialize(List<SphereType> sphereNames, List<PlayerController> players)
     {
         tokenManager = new TokenManager();
         tokenManager.Initialize(startingTokensAmount, this);
         Debug.Log($"{playerName} initialized with {startingTokensAmount} tokens.");
 
         investments.Clear();
+
         foreach (var name in sphereNames)
-        {
-            Debug.Log($"{playerName} initializing {name} investment sphere");
+        {            
             var slot = new InvestmentSlot(name);
+            var emergency = EmergencyMapping.GetBySphere(name).emergency;
+
+            Debug.Log($"{playerName} initializing {emergency.ToString()} emergency");
+
+            if (emergency != null) 
+            {
+                this.emergencies.Add(new Emergency(emergency, this, startingEmergencyLevel));
+                Debug.Log($"{playerName} initialized {emergency.ToString()} emergency");
+            }
+            else
+            {
+                Debug.Log($"{playerName} has no emergency for {name} sphere");
+            }
+
+            Debug.Log($"{playerName} initializing {name} investment sphere");
 
             foreach (var otherPlayer in players)
-            {
                 slot.investors[otherPlayer] = new InvestorData();
-            }
 
             investments.Add(slot);
 

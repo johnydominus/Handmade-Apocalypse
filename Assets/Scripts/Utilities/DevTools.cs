@@ -1,24 +1,41 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using TMPro;
+using NUnit.Framework;
+using UnityEngine.UI;
 
 public class DevTools : MonoBehaviour
 {
-    public GameObject panel;
+    public GameObject devPanel;
     public SoEManager soeManager;
-    public RegionUI regionUI;
+    public TextMeshProUGUI[] emergencyLabels;
+    public DevEmergencyControl[] emergencyControls;
+    public RegionUI regionPanel;
 
-    public PlayerController player1;
-    public PlayerController player2;
     public PlayerController targetPlayer { get; private set; }
     public TextMeshProUGUI playerNameLabel; // ← assign in Inspector
 
-    private PlayerController[] players;
+    List<PlayerController> players;
     private int currentIndex = 0;
 
-    void Awake()
+    public void Initialize(List<PlayerController> thePlayers)
     {
-        players = new[] { player1, player2 };
-        SetTargetPlayer(players[currentIndex]);
+        players = thePlayers;
+    }
+
+    public void OnEnable()
+    {
+        GameEvents.OnTurnStarted.RegisterListener(OnTurnStarted);
+    }
+
+    public void OnDisable()
+    {
+        GameEvents.OnTurnStarted.UnregisterListener(OnTurnStarted);
+    }
+
+    private void OnTurnStarted(TurnContext turnContext)
+    {
+        SetTargetPlayer(turnContext.player);
     }
 
     public void SetTargetPlayer(PlayerController player)
@@ -30,46 +47,49 @@ public class DevTools : MonoBehaviour
 
     public void NextPlayer()
     {
-        currentIndex = (currentIndex + 1) % players.Length;
+        currentIndex = (currentIndex + 1) % players.Count;
         SetTargetPlayer(players[currentIndex]);
     }
 
     public void PreviousPlayer()
     {
-        currentIndex = (currentIndex - 1 + players.Length) % players.Length;
+        currentIndex = (currentIndex - 1 + players.Count) % players.Count;
         SetTargetPlayer(players[currentIndex]);
     }
 
     public void TogglePanel()
     {
-        panel.SetActive(!panel.activeSelf);
+        devPanel.SetActive(!devPanel.activeSelf);
     }
 
-    public void RaiseEmergency(int index)
+    public void IncreaseEmergency(EmergencyType? emergencyType)
     {
-        if (targetPlayer != null)
-        {
-            soeManager.ModifyEmergency(targetPlayer, index, +1);
-            regionUI.UpdateEmergencyBars();
-        }
+        GameServices.Instance.soeManager.IncreaseEmergency(targetPlayer, emergencyType, 1);
+        regionPanel.UpdateEmergencyBars();
     }
 
-    public void LowerEmergency(int index)
+    public void DecreaseEmergency(EmergencyType? emergencyType)
     {
-        if (targetPlayer != null)
-        {
-            soeManager.ModifyEmergency(targetPlayer, index, -1);
-            regionUI.UpdateEmergencyBars();
-        }
+        GameServices.Instance.soeManager.DecreaseEmergency(targetPlayer, emergencyType, 1);
+        regionPanel.UpdateEmergencyBars();
     }
 
     public void OpenPanel()
     {
-        panel.SetActive(true);
+        devPanel.SetActive(true);
+        
+        int i = 0;
+
+        foreach (var emergency in targetPlayer.emergencies)
+        {
+            emergencyLabels[i].text = emergency.emergencyType.ToString();
+            emergencyControls[i].Initialize(emergency.emergencyType, this);
+            i++;
+        }
     }
 
     public void ClosePanel()
     {
-        panel.SetActive(false);
+        devPanel.SetActive(false);
     }
 }

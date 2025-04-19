@@ -4,8 +4,8 @@ public enum ThreatType
 {
     Pandemic,
     NuclearWar,
-    Asteroid,
     Hunger,
     DarkAges,
-    ClimateChange
+    ClimateChange,
+    Asteroid
 }

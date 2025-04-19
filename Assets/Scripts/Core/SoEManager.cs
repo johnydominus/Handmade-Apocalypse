@@ -1,34 +1,34 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
+using UnityEngine;
 
-public class SoEManager : MonoBehaviour
+public class SoEManager
 {
     //Changes a SoE level by a defined amount
-    public void ModifyEmergency(PlayerController player, int index, int amount)
+    public void IncreaseEmergency(PlayerController player, EmergencyType? emergencyType, int amount)
     {
-        player.emergencyLevels[index] += amount;
-        player.emergencyLevels[index] = Mathf.Clamp(player.emergencyLevels[index], 0, 10);
+        player.emergencies.FirstOrDefault(e => e.emergencyType == emergencyType).Increase(amount);
+    }
 
-        // Activate if threshold hit
-        if (player.emergencyLevels[index] >= 10 && !player.isEmergencyActive[index])
-        {
-            player.isEmergencyActive[index] = true;
-            Debug.Log($"⚠️ {player.playerName} enters emergency #{index}!");
-        }
-
-        // Deactivate if lowered
-        if (player.emergencyLevels[index] < 10 && player.isEmergencyActive[index])
-        {
-            player.isEmergencyActive[index] = false;
-            Debug.Log($"✅ {player.playerName} resolved emergency #{index}.");
-        }
+    public void DecreaseEmergency(PlayerController player, EmergencyType? emergencyType, int amount)
+    {
+        player.emergencies.FirstOrDefault(e => e.emergencyType == emergencyType).Decrease(amount);
     }
 
     //Changes a SoE level by defined amount of players' tokens 
-    public void SpendTokensToReduce(PlayerController player, int index, int tokensToSpend)
+    public void SpendTokensToReduce(PlayerController player, EmergencyType? emergencyType, int tokensToSpend)
     {
+        if (!player.emergencies.FirstOrDefault(e => e.emergencyType == emergencyType).stateOfEmergency.isActive)
+        {
+            Debug.Log($"{player.playerName} doesn't have active emergency #{emergencyType}");
+            return;
+        }
+
         if (player.SpendToken(tokensToSpend))
         {
-            ModifyEmergency(player, index, -tokensToSpend);
+            player.emergencies.FirstOrDefault(e => e.emergencyType == emergencyType).stateOfEmergency.PutTokens(tokensToSpend);
+            Debug.Log($"{player.playerName} spent {tokensToSpend} tokens to reduce emergency #{emergencyType}");
         }
         else
         {

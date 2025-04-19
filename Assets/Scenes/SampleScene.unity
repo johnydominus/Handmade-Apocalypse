@@ -2065,10 +2065,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1308171290}
-        m_TargetAssemblyTypeName: DevTools, Assembly-CSharp
-        m_MethodName: RaiseEmergency
-        m_Mode: 3
+      - m_Target: {fileID: 1900008050}
+        m_TargetAssemblyTypeName: DevEmergencyControl, Assembly-CSharp
+        m_MethodName: IncreaseEmergency
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2766,7 +2766,6 @@ Transform:
   - {fileID: 1030844971}
   - {fileID: 812823812}
   - {fileID: 1308171289}
-  - {fileID: 1205057207}
   - {fileID: 1478244999}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4540,9 +4539,12 @@ MonoBehaviour:
   emergencyBars:
   - {fileID: 1673882321}
   - {fileID: 1991878396}
-  emergencyLabels:
+  emergencyCounters:
   - {fileID: 1506708385}
   - {fileID: 112859986}
+  emergencyLabels:
+  - {fileID: 2007681972}
+  - {fileID: 1559026596}
   emergenciesTabButton: {fileID: 391286118}
   investmentsTabButton: {fileID: 660712715}
   emergenciesTabLabel: {fileID: 1085872225}
@@ -7327,8 +7329,9 @@ GameObject:
   - component: {fileID: 984974362}
   - component: {fileID: 984974364}
   - component: {fileID: 984974363}
+  - component: {fileID: 984974365}
   m_Layer: 5
-  m_Name: Epidemics block
+  m_Name: Emergency 2 block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7396,6 +7399,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &984974365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984974361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ccd498b6fed1a14e8e9b16758e580ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &986213825
 GameObject:
   m_ObjectHideFlags: 0
@@ -8085,10 +8100,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1308171290}
-        m_TargetAssemblyTypeName: DevTools, Assembly-CSharp
-        m_MethodName: RaiseEmergency
-        m_Mode: 3
+      - m_Target: {fileID: 984974365}
+        m_TargetAssemblyTypeName: DevEmergencyControl, Assembly-CSharp
+        m_MethodName: IncreaseEmergency
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8233,81 +8248,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085872223}
   m_CullTransparentMesh: 1
---- !u!1 &1091745622
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1091745623}
-  - component: {fileID: 1091745625}
-  - component: {fileID: 1091745624}
-  m_Layer: 5
-  m_Name: Panel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1091745623
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1091745622}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1223250853}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1091745624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1091745622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1091745625
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1091745622}
-  m_CullTransparentMesh: 1
 --- !u!1 &1092627098
 GameObject:
   m_ObjectHideFlags: 0
@@ -8386,7 +8326,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Epidemics
+  m_text: emergency2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8478,7 +8418,7 @@ GameObject:
   - component: {fileID: 1096410788}
   - component: {fileID: 1096410787}
   m_Layer: 5
-  m_Name: KillHumanityButton (1)
+  m_Name: DrawCardButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9047,50 +8987,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1177558993}
   m_CullTransparentMesh: 1
---- !u!1 &1205057206
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1205057207}
-  - component: {fileID: 1205057208}
-  m_Layer: 0
-  m_Name: SoEManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1205057207
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1205057206}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 361951264}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1205057208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1205057206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9489682633cf3b44f91eecb70faece39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1223250852
 GameObject:
   m_ObjectHideFlags: 0
@@ -9108,7 +9004,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1223250853
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9121,14 +9017,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1091745623}
   - {fileID: 249396722}
   - {fileID: 389901795}
   - {fileID: 749255242}
   - {fileID: 1769232351}
   - {fileID: 707836771}
   - {fileID: 1851134234}
-  - {fileID: 1852182887}
   m_Father: {fileID: 565955074}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -10085,10 +9979,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1308171290}
-        m_TargetAssemblyTypeName: DevTools, Assembly-CSharp
-        m_MethodName: LowerEmergency
-        m_Mode: 3
+      - m_Target: {fileID: 984974365}
+        m_TargetAssemblyTypeName: DevEmergencyControl, Assembly-CSharp
+        m_MethodName: DecreaseEmergency
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10141,11 +10035,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d69ead047ed405a4bb0c9f712f77a3dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 1353648035}
-  soeManager: {fileID: 1205057208}
-  regionUI: {fileID: 565955077}
-  player1: {fileID: 1735534331}
-  player2: {fileID: 1517960969}
+  devPanel: {fileID: 1353648035}
+  emergencyLabels:
+  - {fileID: 1322349887}
+  - {fileID: 1092627101}
+  emergencyControls:
+  - {fileID: 1900008050}
+  - {fileID: 984974365}
+  regionPanel: {fileID: 565955077}
   playerNameLabel: {fileID: 250872643}
 --- !u!1 &1318950987
 GameObject:
@@ -10361,7 +10258,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Martial Law
+  m_text: emergency1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10537,11 +10434,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d69ead047ed405a4bb0c9f712f77a3dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 0}
-  soeManager: {fileID: 0}
-  regionUI: {fileID: 0}
-  player1: {fileID: 0}
-  player2: {fileID: 0}
+  devPanel: {fileID: 0}
+  emergencyLabels: []
+  emergencyControls: []
+  regionPanel: {fileID: 0}
   playerNameLabel: {fileID: 0}
 --- !u!1 &1374156112
 GameObject:
@@ -11371,7 +11267,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameServices: {fileID: 11400000, guid: 9c53bcb2a153b5e4685f87250b035246, type: 2}
   cardLibrary: {fileID: 11400000, guid: 48e724ad471d21645992b40d0cf1b0b2, type: 2}
-  selectedThreats: 000000000100000002000000
+  selectedThreats: 000000000100000005000000
+  devTools: {fileID: 0}
 --- !u!1 &1483267598
 GameObject:
   m_ObjectHideFlags: 0
@@ -11669,11 +11566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: agagag
   startingTokensAmount: 6
-  emergencyLevels:
-  - 4
-  - 7
-  - 2
-  isEmergencyActive: 000000
+  startingEmergencyLevel: 3
 --- !u!4 &1517960970
 Transform:
   m_ObjectHideFlags: 0
@@ -12048,7 +11941,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Epidemics
+  m_text: emergency2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14141,10 +14034,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1308171290}
-        m_TargetAssemblyTypeName: DevTools, Assembly-CSharp
-        m_MethodName: LowerEmergency
-        m_Mode: 3
+      - m_Target: {fileID: 1900008050}
+        m_TargetAssemblyTypeName: DevEmergencyControl, Assembly-CSharp
+        m_MethodName: DecreaseEmergency
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -14184,11 +14077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: oderfgad
   startingTokensAmount: 6
-  emergencyLevels:
-  - 4
-  - 7
-  - 2
-  isEmergencyActive: 000000
+  startingEmergencyLevel: 3
 --- !u!4 &1735534332
 Transform:
   m_ObjectHideFlags: 0
@@ -14783,41 +14672,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1852182886
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1852182887}
-  m_Layer: 5
-  m_Name: InvestControl
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1852182887
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1852182886}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1223250853}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -159.23833, y: 108.50002}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1894287132
 GameObject:
   m_ObjectHideFlags: 0
@@ -14925,8 +14779,9 @@ GameObject:
   - component: {fileID: 1900008047}
   - component: {fileID: 1900008049}
   - component: {fileID: 1900008048}
+  - component: {fileID: 1900008050}
   m_Layer: 5
-  m_Name: Martial Law block
+  m_Name: Emergency 1 block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14994,6 +14849,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1900008050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900008046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ccd498b6fed1a14e8e9b16758e580ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1910568717
 GameObject:
   m_ObjectHideFlags: 0
@@ -15869,7 +15736,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Martial Law
+  m_text: emergency1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
