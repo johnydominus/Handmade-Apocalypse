@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
+using UnityEngine;
 
 public class StateOfEmergency
 {
+    List<Effect> effects = new();
     public bool isActive { get; private set; }
     public int tokensPut { get; private set; }
 
@@ -13,6 +16,13 @@ public class StateOfEmergency
         this.parent = parent;
         isActive = false;
         tokensPut = 0;
+        effects.Clear();
+        effects.Add(new Effect(
+                EffectSource.SoE,
+                EffectTarget.Dividends,
+                EffectType.Multiply,
+                EmergencyMapping.GetByEmergency(parent.emergencyType).sphere, 0,
+                parent.player));
     }
 
     public void Activate()

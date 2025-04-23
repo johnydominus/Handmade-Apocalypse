@@ -31,9 +31,10 @@ public class InvestmentSphereRelay : MonoBehaviour
         UpdateAmountText();
     }
 
-    public void Start()
+    public void Setup()
     {
         investmentManager = GameServices.Instance.investmentManager;
+        Debug.Log("Setup called for InvestmentSphereRelay");
     }
 
     public void SetContext(PlayerController sphereOwner, PlayerController investor)
@@ -51,6 +52,8 @@ public class InvestmentSphereRelay : MonoBehaviour
     //Adds a token to a respective developement sphere
     public void OnPlusClicked()
     {
+        investmentManager = GameServices.Instance.investmentManager;
+
         investmentManager.InvestToken(investor, sphereOwner, sphereIndex);
         UpdateAmountText();
         Debug.Log("Plus clicked");
@@ -60,6 +63,8 @@ public class InvestmentSphereRelay : MonoBehaviour
     //Withdraws a token from a respective developement sphere
     public void OnMinusClicked()
     {
+        investmentManager = GameServices.Instance.investmentManager;
+
         investmentManager.WithdrawToken(investor, sphereOwner, sphereIndex);
         UpdateAmountText();
         Debug.Log("Minus clicked");

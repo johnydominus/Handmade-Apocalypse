@@ -16,7 +16,7 @@ public static class EmergencyMapping
     };
 
     public static EmergencyMappingEntry GetByThreat(ThreatType threatType) => entries.First(e => e.threat == threatType);
-    public static EmergencyMappingEntry GetByEmergency(EmergencyType emergencyType) => entries.First(e => e.emergency == emergencyType);
+    public static EmergencyMappingEntry GetByEmergency(EmergencyType? emergencyType) => entries.First(e => e.emergency == emergencyType);
     public static EmergencyMappingEntry GetBySphere(SphereType sphereType) => entries.First(e => e.sphere == sphereType);
     public static List<EmergencyMappingEntry> GetAll() => entries;
 

@@ -12,10 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
   m_Name: GE_Military-escalation
   m_EditorClassIdentifier: 
-  cardName: 
-  description: 
   cardType: 0
-  targetThreat: 0
-  threatModifier: 0
+  sphereType: 0
+  cardName: Military escalation
+  description: Let's fight!
   tokenCost: 0
   artWork: {fileID: 0}
+  targetThreat: 1
+  threatModifier: 5
+  effects:
+  - effectSource: 0
+    effectTarget: 2
+    effectType: 0
+    sphereType: 7
+    effectTiming:
+      effectTimingType: 0
+      duration: 0
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    value: 5

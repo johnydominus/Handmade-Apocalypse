@@ -1038,7 +1038,7 @@ GameObject:
   - component: {fileID: 118093977}
   - component: {fileID: 118093978}
   m_Layer: 5
-  m_Name: DiploDivs
+  m_Name: SphereDivs2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4531,8 +4531,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff522702a873b0c4088e4f2abe78122f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spheresUI: []
-  forecastUI: []
+  spheresUI:
+  - {fileID: 249396724}
+  - {fileID: 389901796}
+  - {fileID: 749255243}
+  forecastUI:
+  - {fileID: 1493827515}
+  - {fileID: 118093978}
+  - {fileID: 2147269368}
   regionHeader: {fileID: 1416224001}
   emergencyPanel: {fileID: 1978943757}
   investmentPanel: {fileID: 1223250852}
@@ -9004,7 +9010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1223250853
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11355,7 +11361,7 @@ GameObject:
   - component: {fileID: 1493827514}
   - component: {fileID: 1493827515}
   m_Layer: 5
-  m_Name: AstroDivs
+  m_Name: SphereDivs1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16552,7 +16558,7 @@ GameObject:
   - component: {fileID: 2147269369}
   - component: {fileID: 2147269368}
   m_Layer: 5
-  m_Name: MedDivs
+  m_Name: SphereDivs3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

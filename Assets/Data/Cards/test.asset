@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
-  m_Name: PA_Vaccine
+  m_Name: test
   m_EditorClassIdentifier: 
-  effects: []
   cardType: 0
   sphereType: 0
-  cardName: Vaccine Development
-  description: It's not dangerous. Honestly!
-  tokenCost: 3
+  cardName: 
+  description: 
+  tokenCost: 0
   artWork: {fileID: 0}
   targetThreat: 0
-  threatModifier: -10
+  threatModifier: 0
+  effects: []

@@ -62,6 +62,9 @@ public class RegionUI : MonoBehaviour
         emergencyPanel.SetActive(isEmergency);
         investmentPanel.SetActive(!isEmergency);
 
+        foreach (var relay in spheresUI)
+            relay.Setup();
+
         // Style the tab labels
         emergenciesTabLabel.fontStyle = isEmergency ? FontStyles.Bold : FontStyles.Normal;
         investmentsTabLabel.fontStyle = isEmergency ? FontStyles.Normal : FontStyles.Bold;
