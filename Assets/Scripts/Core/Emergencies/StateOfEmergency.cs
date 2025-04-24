@@ -21,8 +21,7 @@ public class StateOfEmergency
                 EffectSource.SoE,
                 EffectTarget.Dividends,
                 EffectType.Multiply,
-                EmergencyMapping.GetByEmergency(parent.emergencyType).sphere, 0,
-                parent.player));
+                EmergencyMapping.GetByEmergency(parent.emergencyType).sphere, 0, parent.player));
     }
 
     public void Activate()

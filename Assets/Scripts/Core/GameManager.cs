@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         GameServices.Initialize(gameServices);
 
         gameServices.threatManager = new();
-        gameServices.threatManager.Initialize();
+        gameServices.threatManager.Initialize(selectedThreats);
 
         gameServices.turnManager = new();
         gameServices.turnManager.Initialize(players);
@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
         gameServices.soeManager = new();
 
         gameServices.investmentManager = new();
+        gameServices.effectManager = new();
         gameServices.commandManager = new();
 
         GameEvents.OnGameInitialized.Raise();

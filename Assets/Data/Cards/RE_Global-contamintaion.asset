@@ -12,12 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
   m_Name: RE_Global-contamintaion
   m_EditorClassIdentifier: 
-  effects: []
   cardType: 0
-  sphereType: 0
+  sphereType: 1
   cardName: 
   description: 
   tokenCost: 0
   artWork: {fileID: 0}
-  targetThreat: 0
-  threatModifier: 0
+  effects:
+  - effectSource: 0
+    effectTarget: 2
+    effectType: 0
+    sphereType: 1
+    effectTiming:
+      effectTimingType: 0
+      duration: 0
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    value: 6

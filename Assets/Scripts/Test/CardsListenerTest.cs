@@ -21,7 +21,7 @@ public class CardsListenerTest: MonoBehaviour
 
     private void OnCardPlayedWithOwner(CardPlayContext cardPlayContext)
     {
-        Debug.Log($"🔴{cardPlayContext.player.playerName} played card : {cardPlayContext.card.cardName} → Threat {cardPlayContext.card.targetThreat} change: {cardPlayContext.card.threatModifier}");
+        Debug.Log($"🔴 CardsListenerTest report: {cardPlayContext.player.playerName} played card : {cardPlayContext.card.cardName}");
     }
 }
 

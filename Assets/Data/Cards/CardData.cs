@@ -20,8 +20,6 @@ public class CardData : ScriptableObject
     public int tokenCost;
     public Sprite artWork;
 
-    public ThreatType targetThreat;         // !!!TEMPORARY!!! - Threat that is affected by the card - will be replaced by effects
-    public int threatModifier;              // !!!TEMPORARY!!! - Amount that the threat is modified by the card - will be replaced by effects
     public List<Effect> effects = new();    // Effects that are applied when the card is played
 
 }

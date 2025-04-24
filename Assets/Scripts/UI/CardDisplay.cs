@@ -31,13 +31,20 @@ public class CardDisplay : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (!owner.tokenManager.HasEnoughTokens(cardData.tokenCost))
+        Debug.Log($"{owner.playerName} clicked {cardData.cardName} card...");
+
+        if (cardData == null)
         {
-            Debug.Log($"{owner.playerName} tried to play {cardData.cardName}, but doesn't have enough tokens.");
+            Debug.Log($"...but the card data is null.");
+            return;
+        }
+
+        if (!GameServices.Instance.cardSystem.PlayCard(cardData, owner))
+        {
+            Debug.Log($"...but doesn't have enough tokens.");
             Shake();
             return;
         }
-        owner.PlayCard(cardData);
     }
 
     public void Shake()

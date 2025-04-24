@@ -18,10 +18,14 @@ public class CardSystem
         return card;
     }
 
-    public void PlayCard(CardData card, PlayerController player)
+    public bool PlayCard(CardData card, PlayerController player)
     {
-        var command = new ModifyThreatCommand(card, player);
-        GameServices.Instance.commandManager.ExecuteCommand(command);
+        if (!player.tokenManager.HasEnoughTokens(card.tokenCost))
+            return false;
+
+        GameServices.Instance.commandManager.ExecuteCommand(new PlayActionCardCommand(card, player));
         GameEvents.OnCardPlayedWithOwner.Raise(new CardPlayContext(card, player));
+
+        return true;
     }
 }

@@ -16,7 +16,7 @@ using UnityEngine;
 
 public enum EffectTimingType
 {
-    Immediate,      // Takes effect at playe
+    Immediate,      // Takes effect at play
     CurrentTurn,    // Takes effect for the current turn
     MultiTurn,      // Takes effect for the several turns from the current
     Delayed,        // Takes effect after a delay of certain amount of turns

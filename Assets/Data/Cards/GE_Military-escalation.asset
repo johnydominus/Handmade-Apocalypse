@@ -18,8 +18,6 @@ MonoBehaviour:
   description: Let's fight!
   tokenCost: 0
   artWork: {fileID: 0}
-  targetThreat: 1
-  threatModifier: 5
   effects:
   - effectSource: 0
     effectTarget: 2

@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class Threat
 {
-    public string threatName;
+    public ThreatType threatType { get; private set; }  
     public int threatValue; // 0-100
     public int threatDelta; // optional change this turn
 
-    public Threat(string name, int value = 50)
+    public Threat(ThreatType type, int value = 50)
     {
-        threatName = name;
+        threatType = type;
         threatValue = value;
         threatDelta = 0;
     }

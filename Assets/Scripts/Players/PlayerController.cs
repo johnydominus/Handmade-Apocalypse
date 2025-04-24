@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public TokenManager tokenManager { get; private set; }
-    private List<CardData> hand = new();
     public List<InvestmentSlot> investments = new();
     public List<Emergency> emergencies = new();
+
+    private List<CardData> hand = new();
 
     public string playerName;
     public int startingTokensAmount = 6;
@@ -112,13 +113,10 @@ public class PlayerController : MonoBehaviour
         Debug.Log($"{playerName}'s tokens refilled.");
     }
 
-    public void PlayCard(CardData card)
+    public void RemoveCard(CardData card)
     {
-        if (!hand.Contains(card) || !tokenManager.HasEnoughTokens(card.tokenCost)) return;
-
         hand.Remove(card);
-        GameEvents.OnCardPlayedWithOwner.Raise(new CardPlayContext(card, this));
-        GameServices.Instance.cardSystem.PlayCard(card, this);
+        Debug.Log($"{card.cardName} removed from {playerName}'s hand.");
     }
 
     public void ClearHand()

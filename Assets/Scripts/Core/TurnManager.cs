@@ -38,6 +38,7 @@ public class TurnManager
     {
         currentPlayer = players[currentPlayerIndex];
         GameEvents.OnTurnStarted.Raise(new TurnContext(turnNumber, currentPlayer));
+        GameServices.Instance.effectManager.TickTurn();
         Debug.Log($"---\n{currentPlayer.playerName}'s turn!");
     }
 
