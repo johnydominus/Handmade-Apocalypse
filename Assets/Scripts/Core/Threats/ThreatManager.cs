@@ -6,13 +6,29 @@ public class ThreatManager
 {
     private List<Threat> threats = new();
     
-    public void Initialize(List<ThreatType> threatList)
+    public void Initialize(List<ThreatType> threatList, BuildType buildType)
     {
-
-        foreach (var threat in threatList)
+        switch (buildType)
         {
-            threats.Add(new Threat(threat, 50));
-        }
+            case BuildType.BasicPrototype:
+                foreach (var threat in threatList)
+                {
+                    threats.Add(new Threat(threat, 50));
+                }
+                break;
+            case BuildType.AdvancedPrototype:
+                // Add functionality if needed
+                break;
+            case BuildType.FullGame:
+                if (threatList.Count == 0) return;
+
+                ThreatType randomThreat = threatList[UnityEngine.Random.Range(0, threatList.Count)];
+                threats.Add(new Threat(randomThreat, 50));
+
+                // Show the message
+                // return on button click
+                break;
+        } 
     }
 
     public void ApplyThreatChange(ThreatType type, int amount)
@@ -61,5 +77,10 @@ public class ThreatManager
                 GameEvents.OnLoss.Raise();
             }
         }
+    }
+
+    public List<Threat> GetThreats()
+    {
+        return threats;
     }
 }

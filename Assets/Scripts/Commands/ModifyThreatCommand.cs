@@ -13,6 +13,7 @@ public class ModifyThreatCommand : ICommand
 
     public void Execute()
     {
+        Debug.Log($"Modifying threat by {effect.value} for {effect.sphereType}");
         var threatManager = GameServices.Instance.threatManager;
         var targetThreat = EmergencyMapping.GetBySphere(effect.sphereType).threat;
 

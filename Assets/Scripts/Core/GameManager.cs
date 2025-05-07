@@ -5,10 +5,18 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public enum BuildType
+{
+    BasicPrototype,
+    AdvancedPrototype,
+    FullGame
+}
 public class GameManager : MonoBehaviour
 {
     private List<PlayerController> players;
     public GameServices gameServices;
+    public BuildType buildType = BuildType.BasicPrototype;
+    public GameObject messagePanelPrefab;
     [SerializeField] private CardLibrary cardLibrary;
     [SerializeField] private List<ThreatType> selectedThreats;
     [SerializeField] private DevTools devTools;
@@ -19,6 +27,7 @@ public class GameManager : MonoBehaviour
         players.Sort((a, b) => string.Compare(a.gameObject.name, b.gameObject.name));
 
         var sphereNames = EmergencyMapping.GetSphereTypesByThreat(selectedThreats);
+        MessagePanel.prefab = messagePanelPrefab;
 
         Debug.Log($"GameManager starts the Big Initialization!");
         foreach (var sphereName in sphereNames)
@@ -30,10 +39,10 @@ public class GameManager : MonoBehaviour
         GameServices.Initialize(gameServices);
 
         gameServices.threatManager = new();
-        gameServices.threatManager.Initialize(selectedThreats);
+        gameServices.threatManager.Initialize(selectedThreats, buildType);
 
         gameServices.turnManager = new();
-        gameServices.turnManager.Initialize(players);
+        gameServices.turnManager.Initialize(players, Instantiate(messagePanelPrefab), cardLibrary);
 
         gameServices.cardSystem = new();
         gameServices.cardSystem.Initialize(cardLibrary);
@@ -49,6 +58,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        gameServices.turnManager.StartTurn();
+        Debug.Log("Starting the game!");
+        GameEvents.OnTurnStarted.Raise(new TurnContext(1, gameServices.turnManager.GetCurrentPlayer()));
+        GameServices.Instance.commandManager.ExecuteCommand(new StartTurnCommand(gameServices.turnManager));
     }
 }

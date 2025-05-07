@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
 
     public void DrawTurnCards(int turnNumber)
     {
+        Debug.Log("Drawing a hand of cards...");
         int drawCount = (turnNumber == 1) ? 3 : 1;
 
         for (int i = 0; i < drawCount; i++)

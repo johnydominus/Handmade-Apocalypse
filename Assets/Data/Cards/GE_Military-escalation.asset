@@ -22,7 +22,7 @@ MonoBehaviour:
   - effectSource: 0
     effectTarget: 2
     effectType: 0
-    sphereType: 7
+    sphereType: 2
     effectTiming:
       effectTimingType: 0
       duration: 0

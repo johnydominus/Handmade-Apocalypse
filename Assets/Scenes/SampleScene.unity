@@ -11272,6 +11272,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameServices: {fileID: 11400000, guid: 9c53bcb2a153b5e4685f87250b035246, type: 2}
+  buildType: 0
+  messagePanelPrefab: {fileID: 3278178941840080412, guid: ae7300e191a684f42a8ef4eed8950e94, type: 3}
   cardLibrary: {fileID: 11400000, guid: 48e724ad471d21645992b40d0cf1b0b2, type: 2}
   selectedThreats: 000000000100000005000000
   devTools: {fileID: 0}
