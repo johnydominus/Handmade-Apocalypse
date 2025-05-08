@@ -65,11 +65,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTurnStarted(TurnContext turnContext)
     {
-        if (turnContext.player != this) return;
+        if (turnContext.player != this || (turnContext.turnNumber == 1 && hand.Count != 0)) return;
 
         if (turnContext.turnNumber == 1)
             RefillTokens();
-        
+
         DrawTurnCards(turnContext.turnNumber);
     }
 

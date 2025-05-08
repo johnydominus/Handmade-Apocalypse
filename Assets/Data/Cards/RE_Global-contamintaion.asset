@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 0
   sphereType: 1
-  cardName: 
-  description: 
+  cardName: Contamination
+  description: Polution released!
   tokenCost: 0
   artWork: {fileID: 0}
   effects:

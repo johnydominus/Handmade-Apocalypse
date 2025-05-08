@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using Unity;
+using Mono.Cecil.Cil;
 
 public enum TurnPhase
 {
@@ -65,64 +66,81 @@ public class TurnManager
     public void StartTurn()
     {
         currentPlayer = players[currentPlayerIndex];
-        // GameServices.Instance.effectManager.TickTurn();             // TODO: change the method according to the separate effects process
-        Debug.Log("Turn cycle started!");
+        // GameServices.Instance.effectManager.TickTurn();
+
+        Debug.Log($"Turn {turnNumber} started for player {currentPlayer.playerName}");
+        Debug.Log($"Starting with phase: {currentPhase}");
+
         NextPhase();
     }
 
     public void EndTurn()
     {
-        GameEvents.OnTurnEnd.Raise();
         currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
-        
+
         if (currentPlayerIndex == 0)
         {
+            GameEvents.OnTurnEnd.Raise();
             turnNumber++;
+            currentPhase = TurnPhase.GlobalThreats;
+
+            Debug.Log($"The last player played! Turn {turnNumber - 1} ended, starting Turn {turnNumber}");
+        }
+        else
+        {
+            currentPhase = TurnPhase.StartPlayerTurn;
+            currentPlayer = players[currentPlayerIndex];
+            Debug.Log($"Passing turn to player {currentPlayer.playerName}");
         }
 
-        StartTurn();
+        NextPhase();
     }
 
     public void NextPhase()
     {
-        if (isPhaseTransitioning) return;
+        if (isPhaseTransitioning)
+        {
+            Debug.Log($"Phase transition already in progress for {currentPhase}, ignoring NextPhase call");
+            return;
+        }
+
         isPhaseTransitioning = true;
+        Debug.Log($"===== STARTING PHASE: {currentPhase} =====");
 
         switch (currentPhase)
         {
             case TurnPhase.GlobalThreats:
                 HandleGlobalThreats();
-                currentPhase = TurnPhase.GlobalEvents;
                 break;
             case TurnPhase.GlobalEvents:
                 HandleGlobalEvents();
-                currentPhase = TurnPhase.StartPlayerTurn;
                 break;
             case TurnPhase.StartPlayerTurn:
-                // StartTurn();
-                Debug.Log("Starting player turn...");
-//                GameEvents.OnTurnStarted.Raise(new TurnContext(turnNumber, currentPlayer));
-                Debug.Log($"---\n{currentPlayer.playerName}'s turn!");
-                currentPhase = TurnPhase.RegionEvents;
+                HandlePlayerTurnStart();
                 break;
             case TurnPhase.RegionEvents:
                 HandleRegionEvents();
-                currentPhase = TurnPhase.DividendPayout;
                 break;
             case TurnPhase.DividendPayout:
-                GameServices.Instance.investmentManager.TickInvestments(); // TODO: change the method according to the individual payout process
-                currentPhase = TurnPhase.PlayerAction;
+                HandleDividendPayout();
                 break;
             case TurnPhase.PlayerAction:
-                // Let the player play
-                // Pass the phase on button click
+                // Let the player play - this phase is handled by UI
+                Debug.Log("Player action phase - waiting for player input");
+                isPhaseTransitioning = false;
+                // No need to call NextPhase here as it will be triggered by player action
                 break;
             case TurnPhase.EndPlayerTurn:
-                EndTurn();
-                NextPhase();
+                Debug.Log("Ending player turn");
+
+                // Using an empty message for consistency in phase transition
+                MessagePanel.Show("", "", () => {
+                    Debug.Log("End Player Turn phase callback executed");
+                    isPhaseTransitioning = false;
+                    EndTurn();
+                });
                 break;
         }
-        isPhaseTransitioning = false;
     }
 
     private void HandleGlobalThreats()
@@ -137,7 +155,7 @@ public class TurnManager
         {
             List<Threat> activeThreats = GameServices.Instance.threatManager.GetThreats();
             Debug.Log($"Active threats: {activeThreats.Count}");
-            
+
             if (activeThreats.Count == 1)
                 messageHeader = "NEW GLOBAL THREAT!";
             else
@@ -145,31 +163,31 @@ public class TurnManager
 
             foreach (Threat threat in activeThreats)
             {
-                messageText += $"New threat emmerged - it's {threat.threatType.ToString()}!\n";
+                messageText += $"New threat emerged - it's {threat.threatType.ToString()}!\n";
             }
-        } else
+        }
+        else
         {
             // TODO: Check new global threat trigger
-            // 
         }
 
-        Debug.Log($"Message header: {messageHeader}");
-        Debug.Log($"Message text: {messageText}");
+        TurnPhase nextPhase = TurnPhase.GlobalEvents;
+        Debug.Log($"Global Threats phase complete, next phase will be {nextPhase}");
 
-        currentPhase = TurnPhase.GlobalEvents;
+        // Ensure we have a message to display
+        if (string.IsNullOrEmpty(messageHeader))
+        {
+            messageHeader = "GLOBAL THREATS";
+            messageText = "No new global threats this turn.";
+        }
+
         MessagePanel.Show(messageHeader, messageText, () =>
         {
-            Debug.Log($"Proceeding to the {currentPhase.ToString()} phase...");
-            GameServices.Instance.turnManager.NextPhase();
+            Debug.Log("Global Threats phase callback executed");
+            currentPhase = nextPhase;
+            isPhaseTransitioning = false;
+            NextPhase();
         });
-
-        // Gather global threats on turn 1  V
-        // Check new global threat trigger  
-        // IF new global event triggerred   
-        // Apply global threats change      
-        // Update UI                        
-        // Show a message                   V
-        // Pass the phase on button click   V
     }
 
     private void HandleGlobalEvents()
@@ -188,8 +206,8 @@ public class TurnManager
             Debug.Log("Global event triggered!");
 
             CardData card = cardLibrary.GetRandomCard(CardType.GlobalEvent);
-            Debug.Log($"Card name: {card.name}");
-            Debug.Log($"Card description: {card.description}");
+            Debug.Log($"Global Event card name: {card.name}");
+            Debug.Log($"Global Event card description: {card.description}");
             messageHeader = "GLOBAL EVENT!";
             messageText = $"Global event triggered - {card.cardName}:\n{card.description}";
 
@@ -204,26 +222,91 @@ public class TurnManager
             messageText = $"{random1}:{random2} No new global event this turn";
         }
 
-        currentPhase = TurnPhase.StartPlayerTurn;
+        TurnPhase nextPhase = TurnPhase.StartPlayerTurn;
+        Debug.Log($"Global Events phase complete, next phase will be {nextPhase}");
+
         MessagePanel.Show(messageHeader, messageText, () =>
         {
-            Debug.Log($"Proceeding to the {currentPhase.ToString()} phase...");
-            GameServices.Instance.turnManager.NextPhase();
+            Debug.Log("Global Events phase callback executed");
+            currentPhase = nextPhase;
+            isPhaseTransitioning = false;
+            NextPhase();
         });
+    }
 
-        // Apply global events mechanic     V
-        // IF global event is triggered     
-        //      Update UI
-        // Show a message                   V
-        // Pass the phase on button click   V
+    private void HandlePlayerTurnStart()
+    {
+        string messageHeader = "";
+        string messageText = "";
+
+        Debug.Log("Starting player turn...");
+
+        // Make sure we're using the correct player
+        currentPlayer = players[currentPlayerIndex];
+
+        GameEvents.OnTurnStarted.Raise(new TurnContext(turnNumber, currentPlayer));
+
+        Debug.Log($"---\n{currentPlayer.playerName}'s turn!");
+
+        messageHeader = $"{currentPlayer.playerName}'s turn!";
+        messageText = $"Do your job, {currentPlayer.playerName}!";
+
+        TurnPhase nextPhase = TurnPhase.RegionEvents;
+        Debug.Log($"Player Turn Start phase complete, next phase will be {nextPhase}");
+
+        MessagePanel.Show(messageHeader, messageText, () =>
+        {
+            Debug.Log("Player Turn Start phase callback executed");
+            currentPhase = nextPhase;
+            isPhaseTransitioning = false;
+            NextPhase();
+        });
     }
 
     private void HandleRegionEvents()
     {
-        // Apply region events change
-        // Update UI
-        // Show a message
-        // Pass the phase on button click
+        string messageHeader = "";
+        string messageText = "";
+
+        Debug.Log($"Handling region event for player {currentPlayer.playerName}...");
+
+        CardData card = cardLibrary.GetRandomCard(CardType.RegionEvent);
+
+        Debug.Log($"Region Event card name: {card.name}");
+        Debug.Log($"Region Event card description: {card.description}");
+
+        messageHeader = $"REGION EVENT FOR {currentPlayer.playerName}!";
+        messageText = $"{card.cardName}:\n{card.description}";
+
+        TurnPhase nextPhase = TurnPhase.DividendPayout;
+        Debug.Log($"Region Events phase complete, next phase will be {nextPhase}");
+
+        MessagePanel.Show(messageHeader, messageText, () =>
+        {
+            Debug.Log("Region Events phase callback executed");
+            currentPhase = nextPhase;
+            isPhaseTransitioning = false;
+            NextPhase();
+        });
+    }
+
+    private void HandleDividendPayout()
+    {
+        Debug.Log($"Handling dividend payout for player {currentPlayer.playerName}...");
+
+        GameServices.Instance.investmentManager.TickInvestments();
+
+        TurnPhase nextPhase = TurnPhase.PlayerAction;
+        Debug.Log($"Dividend Payout phase complete, next phase will be {nextPhase}");
+
+        // Using an empty message to maintain the same flow pattern
+        MessagePanel.Show("", "", () =>
+        {
+            Debug.Log("Dividend Payout phase callback executed");
+            currentPhase = nextPhase;
+            isPhaseTransitioning = false;
+            NextPhase();
+        });
     }
 
     public List<PlayerController> GetAllPlayers()

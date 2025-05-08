@@ -19,6 +19,7 @@ public class TurnHeaderUI : MonoBehaviour
     private void OnTurnStarted(TurnContext turnContext)
     {
         Debug.Log($"TurnHeaderUI: OnTurnStarted: {turnContext.player.playerName}'s turn");
+
         playersName.text = $"{turnContext.player.playerName}'s turn";
         turnNumber.text = turnContext.turnNumber.ToString();
     }

@@ -54,11 +54,12 @@ public class GameManager : MonoBehaviour
         gameServices.commandManager = new();
 
         GameEvents.OnGameInitialized.Raise();
+        Debug.Log("===== !!! THE GAME INITIALIZED !!!=====");
     }
 
     private void Start()
     {
-        Debug.Log("Starting the game!");
+        Debug.Log("===== !!! STARTING THE GAME !!! =====");
         GameEvents.OnTurnStarted.Raise(new TurnContext(1, gameServices.turnManager.GetCurrentPlayer()));
         GameServices.Instance.commandManager.ExecuteCommand(new StartTurnCommand(gameServices.turnManager));
     }
