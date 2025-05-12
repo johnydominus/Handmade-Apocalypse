@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Linq;
 #nullable enable
 
 public class ApplyEffectCommand : ICommand
@@ -15,29 +15,71 @@ public class ApplyEffectCommand : ICommand
 
     public void Execute()
     {
+        Debug.Log($"Applying effect: {effect.effectName} for {(player != null ? player.playerName : "global")}");
+
         switch (effect.effectTarget)
         {
-            case EffectTarget.General:
-                // Add logic to handle the General effect
-                Debug.Log("Applying General effect");
-                break;
-            case EffectTarget.Dividends:
-                // Add logic to handle the Dividends effect
-                Debug.Log("Applying Dividends effect.");
-                break;
             case EffectTarget.ThreatLevel:
-                // Add logic to handle the ThreatLevel effect
-                Debug.Log("Applying ThreatLevel effect");
-                GameServices.Instance.commandManager.ExecuteCommand(new ModifyThreatCommand(effect));
+                // Apply threat level effect
+                var threatType = EmergencyMapping.GetBySphere(effect.sphereType).threat;
+                GameServices.Instance.threatManager.ApplyThreatChange(threatType,effect.value);
+                Debug.Log($"Applied threat change of {effect.value} to {threatType}");
                 break;
+
             case EffectTarget.EmergencyLevel:
-                // Add logic to handle the EmergencyLevel effect
-                Debug.Log("Applying EmergencyLevel effect");
+                // Apply emergency level effect
+                if (player != null)
+                {
+                    var emergencyType = EmergencyMapping.GetBySphere(effect.sphereType).emergency;
+
+                    if(emergencyType != null)
+                    {
+                        var emergency = player.emergencies.FirstOrDefault(e => e.emergencyType == emergencyType);
+
+                        if (emergency != null)
+                        {
+                            if (effect.value > 0)
+                                emergency.Increase(effect.value);
+                            else
+                                emergency.Decrease(effect.value);
+
+                            Debug.Log($"Applied emergency change of {effect.value} to {emergencyType} for {player.playerName}");
+                        }
+                    }
+                }
                 break;
+
             case EffectTarget.SoE:
-                // Add logic to hande the SoE effect
-                Debug.Log("Applying SoE effect");
+                // Handle State of Emergency effects
+                if (player != null)
+                {
+                    var emergencyType = EmergencyMapping.GetBySphere(effect.sphereType).emergency;
+                    if (emergencyType != null)
+                    {
+                        var emergency = player.emergencies.FirstOrDefault(e => e.emergencyType == emergencyType);
+                        if (emergency != null && emergency.stateOfEmergency != null)
+                        {
+                            if (effect.value > 0 && !emergency.stateOfEmergency.isActive)
+                            {
+                                emergency.stateOfEmergency.Activate();
+                                Debug.Log($"Activated SoE for {emergencyType} in {player.playerName}'s region");
+                            } 
+                            else if (effect.value < 0 && emergency.stateOfEmergency.isActive) 
+                            {
+                                emergency.stateOfEmergency.Deactivate();
+                                Debug.Log($"Deactivated SoE for {emergencyType} in {player.playerName}'s region");
+                            }
+                        }
+                    }
+                }
                 break;
+
+            case EffectTarget.Dividends:
+            case EffectTarget.General:
+                // These effects are applied when their values are resolved
+                Debug.Log($"Effect {effect.effectName} will be applied when its value is requested");
+                break;
+
             default:
                 Debug.LogWarning($"Unhandled effect target: {effect.effectTarget}");
                 break;
@@ -46,6 +88,10 @@ public class ApplyEffectCommand : ICommand
 
     public void Undo()
     {
+        Debug.Log($"Undoing effect: {effect.effectName}");
 
+        // Implement undo logic based on effect type and target
+        // For most effect types, this is complex and may require tracking
+        // original values, so we might leave it unimplemented for now
     }
 }

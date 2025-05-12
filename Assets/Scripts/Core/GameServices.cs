@@ -11,7 +11,6 @@ public class GameServices : ScriptableObject
     public TurnManager turnManager;
     public CommandManager commandManager;
     public EffectManager effectManager;
-    public TokenSystem tokenSystem;
     public InvestmentManager investmentManager;
     public SoEManager soeManager;
 

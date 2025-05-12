@@ -66,7 +66,9 @@ public class TurnManager
     public void StartTurn()
     {
         currentPlayer = players[currentPlayerIndex];
-        // GameServices.Instance.effectManager.TickTurn();
+
+        // Process turn-level effects at the start of a turn
+        GameServices.Instance.effectManager.TickTurn();
 
         Debug.Log($"Turn {turnNumber} started for player {currentPlayer.playerName}");
         Debug.Log($"Starting with phase: {currentPhase}");
@@ -151,8 +153,12 @@ public class TurnManager
         Debug.Log("Handling global threats...");
         Debug.Log($"Turn number is {turnNumber}");
 
+        // Process threat-related effects before handling threats
+        GameServices.Instance.effectManager.ProcessPhaseEffects(EffectProcessingPhase.GlobalThreats);
+
         if (turnNumber == 1)
         {
+            // First turn initialization of threats
             List<Threat> activeThreats = GameServices.Instance.threatManager.GetThreats();
             Debug.Log($"Active threats: {activeThreats.Count}");
 
@@ -168,18 +174,43 @@ public class TurnManager
         }
         else
         {
-            // TODO: Check new global threat trigger
+            // Select one random active threat to increase
+            List<Threat> activeThreats = GameServices.Instance.threatManager.GetThreats();
+
+            if (activeThreats.Count > 0)
+            {
+                // Select a random threat
+                int randomIndex = UnityEngine.Random.Range(0, activeThreats.Count);
+                Threat selectedThreat = activeThreats[randomIndex];
+
+                // Get base growth value (2-12)
+                int baseGrowth = UnityEngine.Random.Range(2, 13);
+
+                // Convert threat type to corresponding sphere for effect processing
+                SphereType sphereType = EmergencyMapping.GetByThreat(selectedThreat.threatType).sphere;
+
+                // Apply effect modifiers to the base change
+                float modifiedGrowth = GameServices.Instance.effectManager.ResolveThreatModifier(baseGrowth, sphereType);
+
+                // Apply the modified threat change
+                int intModifiedGrowth = Mathf.RoundToInt(modifiedGrowth);
+                GameServices.Instance.threatManager.ApplyThreatChange(selectedThreat.threatType, intModifiedGrowth);
+
+                messageHeader = "THREAT LEVEL UPDATED";
+                string direction = intModifiedGrowth > 0 ? "increased" : "decreased";
+                messageText = $" {selectedThreat.threatType} {direction} by {Mathf.Abs(intModifiedGrowth)}!";
+
+                Debug.Log($"Random threat {selectedThreat.threatType} {direction} by {Mathf.Abs(intModifiedGrowth)}%");
+            }
+            else
+            { 
+                messageHeader = "GLOBAL THREATS";
+                messageText = "No changes to global threats this turn.";
+            }
         }
 
         TurnPhase nextPhase = TurnPhase.GlobalEvents;
         Debug.Log($"Global Threats phase complete, next phase will be {nextPhase}");
-
-        // Ensure we have a message to display
-        if (string.IsNullOrEmpty(messageHeader))
-        {
-            messageHeader = "GLOBAL THREATS";
-            messageText = "No new global threats this turn.";
-        }
 
         MessagePanel.Show(messageHeader, messageText, () =>
         {
@@ -196,6 +227,9 @@ public class TurnManager
         string messageText = "";
 
         Debug.Log("Handling global events...");
+
+        // Process Global Events effects before handling events
+        GameServices.Instance.effectManager.ProcessPhaseEffects(EffectProcessingPhase.GlobalEvents);
 
         System.Random random = new();
         int random1 = random.Next(1, 6);
@@ -244,6 +278,9 @@ public class TurnManager
         // Make sure we're using the correct player
         currentPlayer = players[currentPlayerIndex];
 
+        // Process player specific effects at turn start
+        GameServices.Instance.effectManager.ProcessPhaseEffects(EffectProcessingPhase.PlayerTurnStart);
+
         GameEvents.OnTurnStarted.Raise(new TurnContext(turnNumber, currentPlayer));
 
         Debug.Log($"---\n{currentPlayer.playerName}'s turn!");
@@ -270,6 +307,30 @@ public class TurnManager
 
         Debug.Log($"Handling region event for player {currentPlayer.playerName}...");
 
+        // Process Region Events effects before handling events
+        GameServices.Instance.effectManager.ProcessPhaseEffects(EffectProcessingPhase.RegionEvents);
+
+        // Apply emergency changes based on effects if needed
+        foreach (var emergency in currentPlayer.emergencies)
+        {
+            // Get the sphere type for the emergency
+            var sphereType = EmergencyMapping.GetByEmergency(emergency.emergencyType).sphere;
+
+            // Check if there's any emergency related effects that should be applied
+            float emergencyChange = GameServices.Instance.effectManager.ResolveEmergencyModifier(0, sphereType, currentPlayer);
+
+            if (emergencyChange != 0)
+            {
+                // Apply the emergency change to the player's sphere
+                if (emergencyChange > 0)
+                    emergency.Increase(Mathf.FloorToInt(emergencyChange));
+                else
+                    emergency.Decrease(Mathf.CeilToInt(Mathf.Abs(emergencyChange)));
+
+                Debug.Log($"Applied effect-based emergency change of {emergencyChange} to {emergency.emergencyType}");
+            }
+        }
+
         CardData card = cardLibrary.GetRandomCard(CardType.RegionEvent);
 
         Debug.Log($"Region Event card name: {card.name}");
@@ -277,6 +338,8 @@ public class TurnManager
 
         messageHeader = $"REGION EVENT FOR {currentPlayer.playerName}!";
         messageText = $"{card.cardName}:\n{card.description}";
+
+        // TODO: Execute region event card effects
 
         TurnPhase nextPhase = TurnPhase.DividendPayout;
         Debug.Log($"Region Events phase complete, next phase will be {nextPhase}");
@@ -294,6 +357,10 @@ public class TurnManager
     {
         Debug.Log($"Handling dividend payout for player {currentPlayer.playerName}...");
 
+        // Process dividend-related effects before payout
+        GameServices.Instance.effectManager.ProcessPhaseEffects(EffectProcessingPhase.DividendsPayout, currentPlayer);
+
+        // Using effect resolution
         GameServices.Instance.investmentManager.TickInvestments();
 
         TurnPhase nextPhase = TurnPhase.PlayerAction;

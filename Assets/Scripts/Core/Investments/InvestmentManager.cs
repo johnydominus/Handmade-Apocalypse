@@ -74,12 +74,30 @@ public class InvestmentManager
                             data.slowDividendTimers.RemoveAt(i);
                         }
                     }
-                    // Pay dividends
-                    if (slowTokens + fastTokens > 0)
+
+                    // Calculate base dividend amount
+                    int baseDividends = slowTokens + fastTokens;
+
+                    if (baseDividends > 0)
                     {
-                        investor.tokenManager.AddTokens(slowTokens + fastTokens);
-                        GameEvents.OnTokensChanged.Raise(investor);
-                        Debug.Log($"[Dividends] {investor.playerName} received {fastTokens} fast + {slowTokens} slow tokens.");
+                        // Apply effects to dividends
+                        float modifiedDividends = GameServices.Instance.effectManager.ResolveDividendModifier(baseDividends, slot.sphereName, investor);
+
+                        int finalDividends = Mathf.RoundToInt(modifiedDividends);
+
+                        // Pay dividends if there are any after effects
+                        if (finalDividends > 0)
+                        {
+                            investor.tokenManager.AddTokens(finalDividends);
+                            GameEvents.OnTokensChanged.Raise(investor);
+                            Debug.Log($"[Dividends] {investor.playerName} received {finalDividends} tokens from {slot.sphereName}." +
+                                $"(base: {baseDividends}, modified: {modifiedDividends})");
+                        }
+                        else
+                        {
+                            Debug.Log($"[Dividends] {investor.playerName} received no tokens from {slot.sphereName} " +
+                                     $"(base: {baseDividends}, modified: {modifiedDividends})");
+                        }
                     }
 
                     // Add missing slow timers
