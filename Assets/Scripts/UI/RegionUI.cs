@@ -6,6 +6,8 @@ using UnityEngine.Windows.Speech;
 
 public class RegionUI : MonoBehaviour
 {
+    [SerializeField] private SoECounteractionUI[] soECounteractionUIs; // Array matching your emergency slots
+
     public List<InvestmentSphereRelay> spheresUI;
     public List<InvestmentForecastDisplay> forecastUI;
 
@@ -28,11 +30,15 @@ public class RegionUI : MonoBehaviour
     private void OnEnable()
     {
         GameEvents.OnTurnStarted.RegisterListener(OnTurnStarted);
+        GameEvents.OnSoEActivated.RegisterListener(OnSoEActivated);
+        GameEvents.OnSoEDeactivated.RegisterListener(OnSoEDeactivated);
     }
 
     private void OnDisable()
     {
         GameEvents.OnTurnStarted.UnregisterListener(OnTurnStarted);
+        GameEvents.OnSoEActivated.UnregisterListener(OnSoEActivated);
+        GameEvents.OnSoEDeactivated.UnregisterListener(OnSoEDeactivated);
     }
 
     private void OnTurnStarted(TurnContext turnContext)
@@ -40,6 +46,29 @@ public class RegionUI : MonoBehaviour
         SetRegion(turnContext.player, turnContext.player);
     }
     
+    private void OnSoEActivated(SoEContext context)
+    {
+        for (int i = 0; i < currentPlayer.emergencies.Count; i++)
+        {
+            var emergency = currentPlayer.emergencies[i];
+
+            if (emergency.stateOfEmergency.isActive)
+            {
+                soECounteractionUIs[i].gameObject.SetActive(true);
+                soECounteractionUIs[i].Activate(new SoEContext (emergency.emergencyType, currentPlayer));
+            }
+            else
+            {
+                soECounteractionUIs[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void OnSoEDeactivated(SoEContext context)
+    {
+        UpdateEmergencyBars();
+    }
+
     public void SetRegion(PlayerController regionOwner, PlayerController investor)
     {
         currentPlayer = regionOwner;
@@ -84,13 +113,24 @@ public class RegionUI : MonoBehaviour
         {
             emergencyLabels[i].text = emergency.emergencyType.ToString();
             emergencyBars[i].fillAmount = emergency.emergencyLevel / 10f;
-            emergencyCounters[i].text = $"{emergency.emergencyLevel}";
+            emergencyCounters[i].text = emergency.stateOfEmergency.isActive 
+                ? $"!!! {emergency.emergencyType} !!!"
+                : $"{emergency.emergencyLevel}";
             emergencyCounters[i].color = emergency.stateOfEmergency.isActive
                 ? Color.red
                 : Color.black;
             i++;
             Debug.Log($"Emergency {emergency.emergencyType} updated with level {emergency.emergencyLevel}");
         }
+
+    //    for (int j = 0; j < currentPlayer.emergencies.Count; j++)
+    //    {
+    //        var emergency = currentPlayer.emergencies[j];
+    //        if (emergency.stateOfEmergency.isActive)
+    //            soECounteractionUIs[j].gameObject.SetActive(true);
+    //        else
+    //            soECounteractionUIs[j].gameObject.SetActive(false);
+    //    }
     }
 
     public PlayerController GetCurrentPlayer()

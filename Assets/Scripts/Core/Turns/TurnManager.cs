@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime;
@@ -177,11 +178,18 @@ public class TurnManager
             // Select one random active threat to increase
             List<Threat> activeThreats = GameServices.Instance.threatManager.GetThreats();
 
-            if (activeThreats.Count > 0)
+            // Filter out the Asteroid threat
+            List<Threat> threatsForRandomGrowth = activeThreats
+                .Where(threat => threat.threatType != ThreatType.Asteroid)
+                .ToList();
+
+            UpdateAsteroid();
+
+            if (threatsForRandomGrowth.Count > 0)
             {
                 // Select a random threat
-                int randomIndex = UnityEngine.Random.Range(0, activeThreats.Count);
-                Threat selectedThreat = activeThreats[randomIndex];
+                int randomIndex = UnityEngine.Random.Range(0, threatsForRandomGrowth.Count);
+                Threat selectedThreat = threatsForRandomGrowth[randomIndex];
 
                 // Get base growth value (2-12)
                 int baseGrowth = UnityEngine.Random.Range(2, 13);
@@ -202,10 +210,14 @@ public class TurnManager
 
                 Debug.Log($"Random threat {selectedThreat.threatType} {direction} by {Mathf.Abs(intModifiedGrowth)}%");
             }
+            else if (activeThreats.Count > 0 && activeThreats.All(t => t.threatType == ThreatType.Asteroid))
+            {
+                Debug.Log("Only Asteroid threat is active, skipping random threat growth");
+            }
             else
-            { 
+            {
                 messageHeader = "GLOBAL THREATS";
-                messageText = "No changes to global threats this turn.";
+                messageText = "No active threats for random growth";
             }
         }
 
@@ -374,6 +386,79 @@ public class TurnManager
             isPhaseTransitioning = false;
             NextPhase();
         });
+    }
+
+    private void UpdateAsteroid()
+    {
+        var asteroidThreat = GameServices.Instance.threatManager.GetThreats()
+            .FirstOrDefault(t => t.threatType == ThreatType.Asteroid);
+
+        if (asteroidThreat != null)
+        {
+            // Asteroid increases by 5 each turn
+            Effect asteroidEffect = new Effect(
+                EffectSource.AsteroidApproaching,
+                EffectTarget.ThreatLevel,
+                EffectType.Add,
+                SphereType.Astronautics,
+                5,
+                null);
+
+            GameServices.Instance.commandManager.ExecuteCommand(
+                new ModifyThreatCommand(asteroidEffect));
+        }
+
+        // Check if players have enough investment to defeat Asteroid
+        CheckAsteroidDefenseCondition();
+    }
+
+    private void CheckAsteroidDefenseCondition()
+    {
+        if (!GameServices.Instance.threatManager.GetThreats()
+            .Any(t => t.threatType == ThreatType.Asteroid))
+        {
+            return; // No asteroid threat, no need to check
+        }
+
+        bool allPlayersInvested = true;
+        int requiredTokens = 100;
+
+        foreach (var player in GameServices.Instance.turnManager.GetAllPlayers())
+        {
+            var astronauticsSlot = player.investments
+                .FirstOrDefault(s => s.sphereName == SphereType.Astronautics);
+
+            if (astronauticsSlot == null)
+            {
+                allPlayersInvested = false;
+                break;
+            }
+
+            int totalInvestment = 0;
+            foreach (var investorData in astronauticsSlot.investors.Values)
+                totalInvestment += investorData.investedTokens;
+
+            if (totalInvestment < requiredTokens)
+            {
+                allPlayersInvested = false;
+                break;
+            }
+        }
+
+        if (allPlayersInvested) 
+        {
+            // Create and effect to deactivate the Asteroid threat
+            Effect deactivationEffect = new Effect(
+                EffectSource.AsteroidCounteracted,
+                EffectTarget.DeactivateThreat,
+                EffectType.Add,
+                SphereType.Astronautics,
+                0,
+                null);
+
+            GameServices.Instance.commandManager.ExecuteCommand(
+                new DeactivateThreatCommand(deactivationEffect));
+        }
     }
 
     public List<PlayerController> GetAllPlayers()

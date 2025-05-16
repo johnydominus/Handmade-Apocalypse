@@ -28,7 +28,7 @@ public class StateOfEmergency
     {
         isActive = true;
         GameEvents.OnSoEActivated.Raise(new SoEContext(parent.emergencyType, parent.player));
-        Debug.Log($"⚠️ Emergency #{parent.emergencyType} activated!");
+        Debug.Log($"⚠️ Emergency #{parent.emergencyType} activated for {(parent.player.playerName)}!");
     }
 
     public void PutTokens(int amount)
@@ -43,6 +43,8 @@ public class StateOfEmergency
     public void Deactivate()
     {
         isActive = false;
+        tokensPut = 0;
         parent.Set(3);
+        GameEvents.OnSoEDeactivated.Raise(new SoEContext(parent.emergencyType, parent.player));
     }
 }

@@ -109,7 +109,10 @@ public enum EffectSource
     GlobalEvent,
     SoE,
     RegionEvent,
-    PlayerAction
+    PlayerAction,
+    GameStart,
+    AsteroidApproaching,
+    AsteroidCounteracted
 }
 
 public enum EffectTarget
@@ -118,7 +121,9 @@ public enum EffectTarget
     Dividends,
     ThreatLevel,
     EmergencyLevel,
-    SoE
+    SoE,
+    ActivateThreat,
+    DeactivateThreat
 }
 
 public enum EffectType

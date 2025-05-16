@@ -21,9 +21,7 @@ public class ApplyEffectCommand : ICommand
         {
             case EffectTarget.ThreatLevel:
                 // Apply threat level effect
-                var threatType = EmergencyMapping.GetBySphere(effect.sphereType).threat;
-                GameServices.Instance.threatManager.ApplyThreatChange(threatType,effect.value);
-                Debug.Log($"Applied threat change of {effect.value} to {threatType}");
+                GameServices.Instance.commandManager.ExecuteCommand(new ModifyThreatCommand(effect));
                 break;
 
             case EffectTarget.EmergencyLevel:
@@ -72,6 +70,16 @@ public class ApplyEffectCommand : ICommand
                         }
                     }
                 }
+                break;
+
+            case EffectTarget.ActivateThreat:
+                Debug.Log("Applying ActivateThreat effect...");
+                GameServices.Instance.commandManager.ExecuteCommand(new ActivateThreatCommand(effect));
+                break;
+
+            case EffectTarget.DeactivateThreat:
+                Debug.Log("Applying DeactivateThreat effect...");
+                GameServices.Instance.commandManager.ExecuteCommand(new DeactivateThreatCommand(effect));
                 break;
 
             case EffectTarget.Dividends:

@@ -15,11 +15,77 @@ public class GameManager : MonoBehaviour
 {
     private List<PlayerController> players;
     public GameServices gameServices;
-    public BuildType buildType = BuildType.BasicPrototype;
+    public BuildType buildType = BuildType.FullGame;
     public GameObject messagePanelPrefab;
     [SerializeField] private CardLibrary cardLibrary;
     [SerializeField] private List<ThreatType> selectedThreats;
     [SerializeField] private DevTools devTools;
+    [SerializeField] private UIWInLossMessage winLossMessage;
+
+    private void OnEnable()
+    {
+        GameEvents.OnTurnEnd.RegisterListener(OnTurnEnd);
+        GameEvents.OnVictory.RegisterListener(OnVictory);
+        GameEvents.OnLoss.RegisterListener(OnLoss);
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnTurnEnd.UnregisterListener(OnTurnEnd);
+        GameEvents.OnVictory.UnregisterListener(OnVictory);
+        GameEvents.OnLoss.UnregisterListener(OnLoss);
+    }
+
+    private void OnTurnEnd()
+    {
+        CheckAllRegionSoEs();
+    }
+
+    private void OnVictory()
+    {
+        winLossMessage.gameObject.SetActive(true);
+        winLossMessage.SetMessage(true, null);
+    }
+
+    private void OnLoss()
+    {
+        // TODO: Implement getting the fatal threat
+
+        winLossMessage.gameObject.SetActive(true);
+        winLossMessage.SetMessage(false, null);
+    }
+
+    private void CheckAllRegionSoEs()
+    {
+        // Get all possible threat types from the mapping
+        foreach (var entry in selectedThreats)
+        {
+            bool allRegionsHaveActiveSoE = true;
+            EmergencyType? relevantEmergencyType = EmergencyMapping.GetByThreat(entry).emergency;
+
+            // Check if all regions have this SoE active
+            foreach (var player in players)
+            {
+                var emergency = player.emergencies.FirstOrDefault(e => e.emergencyType == relevantEmergencyType);
+                if (emergency == null || !emergency.stateOfEmergency.isActive)
+                {
+                    allRegionsHaveActiveSoE = false;
+                    break;
+                }
+            }
+
+            if (allRegionsHaveActiveSoE)
+            {
+                // Increment the counter for this threat
+                gameServices.threatManager.threatTracker.IncrementSoETurnCounter(entry);
+            }
+            else
+            {
+                // Reset the counter for this threat
+                gameServices.threatManager.threatTracker.ResetSoETurnCounter(entry);
+            }
+        }
+    }
 
     private void Awake()
     {

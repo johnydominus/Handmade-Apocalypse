@@ -16,7 +16,7 @@ public class SoEManager
         player.emergencies.FirstOrDefault(e => e.emergencyType == emergencyType).Decrease(amount);
     }
 
-    //Changes a SoE level by defined amount of players' tokens 
+    //Changes a SoE level by defined amount of players' tokens
     public void SpendTokensToReduce(PlayerController player, EmergencyType? emergencyType, int tokensToSpend)
     {
         if (!player.emergencies.FirstOrDefault(e => e.emergencyType == emergencyType).stateOfEmergency.isActive)
