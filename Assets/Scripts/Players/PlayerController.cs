@@ -68,9 +68,31 @@ public class PlayerController : MonoBehaviour
         if (turnContext.player != this || (turnContext.turnNumber == 1 && hand.Count != 0)) return;
 
         if (turnContext.turnNumber == 1)
+        {
             RefillTokens();
+        }
+        else if (tokenManager.GetTokens() == 0 && HasNoInvestments())
+        {
+            tokenManager.AddTokens(1);
+            Debug.Log($"{playerName} had 0 tokens and received one mercy token.");
+            GameEvents.OnTokensChanged.Raise(this);
+        }
 
         DrawTurnCards(turnContext.turnNumber);
+    }
+
+    private bool HasNoInvestments()
+    {
+        int totalInvestments = 0;
+
+        // Loop through all investment slots
+        foreach (var slot in investments)
+        {
+            if (slot.investors.TryGetValue(this, out InvestorData data))
+                totalInvestments += data.investedTokens;
+        }
+
+        return totalInvestments == 0;
     }
 
     public void DrawTurnCards(int turnNumber)

@@ -47,12 +47,12 @@ public class GameManager : MonoBehaviour
         winLossMessage.SetMessage(true, null);
     }
 
-    private void OnLoss()
+    private void OnLoss(ThreatType fatalThreat)
     {
         // TODO: Implement getting the fatal threat
 
         winLossMessage.gameObject.SetActive(true);
-        winLossMessage.SetMessage(false, null);
+        winLossMessage.SetMessage(false, fatalThreat);
     }
 
     private void CheckAllRegionSoEs()

@@ -26,6 +26,10 @@ public class TokenManager
     public void AddTokens(int amount)
     {
         tokens += amount;
+
+        GameEvents.OnTokensChanged.Raise(player);
+
+        Debug.Log($"{player.playerName} received {amount} tokens. New total: {tokens}");
     }
 
     public int GetAvailableTokens() => tokens;

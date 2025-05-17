@@ -8,9 +8,14 @@ public class ThreatDisplay : MonoBehaviour
 {
     [SerializeField] private UnityEngine.UI.Slider slider;
     [SerializeField] private TextMeshProUGUI valueText;
+    [SerializeField] private ThreatCounteractionButton counteractionButton;
+    [SerializeField] public AsteroidCounteractionPanel asteroidPanel;
+    [SerializeField] private ThreatType threatType;
 
     [SerializeField] private RectTransform backgroundRect;  // Reference to the RectTransform of the background
     [SerializeField] private RectTransform sliderRect;      // Reference to the RectTransform of the slider
+
+    private UnityEngine.UI.Button clickableArea;
 
     private void Awake()
     {
@@ -21,6 +26,27 @@ public class ThreatDisplay : MonoBehaviour
             slider.maxValue = 1f;
             slider.value = 0.5f; // Initialize to 0
         }
+
+        if (counteractionButton != null) 
+        {
+            counteractionButton.SetThreatType(threatType);
+        }
+
+        if (threatType == ThreatType.Asteroid)
+        {
+            // Add button component if not present
+            clickableArea = GetComponent<UnityEngine.UI.Button>();
+            if (clickableArea == null)
+                clickableArea = gameObject.AddComponent<UnityEngine.UI.Button>();
+
+            clickableArea.onClick.AddListener(OnAsteroidClicked);
+        }
+    }
+
+    private void OnAsteroidClicked()
+    {
+        if (asteroidPanel != null)
+            asteroidPanel.OpenPanel();
     }
 
     public void SetValue(int value, int delta = 0)
@@ -48,6 +74,16 @@ public class ThreatDisplay : MonoBehaviour
             else
                 valueText.text = value.ToString();
         }
+    }
+
+    // Method to set the threat type (used by ThreatUIController)
+    public void SetThreatType(ThreatType type)
+    {
+        threatType = type;
+
+        // Update the counteraction button if it exists
+        if (counteractionButton != null)
+            counteractionButton.SetThreatType(type);
     }
 }
 

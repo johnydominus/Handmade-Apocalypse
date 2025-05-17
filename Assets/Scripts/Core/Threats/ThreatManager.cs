@@ -103,7 +103,7 @@ public class ThreatManager
         {
             if (threat.threatValue >= 100)
             {
-                GameEvents.OnLoss.Raise();
+                GameEvents.OnLoss.Raise(threat.threatType);
             }
         }
     }

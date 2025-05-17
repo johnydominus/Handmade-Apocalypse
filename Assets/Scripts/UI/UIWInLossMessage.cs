@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class UIWInLossMessage : MonoBehaviour
 {
-    public TextMeshProUGUI messageHeader;
-    public TextMeshProUGUI messageText;
+    [SerializeField] private TextMeshProUGUI messageHeader = null!;
+    [SerializeField] private TextMeshProUGUI messageText = null!;
 
     public void SetMessage(bool win, ThreatType? fatalThreat)
     {
@@ -42,7 +42,7 @@ public class UIWInLossMessage : MonoBehaviour
                     break;
                 case ThreatType.NuclearWar:
                     messageText.text = "Thousands of missiles brought hell on Earth. Billions were wiped by nuclear fire." +
-                        "Lands and waters are poisoned by the radiation. Those few who survived live in hate, fear and struggling. The humanity is lost";
+                        "Lands and waters are poisoned by the radiation. Those few who survived live in hate, fear and struggling. The humanity is lost.";
                     break;
                 case ThreatType.DarkAges:
                     messageText.text = "People fell to easy choices and trap of illusions. Knowledge is lost. " +

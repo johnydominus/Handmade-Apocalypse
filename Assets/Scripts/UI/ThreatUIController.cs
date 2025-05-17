@@ -6,6 +6,35 @@ public class ThreatUIController : MonoBehaviour
     [SerializeField] private ThreatDisplay pandemicDisplay;
     [SerializeField] private ThreatDisplay nuclearWarDisplay;
     [SerializeField] private ThreatDisplay asteroidDisplay;
+    [SerializeField] private AsteroidCounteractionPanel asteroidPanel;
+
+    // TODO: Refactor for dynamic threat creation in full game
+    // Current implementation uses hardcoded threat displays for prototype
+
+    private void Awake()
+    {
+        // Set the threat types for each display
+        if (pandemicDisplay != null)
+            pandemicDisplay.SetThreatType(ThreatType.Pandemic);
+
+        if (nuclearWarDisplay != null)
+            nuclearWarDisplay.SetThreatType(ThreatType.NuclearWar);
+
+        if (asteroidDisplay != null)
+            asteroidDisplay.SetThreatType(ThreatType.Asteroid);
+
+        // Configure asteroid special handling
+        if (asteroidDisplay != null)
+        {
+            ThreatDisplay display = asteroidDisplay.GetComponent<ThreatDisplay>();
+
+            // Get reference using GetComponent or SerializeField
+            AsteroidCounteractionPanel panel = asteroidPanel;
+
+            // Assign the panel to the display
+            display.asteroidPanel = panel;
+        }
+    }
 
     private void OnEnable()
     {

@@ -10,6 +10,7 @@ public class TokenUI : MonoBehaviour
         GameEvents.OnTurnStarted.RegisterListener(OnTurnStarted);
         GameEvents.OnTokenSpent.RegisterListener(OnTokenSpent);
         GameEvents.OnCardPlayedWithOwner.RegisterListener(OnCardPlayedWithOwner);
+        GameEvents.OnTokensChanged.RegisterListener(OnTokensChanged);
     }
 
     private void OnDisable()
@@ -17,6 +18,7 @@ public class TokenUI : MonoBehaviour
         GameEvents.OnTurnStarted.UnregisterListener(OnTurnStarted);
         GameEvents.OnTokenSpent.UnregisterListener(OnTokenSpent);
         GameEvents.OnCardPlayedWithOwner.UnregisterListener(OnCardPlayedWithOwner);
+        GameEvents.OnTokensChanged.UnregisterListener(OnTokensChanged);
     }
 
     private void OnTurnStarted(TurnContext turnContext)
@@ -33,6 +35,11 @@ public class TokenUI : MonoBehaviour
     private void OnCardPlayedWithOwner(CardPlayContext context)
     {
         UpdateDisplay(context.player);
+    }
+
+    private void OnTokensChanged(PlayerController player)
+    {
+        UpdateDisplay(player);
     }
 
     public void UpdateDisplay(PlayerController player)
