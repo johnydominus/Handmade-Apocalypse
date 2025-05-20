@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1034055505902858611}
   - component: {fileID: 2501444372009307767}
   m_Layer: 5
-  m_Name: Invested amount
+  m_Name: InvestmentAmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 1880528846970429138}
   - component: {fileID: 8028112149042447584}
   m_Layer: 5
-  m_Name: Players Name
+  m_Name: PlayerName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

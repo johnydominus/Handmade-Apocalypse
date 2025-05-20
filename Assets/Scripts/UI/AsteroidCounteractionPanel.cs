@@ -2,8 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
-using UnityEditor;
-using System.ComponentModel.Design;
 
 public class AsteroidCounteractionPanel : MonoBehaviour
 {
@@ -15,23 +13,33 @@ public class AsteroidCounteractionPanel : MonoBehaviour
     [Header("Display Elements")]
     [SerializeField] private TextMeshProUGUI threatLevelText;
     [SerializeField] private TextMeshProUGUI totalInvestedText;
-    [SerializeField] private Transform playerInvestmentsContainer;
-    [SerializeField] private GameObject playerInvestmentPrefab;
 
-    [Header("Configuration")]
-    [SerializeField] private int investmentCost = 50;
+    [Header("Player Displays")]
+    [SerializeField] private GameObject player1Display;
+    [SerializeField] private TextMeshProUGUI player1NameText;
+    [SerializeField] private TextMeshProUGUI player1InvestmentText;
+    [SerializeField] private Image player1Background;
 
-    private Dictionary<PlayerController, int> playerInvestments = new();
-    private List<GameObject> playerDisplays = new();
+    [SerializeField] private GameObject player2Display;
+    [SerializeField] private TextMeshProUGUI player2NameText;
+    [SerializeField] private TextMeshProUGUI player2InvestmentText;
+    [SerializeField] private Image player2Background;
+
+    private bool isProcessingInvestment = false;
 
     private void Awake()
     {
         // Hide panel initially
         panelRoot.SetActive(false);
 
+        closeButton.onClick.RemoveAllListeners();
+        investButton.onClick.RemoveAllListeners();
+
         // Set up button listeners
         closeButton.onClick.AddListener(ClosePanel);
         investButton.onClick.AddListener(InvestToken);
+
+        Debug.Log("AsteroidCounteractionPanel initialized.");
     }
 
     private void OnEnable()
@@ -60,17 +68,55 @@ public class AsteroidCounteractionPanel : MonoBehaviour
             return;
         }
 
+        // Show the panel first to it's fully instantiated
+        panelRoot.SetActive(true);
+
         // Update threat level display
         threatLevelText.text = $"Asteroid Threat Level: {asteroid.threatValue}%";
 
         // Initialize or update player investments
-        InitializePlayerInvestments();
+        InitializePlayerDisplays();
 
         // Calculate and display total invested tokens
         UpdateTotalInvestments();
 
-        // Show the panel
-        panelRoot.SetActive(true);
+        // Fix any layout issues
+        FixLayoutPositioning();
+    }
+
+    private void FixLayoutPositioning()
+    {
+        // Disable any layout components that might be interfering
+        if (player1Display != null)
+        {
+            DisableLayoutComponents(player1Display);
+        }
+
+        if (player2Display != null)
+        {
+            DisableLayoutComponents(player2Display);
+        }
+
+        // Make sure invest button is in front
+        investButton.transform.SetAsLastSibling();
+        closeButton.transform.SetAsLastSibling();
+    }
+
+    private void DisableLayoutComponents(GameObject obj)
+    {
+        // Disable layout groups
+        LayoutGroup[] layoutGroups = obj.GetComponents<LayoutGroup>();
+        foreach (var layout in layoutGroups)
+        {
+            layout.enabled = false;
+        }
+
+        // Disable content size fitters
+        ContentSizeFitter[] fitters = obj.GetComponents<ContentSizeFitter>();
+        foreach (var fitter in fitters)
+        {
+            fitter.enabled = false;
+        }
     }
 
     public void ClosePanel()
@@ -80,90 +126,108 @@ public class AsteroidCounteractionPanel : MonoBehaviour
 
     public void InvestToken()
     {
+        if (isProcessingInvestment) return;
+        isProcessingInvestment = true;
+
         PlayerController currentPlayer = GameServices.Instance.turnManager.GetCurrentPlayer();
 
         // Try to spend a token
         if (currentPlayer.SpendToken(1))
         {
-            // If successful, record the investment
-            if (!playerInvestments.ContainsKey(currentPlayer))
-                playerInvestments[currentPlayer] = 0;
-
-            playerInvestments[currentPlayer]++;
+            // If successful, add the investment using the manager
+            AsteroidInvestmentManager.Instance.AddInvestment(currentPlayer, 1);
 
             // Update displays
-            UpdatePlayerInvestments();
+            UpdatePlayerDisplays();
             UpdateTotalInvestments();
 
             // Check if we've reached the required total
             CheckCompletionStatus();
         }
+        Invoke("ResetInvestmentProcessing", 0.1f);
     }
 
-    private void InitializePlayerInvestments()
+    private void ResetInvestmentProcessing()
     {
-        // Clear existing player investments
-        foreach (var display in playerDisplays)
-            Destroy(display);
+        isProcessingInvestment = false;
+    }
 
-        playerDisplays.Clear();
+    private void InitializePlayerDisplays()
+    {
+        var players = GameServices.Instance.turnManager.GetAllPlayers();
 
-        // Create display for each player
-        foreach (var player in GameServices.Instance.turnManager.GetAllPlayers())
+        // Handle player 1
+        if (players.Count > 0)
         {
-            // Ensure player is in dictionary
-            if (!playerInvestments.ContainsKey(player))
-                playerInvestments[player] = 0;
+            player1Display.SetActive(true);
+            player1NameText.text = players[0].playerName;
 
-            // Create player investment display
-            GameObject display = Instantiate(playerInvestmentPrefab, playerInvestmentsContainer);
+            int player1Investments = AsteroidInvestmentManager.Instance.GetPlayerInvestment(players[0]);
+            player1InvestmentText.text = $"{player1Investments} / {AsteroidInvestmentManager.Instance.investmentCost}";
+            
+            player1Background.color = (players[0] == GameServices.Instance.turnManager.GetCurrentPlayer())
+                ? new Color(0.8f, 0.9f, 1f) : Color.white;
+        }
+        else
+        {
+            player1Display.SetActive(false);
+        }
 
-            // Set player name and investment text
-            TextMeshProUGUI nameText = display.transform.Find("PlayerName").GetComponent<TextMeshProUGUI>();
-            TextMeshProUGUI investmentText = display.transform.Find("InvetmentAmount").GetComponent<TextMeshProUGUI>();
+        // Handle player 2
+        if (players.Count > 1)
+        {
+            player2Display.SetActive(true);
+            player2NameText.text = players[1].playerName;
 
-            nameText.text = player.playerName;
-            investmentText.text = $"{playerInvestments[player]} / {investmentCost}";
-
-            // Colorize base on current/target player
-            Image background = display.GetComponent<Image>();
-            bool isCurrentPlayer = player == GameServices.Instance.turnManager.GetCurrentPlayer();
-            background.color = isCurrentPlayer ? new Color(0.8f, 0.9f, 1f) : Color.white;
-
-            playerDisplays.Add(display);
+            int player2Investments = AsteroidInvestmentManager.Instance.GetPlayerInvestment(players[1]);
+            player2InvestmentText.text = $"{player2Investments} / {AsteroidInvestmentManager.Instance.investmentCost}";
+            
+            player2Background.color = (players[1] == GameServices.Instance.turnManager.GetCurrentPlayer())
+                ? new Color(0.8f, 0.9f, 1f) : Color.white;
+        }
+        else
+        {
+            player2Display.SetActive(false);
         }
     }
 
-    private void UpdatePlayerInvestments()
+    private void UpdatePlayerDisplays()
     {
-        // Update each player's investment display
-        for (int i = 0; i < playerDisplays.Count; i++)
+        var players = GameServices.Instance.turnManager.GetAllPlayers();
+        Debug.Log($"Updating displays for {players.Count} players");
+
+        // Update player 1
+        if (players.Count > 0)
         {
-            var player = GameServices.Instance.turnManager.GetAllPlayers()[i];
-            var display = playerDisplays[i];
+            int player1Investment = AsteroidInvestmentManager.Instance.GetPlayerInvestment(players[0]);
+            player1InvestmentText.text = $"{player1Investment} / {AsteroidInvestmentManager.Instance.investmentCost}";
+ 
+            player1Background.color = (players[0] == GameServices.Instance.turnManager.GetCurrentPlayer())
+                ? new Color(0.8f, 0.9f, 1f) : Color.white;
 
-            TextMeshProUGUI investmentText = display.transform.Find("InvetmentAmount").GetComponent<TextMeshProUGUI>();
-            investmentText.text = $"{playerInvestments[player]} / {investmentCost}";
+            Debug.Log($"Updated Player1 ({players[0].playerName}) investment display: {player1Investment}");
+        }
 
-            // Update highlight for current player
-            Image background = display.GetComponent<Image>();
-            bool isCurrentPlayer = player == GameServices.Instance.turnManager.GetCurrentPlayer();
-            background.color = isCurrentPlayer ? new Color(0.8f, 0.9f, 1f) : Color.white;
+        // Update player 2
+        if (players.Count > 1)
+        {
+            int player2Investment = AsteroidInvestmentManager.Instance.GetPlayerInvestment(players[1]);
+            player2InvestmentText.text = $"{player2Investment} / {AsteroidInvestmentManager.Instance.investmentCost}";
+            
+            player2Background.color = (players[1] == GameServices.Instance.turnManager.GetCurrentPlayer())
+                ? new Color(0.8f, 0.9f, 1f) : Color.white;
+            
+            Debug.Log($"Updated Player2 ({players[1].playerName}) investment display: {player2Investment}");
         }
     }
-
     private void UpdateTotalInvestments()
     {
         // Calculate total invested tokens
-        int total = 0;
-        foreach (var investment in playerInvestments.Values)
-        {
-            total += investment;
-        }
+        int total = AsteroidInvestmentManager.Instance.GetTotalInvestment();
 
         // Calculate required total
         int playerCount = GameServices.Instance.turnManager.GetAllPlayers().Count;
-        int requiredTotal = playerCount * investmentCost;
+        int requiredTotal = playerCount * AsteroidInvestmentManager.Instance.investmentCost;
 
         // Update display
         totalInvestedText.text = $"Total Invested: {total} / {requiredTotal}";
@@ -175,17 +239,8 @@ public class AsteroidCounteractionPanel : MonoBehaviour
 
     private void CheckCompletionStatus()
     {
-        // Calculate total invested tokens
-        int total = 0;
-        foreach (var investment in playerInvestments.Values)
-            total += investment;
-
-        // Calculate required total
-        int playerCount = GameServices.Instance.turnManager.GetAllPlayers().Count;
-        int requiredTotal = playerCount * investmentCost;
-
         // Check if we've reached the goal
-        if (total >= requiredTotal)
+        if (AsteroidInvestmentManager.Instance.IsDefenseComplete())
         {
             // Create the effect to deactivate asteroid
             Effect deactivationEffect = new Effect(
@@ -199,6 +254,9 @@ public class AsteroidCounteractionPanel : MonoBehaviour
             // Execute the effect
             GameServices.Instance.commandManager.ExecuteCommand(
                 new DeactivateThreatCommand(deactivationEffect));
+
+            // Clear investments
+            AsteroidInvestmentManager.Instance.ClearInvestments();
 
             // Close the panel
             ClosePanel();

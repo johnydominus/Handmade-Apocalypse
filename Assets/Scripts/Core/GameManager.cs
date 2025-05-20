@@ -94,6 +94,8 @@ public class GameManager : MonoBehaviour
 
         var sphereNames = EmergencyMapping.GetSphereTypesByThreat(selectedThreats);
         MessagePanel.prefab = messagePanelPrefab;
+        AsteroidInvestmentManager asteroidManager = AsteroidInvestmentManager.Instance;
+        asteroidManager.investmentCost = 50;
 
         Debug.Log($"GameManager starts the Big Initialization!");
         foreach (var sphereName in sphereNames)

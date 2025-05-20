@@ -43,7 +43,7 @@ public class ThreatDisplay : MonoBehaviour
         }
     }
 
-    private void OnAsteroidClicked()
+    public void OnAsteroidClicked()
     {
         if (asteroidPanel != null)
             asteroidPanel.OpenPanel();

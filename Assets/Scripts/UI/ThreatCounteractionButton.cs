@@ -46,14 +46,17 @@ public class ThreatCounteractionButton : MonoBehaviour
 
     private void UpdateButtonInteractibility()
     {
-        // Only enable button if current player has tokens
-        PlayerController currentPlayer = GameServices.Instance.turnManager.GetCurrentPlayer();
-        bool hasTokens = currentPlayer != null && currentPlayer.tokenManager.GetTokens() > 0;
+        if (this.isActiveAndEnabled)
+        {
+            // Only enable button if current player has tokens
+            PlayerController currentPlayer = GameServices.Instance.turnManager.GetCurrentPlayer();
+            bool hasTokens = currentPlayer != null && currentPlayer.tokenManager.GetTokens() > 0;
 
-        // Also disable for Asteroid type as it has special handling
-        bool isAsteroid = threatType == ThreatType.Asteroid;
+            // Also disable for Asteroid type as it has special handling
+            bool isAsteroid = threatType == ThreatType.Asteroid;
 
-        counteractButton.interactable = hasTokens && !isAsteroid;
+            counteractButton.interactable = hasTokens && !isAsteroid;
+        }
     }
 
     public void OnCounteractButtonClicked()
