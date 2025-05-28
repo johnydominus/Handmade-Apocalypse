@@ -40,8 +40,15 @@ public class DevTools : MonoBehaviour
 
     public void SetTargetPlayer(PlayerController player)
     {
+        if (player == null) return;
+
         targetPlayer = player;
-        playerNameLabel.text = player.playerName;
+
+        if (playerNameLabel != null)
+            playerNameLabel.text = player.playerName;
+        else
+            Debug.LogWarning("Player name label not assigned in the Inspector!");
+
         Debug.Log($"DevTools: Switched to {player.playerName}");
     }
 

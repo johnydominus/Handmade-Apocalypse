@@ -50,7 +50,14 @@ public class TokenUI : MonoBehaviour
             return;
         }
 
-        tokenText.text = $"Tokens: {player.tokenManager.GetTokens()}";
+        int tokens = player.tokenManager.GetTokens();
+
+        // Color coding for negative balances
+        if (tokens < 0)
+            tokenText.text = $"Tokens: <color=red>{tokens}</color>";
+        else
+            tokenText.text = $"Tokens: {tokens}";
+
         Debug.Log($"TokenUI updated for {player.playerName}: {player.tokenManager.GetTokens()} tokens.");
     }
 }

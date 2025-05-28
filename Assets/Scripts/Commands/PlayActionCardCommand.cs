@@ -20,7 +20,7 @@ public class PlayActionCardCommand : ICommand
         foreach (var effect in card.effects)
         {
             Debug.Log($"Applying effect {i++} of {card.effects.Count}");
-            command = new ProcessNewEffectCommand(effect, player);
+            command = new ProcessNewEffectCommand(effect, player, card);
 
             if (command != null)
                 GameServices.Instance.commandManager.ExecuteCommand(command);

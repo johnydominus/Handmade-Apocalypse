@@ -293,6 +293,18 @@ public class TurnManager
         // Process player specific effects at turn start
         GameServices.Instance.effectManager.ProcessPhaseEffects(EffectProcessingPhase.PlayerTurnStart);
 
+        // Tick SoE blocking for current player
+        foreach (var emergency in currentPlayer.emergencies)
+        {
+            emergency.stateOfEmergency.TickTurn();
+        }
+
+        // Tick delayed counterable effects (only once per turn cycle, not per player)
+        if (currentPlayerIndex == 0)
+        {
+            GameServices.Instance.delayedCounteractionManager.TickAllDelayedEffects();
+        }
+
         GameEvents.OnTurnStarted.Raise(new TurnContext(turnNumber, currentPlayer));
 
         Debug.Log($"---\n{currentPlayer.playerName}'s turn!");

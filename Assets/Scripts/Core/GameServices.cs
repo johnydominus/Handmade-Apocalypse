@@ -13,6 +13,7 @@ public class GameServices : ScriptableObject
     public EffectManager effectManager;
     public InvestmentManager investmentManager;
     public SoEManager soeManager;
+    public DelayedCounteractionManager delayedCounteractionManager;
 
     public static void Initialize(GameServices asset)
     {

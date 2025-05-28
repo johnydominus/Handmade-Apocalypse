@@ -4,6 +4,13 @@ public class InvestmentManager
 {
     public void InvestToken(PlayerController investor, PlayerController target, int sphereIndex)
     {
+        // Only allow investment if the investor has positive tokens
+        if(investor.tokenManager.GetTokens() <= 0)
+        {
+            Debug.LogWarning($"{investor.playerName} has no tokens to invest!");
+            return;
+        }
+
         if (!investor.SpendToken(1)) return;
 
         var slot = target.investments[sphereIndex];
@@ -13,10 +20,7 @@ public class InvestmentManager
 
         slot.investors[investor].investedTokens++;
 
-        int leftover = slot.investors[investor].investedTokens % 3;
-
         SyncSlowDividends(slot.investors[investor]);
-
         GameEvents.OnTokensChanged.Raise(investor);
     }
 

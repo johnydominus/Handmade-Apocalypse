@@ -18,6 +18,20 @@ MonoBehaviour:
   description: 
   tokenCost: 0
   artWork: {fileID: 0}
-  targetThreat: 0
-  threatModifier: 0
-  effects: []
+  effects:
+  - effectName: 
+    effectSource: 0
+    effectTarget: 4
+    effectType: 2
+    sphereType: 3
+    effectTiming:
+      effectTimingType: 0
+      duration: 0
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    value: 1
+    processingPhase: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    multiplierValue: 0

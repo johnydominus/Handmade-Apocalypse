@@ -18,5 +18,8 @@ public static class GameEvents
     public static GameEventWithParam<PlayerController> OnHandDrawn = new();
     public static GameEventWithParam<PlayerController> OnTokenSpent = new();
     public static GameEventWithParam<PlayerController> OnTokensChanged = new();
-
+    public static GameEventWithParam<DelayedCounterableEffect> OnDelayedEffectCountered = new();
+    public static GameEventWithParam<DelayedCounterableEffect> OnDelayedEffectUpdated = new();
+    public static GameEventWithParam<DelayedCounterableEffect> OnDelayedEffectTriggered = new();
+    public static GameEventWithParam<DelayedCounterableEffect> OnDelayedEffectRegistered = new();
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting;
 #nullable enable
 
 public class ApplyEffectCommand : ICommand
@@ -88,8 +89,28 @@ public class ApplyEffectCommand : ICommand
                 Debug.Log($"Effect {effect.effectName} will be applied when its value is requested");
                 break;
 
-            default:
+            case EffectTarget.PlayerTokens:
+                // Apply token modification effect
+                if (player != null)
+                    GameServices.Instance.commandManager.ExecuteCommand(new ModifyPlayerTokensCommand(effect, player));
+                else
+                    Debug.LogWarning("PlayerTokens effect requires a player target");
+                break;
+
+                    default:
                 Debug.LogWarning($"Unhandled effect target: {effect.effectTarget}");
+                break;
+
+            case EffectTarget.SoECounterAction:
+                GameServices.Instance.commandManager.ExecuteCommand(new SoECounteractionCommand(effect, player));
+                break;
+
+            case EffectTarget.SoEBlock:
+                GameServices.Instance.commandManager.ExecuteCommand(new SoEBlockCommand(effect, player));
+                break;
+
+            case EffectTarget.DelayedCounterable:
+                GameServices.Instance.commandManager.ExecuteCommand(new DelayedCounterableEffectCommand(effect, player));
                 break;
         }
     }

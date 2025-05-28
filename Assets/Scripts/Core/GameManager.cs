@@ -120,6 +120,15 @@ public class GameManager : MonoBehaviour
         gameServices.investmentManager = new();
         gameServices.effectManager = new();
         gameServices.commandManager = new();
+        gameServices.delayedCounteractionManager = new();
+
+        if (devTools != null)
+        {
+            devTools.Initialize(players);
+            // Set initial target player
+            if (players.Count > 0)
+                devTools.SetTargetPlayer(players[0]);
+        }
 
         GameEvents.OnGameInitialized.Raise();
         Debug.Log("===== !!! THE GAME INITIALIZED !!!=====");

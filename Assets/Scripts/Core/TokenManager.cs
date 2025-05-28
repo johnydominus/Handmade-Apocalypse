@@ -14,23 +14,25 @@ public class TokenManager
     public bool HasEnoughTokens(int amount) => tokens >= amount;
 
     public int GetTokens() => tokens;
-    public void SetTokens(int amount) => tokens = amount;
+
+    public void SetTokens(int amount) 
+    {
+        tokens = amount;    // Remove any clamping to allow negetives
+        Debug.Log($"{player.playerName} tokens set to {tokens}");
+    }
 
     public void SpendTokens(int amount)
     {
-        tokens = Mathf.Max(0, tokens - amount);
+        tokens -= amount;
         GameEvents.OnTokenSpent.Raise(player);
-        Debug.Log($"{player.playerName} spent {amount} tokens.");
+        GameEvents.OnTokensChanged.Raise(player);
+        Debug.Log($"{player.playerName} spent {amount} tokens. New balance: {tokens}");
     }
 
     public void AddTokens(int amount)
     {
         tokens += amount;
-
         GameEvents.OnTokensChanged.Raise(player);
-
         Debug.Log($"{player.playerName} received {amount} tokens. New total: {tokens}");
     }
-
-    public int GetAvailableTokens() => tokens;
 }

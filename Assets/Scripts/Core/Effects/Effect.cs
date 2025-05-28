@@ -14,12 +14,32 @@ using UnityEngine;
     public int value;                       // Value of the effect - how much it adds/
     [NonSerialized] PlayerController? player;
 
+    public List<string> targetCardNames = new();   // List of cards to counter
+    public CounterEffectScope counterScope = CounterEffectScope.CurrentRegion;
+    public CounterEffectType counterType = CounterEffectType.CompleteNegation;
+    public float counterValue = 0f;
+
+    // Source tracking for counter-targeting
+    public string sourceCardName = "";      // Name of the card that treated this effect
+    public CardType sourceCardType;         // Type of the source card
+
     // Property for phase-specific processing
     public EffectProcessingPhase processingPhase = EffectProcessingPhase.Any;
 
     public bool appliesToPositive;
     public bool appliesToNegative;
     public float multiplierValue = 1.0f;    // like 2.0f (for x2), 0.5f (for halving)
+    
+    public bool hasCondition = false;
+    public EffectCondition? condition;
+    [SerializeReference]
+    public List<Effect> alternativeEffects = new(); // Effects to apply if condition fails
+
+    public bool isCounterable = false;
+    public int tokensRequiredToCounter = 0;
+    public string counteractionDescription = "";
+    [SerializeReference]
+    public List<Effect> effectsIsNotCountered = new();
 
     public Effect(EffectSource effectSource, EffectTarget effectTarget, EffectType effectType, SphereType sphereType, int value, PlayerController? player = null)
     {
@@ -123,7 +143,26 @@ public enum EffectTarget
     EmergencyLevel,
     SoE,
     ActivateThreat,
-    DeactivateThreat
+    DeactivateThreat,
+    PlayerTokens,
+    CounterCardEffect,
+    SoECounterAction,
+    SoEBlock,
+    DelayedCounterable
+}
+
+public enum CounterEffectScope
+{
+    CurrentRegion,
+    AllRegions,
+    GlobalEvents
+}
+
+public enum CounterEffectType
+{
+    CompleteNegation,
+    ValueReduction,
+    ValueMultiplication
 }
 
 public enum EffectType
@@ -131,5 +170,6 @@ public enum EffectType
     Add,
     Multiply,
     Block,
-    SphereEffectMultiplier
+    SphereEffectMultiplier,
+    Counteract
 }
