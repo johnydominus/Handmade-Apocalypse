@@ -140,4 +140,16 @@ public class GameManager : MonoBehaviour
         GameEvents.OnTurnStarted.Raise(new TurnContext(1, gameServices.turnManager.GetCurrentPlayer()));
         GameServices.Instance.commandManager.ExecuteCommand(new StartTurnCommand(gameServices.turnManager));
     }
+    public void OnCurrentEffectsButtonClicked()
+    {
+        EffectsPanel effectsPanel = UnityEngine.Object.FindFirstObjectByType<EffectsPanel>();
+        if (effectsPanel != null)
+        {
+            effectsPanel.OpenPanel();
+        }
+        else
+        {
+            Debug.LogWarning("EffectsPanel not found in scene!");
+        }
+    }
 }
