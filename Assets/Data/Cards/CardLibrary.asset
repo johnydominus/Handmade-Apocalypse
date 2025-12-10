@@ -16,5 +16,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 69a37d455e515554c876f50bf5c4740d, type: 2}
   globalEventCards:
   - {fileID: 11400000, guid: 9e17aec4b23c1db4482cbd8c0974bc42, type: 2}
+  - {fileID: 11400000, guid: 26fb33a0423eb3045b56c7c0562436f7, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   regionEventCards:
   - {fileID: 11400000, guid: 67949ab76f23bd349b87074a591c91d3, type: 2}

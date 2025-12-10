@@ -51,6 +51,15 @@ public class EffectCondition
                 var activeEffects = GameServices.Instance.effectManager.GetActiveEffects();
                 return activeEffects.Any(e => e.effect.sourceCardName == targetCardName && e.isActive);
 
+            case EffectConditionType.AllPlayersInvestedMinInSphere:
+                return GameServices.Instance.turnManager.GetAllPlayers().All(p =>
+                {
+                    var slot = p.investments.FirstOrDefault(s => s.sphereName == targetSphere);
+                    if (slot == null) return false;
+                    int invested = slot.investors.TryGetValue(p, out var data) ? data.investedTokens : 0;
+                    return invested >= requiredValue;
+                });
+
             default:
                 return true; // Default to true for unknown conditions
         }
@@ -68,5 +77,6 @@ public enum EffectConditionType
     EmergencyAtMost,
     SoEIsActive,
     SoEIsInactive,
-    CardEffectIsActive
+    CardEffectIsActive,
+    AllPlayersInvestedMinInSphere
 }

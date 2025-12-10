@@ -15421,9 +15421,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e7d736148dbd04aa8c897485c94f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  messagePanelPrefab: {fileID: 3278178941840080412, guid: ae7300e191a684f42a8ef4eed8950e94, type: 3}
+  effectsPanelPrefab: {fileID: 8105250877034370101, guid: 5c8e14c6aafa1514a8369d9a3c6b7d65, type: 3}
   gameServices: {fileID: 11400000, guid: 9c53bcb2a153b5e4685f87250b035246, type: 2}
   buildType: 2
-  messagePanelPrefab: {fileID: 3278178941840080412, guid: ae7300e191a684f42a8ef4eed8950e94, type: 3}
   cardLibrary: {fileID: 11400000, guid: 48e724ad471d21645992b40d0cf1b0b2, type: 2}
   selectedThreats: 000000000100000005000000
   devTools: {fileID: 0}
@@ -15649,7 +15650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: agagag
-  startingTokensAmount: 6
+  startingTokensAmount: 3
   startingEmergencyLevel: 3
 --- !u!4 &1517960970
 Transform:
@@ -18824,7 +18825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: oderfgad
-  startingTokensAmount: 6
+  startingTokensAmount: 3
   startingEmergencyLevel: 3
 --- !u!4 &1735534332
 Transform:

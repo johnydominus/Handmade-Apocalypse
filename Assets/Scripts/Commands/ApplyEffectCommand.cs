@@ -38,9 +38,9 @@ public class ApplyEffectCommand : ICommand
                         if (emergency != null)
                         {
                             if (effect.value > 0)
-                                emergency.Increase(effect.value);
+                                emergency.Increase((int)effect.value);
                             else
-                                emergency.Decrease(effect.value);
+                                emergency.Decrease((int)effect.value);
 
                             Debug.Log($"Applied emergency change of {effect.value} to {emergencyType} for {player.playerName}");
                         }
@@ -71,6 +71,30 @@ public class ApplyEffectCommand : ICommand
                         }
                     }
                 }
+                else
+                {
+                    foreach (var p in GameServices.Instance.turnManager.GetAllPlayers())
+                    {
+                        var emergencyType = EmergencyMapping.GetBySphere(effect.sphereType).emergency;
+                        if (emergencyType != null)
+                        {
+                            var emergency = p.emergencies.FirstOrDefault(e => e.emergencyType == emergencyType);
+                            if (emergency != null && emergency.stateOfEmergency != null)
+                            {
+                                if (effect.value > 0 && !emergency.stateOfEmergency.isActive)
+                                {
+                                    emergency.stateOfEmergency.Activate();
+                                    Debug.Log($"Activated SoE for {emergencyType} in {p.playerName}'s region");
+                                }
+                                else if (effect.value < 0 && emergency.stateOfEmergency.isActive)
+                                {
+                                    emergency.stateOfEmergency.Deactivate();
+                                    Debug.Log($"Deactivated SoE for {emergencyType} in {p.playerName}'s region");
+                                }
+                            }
+                        }
+                    }
+                }
                 break;
 
             case EffectTarget.ActivateThreat:
@@ -94,7 +118,10 @@ public class ApplyEffectCommand : ICommand
                 if (player != null)
                     GameServices.Instance.commandManager.ExecuteCommand(new ModifyPlayerTokensCommand(effect, player));
                 else
-                    Debug.LogWarning("PlayerTokens effect requires a player target");
+                {
+                    foreach (var p in GameServices.Instance.turnManager.GetAllPlayers())
+                        GameServices.Instance.commandManager.ExecuteCommand(new ModifyPlayerTokensCommand(effect, p));
+                }
                 break;
 
                     default:

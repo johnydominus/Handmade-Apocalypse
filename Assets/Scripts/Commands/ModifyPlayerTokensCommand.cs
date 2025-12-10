@@ -24,7 +24,7 @@ public class ModifyPlayerTokensCommand : ICommand
         {
             case EffectType.Add:
                 // Add or subtract tokens
-                newTokens = currentTokens + effect.value;
+                newTokens = currentTokens + (int)effect.value;
                 Debug.Log($"Adding {effect.value} tokens to {player.playerName}. {currentTokens} -> {newTokens}");
                 break;
 

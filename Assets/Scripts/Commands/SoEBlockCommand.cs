@@ -37,7 +37,7 @@ public class SoEBlockCommand : ICommand
         previousBlockedTurns = targetEmergency.stateOfEmergency.blockedTurnsRemaining;
 
         // Block counteraction
-        int blockTurns = effect.value > 0 ? effect.value : 1; // Ensure at least 1 turn of blocking
+        int blockTurns = (int)effect.value > 0 ? (int)effect.value : 1; // Ensure at least 1 turn of blocking
         targetEmergency.stateOfEmergency.BlockCounteractionForTurns(blockTurns);
 
         Debug.Log($"{player.playerName} blocked counteraction for {targetEmergency.emergencyType} for {blockTurns} turns.");

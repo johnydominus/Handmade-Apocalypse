@@ -18,7 +18,7 @@ public class ModifyThreatCommand : ICommand
         var targetThreat = EmergencyMapping.GetBySphere(effect.sphereType).threat;
 
         originalThreatLevel = threatManager.GetThreatValue(targetThreat);
-        threatManager.ApplyThreatChange(targetThreat, effect.value);
+        threatManager.ApplyThreatChange(targetThreat, (int)effect.value);
     }
 
     public void Undo()

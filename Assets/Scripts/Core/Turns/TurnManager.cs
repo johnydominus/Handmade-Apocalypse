@@ -385,7 +385,7 @@ public class TurnManager
         GameServices.Instance.effectManager.ProcessPhaseEffects(EffectProcessingPhase.DividendsPayout, currentPlayer);
 
         // Using effect resolution
-        GameServices.Instance.investmentManager.TickInvestments();
+        GameServices.Instance.investmentManager.TickInvestments(currentPlayer);
 
         TurnPhase nextPhase = TurnPhase.PlayerAction;
         Debug.Log($"Dividend Payout phase complete, next phase will be {nextPhase}");

@@ -15,7 +15,7 @@ public class RegionUI : MonoBehaviour
     public GameObject emergencyPanel;
     public GameObject investmentPanel;
 
-    public Image[] emergencyBars; // 0–10 fillAmount bars
+    public Image[] emergencyBars; // 0ï¿½10 fillAmount bars
     public TextMeshProUGUI[] emergencyCounters;
     public TextMeshProUGUI[] emergencyLabels;
 
@@ -73,6 +73,23 @@ public class RegionUI : MonoBehaviour
     {
         currentPlayer = regionOwner;
         regionHeader.text = $"Region: {regionOwner.playerName}";
+
+        int count = currentPlayer.emergencies.Count;
+        int max = Mathf.Min(
+            emergencyBars.Length,
+            emergencyCounters.Length,
+            emergencyLabels.Length,
+            soECounteractionUIs.Length);
+
+        for (int i = 0; i < max; i++)
+        {
+            bool active = i < count;
+            emergencyBars[i].gameObject.SetActive(active);
+            emergencyCounters[i].gameObject.SetActive(active);
+            emergencyLabels[i].gameObject.SetActive(active);
+            soECounteractionUIs[i].gameObject.SetActive(active);
+        }
+
         UpdateEmergencyBars();
 
         for (int i = 0; i < spheresUI.Count; i++)
@@ -107,30 +124,21 @@ public class RegionUI : MonoBehaviour
         Debug.Log("Updating emergency bars");
         Debug.Log($"There are {currentPlayer.emergencies.Count} emergencies for {currentPlayer.playerName}");
 
-        int i = 0;
-
-        foreach (var emergency in currentPlayer.emergencies)
+        int limit = Mathf.Min(currentPlayer.emergencies.Count,
+                            emergencyBars.Length,
+                            emergencyCounters.Length,
+                            emergencyLabels.Length);
+        for (int i = 0; i < limit; i++)
         {
+            var emergency = currentPlayer.emergencies[i];
             emergencyLabels[i].text = emergency.emergencyType.ToString();
             emergencyBars[i].fillAmount = emergency.emergencyLevel / 10f;
-            emergencyCounters[i].text = emergency.stateOfEmergency.isActive 
+            emergencyCounters[i].text = emergency.stateOfEmergency.isActive
                 ? $"!!! {emergency.emergencyType} !!!"
                 : $"{emergency.emergencyLevel}";
-            emergencyCounters[i].color = emergency.stateOfEmergency.isActive
-                ? Color.red
-                : Color.black;
-            i++;
+            emergencyCounters[i].color = emergency.stateOfEmergency.isActive ? Color.red : Color.black;
             Debug.Log($"Emergency {emergency.emergencyType} updated with level {emergency.emergencyLevel}");
         }
-
-    //    for (int j = 0; j < currentPlayer.emergencies.Count; j++)
-    //    {
-    //        var emergency = currentPlayer.emergencies[j];
-    //        if (emergency.stateOfEmergency.isActive)
-    //            soECounteractionUIs[j].gameObject.SetActive(true);
-    //        else
-    //            soECounteractionUIs[j].gameObject.SetActive(false);
-    //    }
     }
 
     public PlayerController GetCurrentPlayer()

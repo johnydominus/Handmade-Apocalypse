@@ -21,7 +21,7 @@ public class GlobalThreatTracker
         if (!activeThreats.Contains(threat))
             activeThreats.Add(threat);
         
-        if (activeThreats.Count > maxSimultaneousThreats)
+        if (activeThreats.Count == maxSimultaneousThreats)
         {
             maxThreatsEverReached = true;
             Debug.Log("Maximum number of threats reached! No new threats can appear.");

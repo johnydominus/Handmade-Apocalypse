@@ -13,10 +13,22 @@ public enum BuildType
 }
 public class GameManager : MonoBehaviour
 {
+    [Header("UI Prefabs")]
+    public GameObject messagePanelPrefab;
+    public GameObject effectsPanelPrefab;
+
+    private static readonly List<ThreatType> prototypeThreats = new()
+    {
+        ThreatType.Pandemic,
+        ThreatType.NuclearWar,
+        ThreatType.Asteroid
+    };
+
     private List<PlayerController> players;
+    private EffectsPanel effectsPanelInstance;
     public GameServices gameServices;
     public BuildType buildType = BuildType.FullGame;
-    public GameObject messagePanelPrefab;
+    
     [SerializeField] private CardLibrary cardLibrary;
     [SerializeField] private List<ThreatType> selectedThreats;
     [SerializeField] private DevTools devTools;
@@ -92,7 +104,23 @@ public class GameManager : MonoBehaviour
         players = new List<PlayerController>(FindObjectsByType<PlayerController>(FindObjectsSortMode.None));
         players.Sort((a, b) => string.Compare(a.gameObject.name, b.gameObject.name));
 
-        var sphereNames = EmergencyMapping.GetSphereTypesByThreat(selectedThreats);
+        gameServices.threatManager = new();
+        // Pick threats based on build type
+        List<ThreatType> effectiveThreats = buildType switch
+        {
+            BuildType.BasicPrototype    => prototypeThreats.ToList(),
+            BuildType.AdvancedPrototype => selectedThreats.ToList(),
+            BuildType.FullGame          => selectedThreats.ToList(),
+            _                           => selectedThreats.ToList()
+        };
+
+        var sphereNames = EmergencyMapping.GetSphereTypesByThreat(effectiveThreats)
+            .Where(s => EmergencyMapping.GetBySphere(s).emergency != null)
+            .ToList();        
+
+        foreach (var player in players)
+            player.Initialize(sphereNames, players);
+        
         MessagePanel.prefab = messagePanelPrefab;
         AsteroidInvestmentManager asteroidManager = AsteroidInvestmentManager.Instance;
         asteroidManager.investmentCost = 50;
@@ -106,8 +134,7 @@ public class GameManager : MonoBehaviour
 
         GameServices.Initialize(gameServices);
 
-        gameServices.threatManager = new();
-        gameServices.threatManager.Initialize(selectedThreats, buildType);
+        gameServices.threatManager.Initialize(effectiveThreats, buildType);
 
         gameServices.turnManager = new();
         gameServices.turnManager.Initialize(players, Instantiate(messagePanelPrefab), cardLibrary);
@@ -130,6 +157,44 @@ public class GameManager : MonoBehaviour
                 devTools.SetTargetPlayer(players[0]);
         }
 
+        if (effectsPanelPrefab != null)
+        {
+            Canvas canvas = FindFirstObjectByType<Canvas>();
+            if (canvas != null)
+            {
+                GameObject effectsPanelObject = Instantiate(effectsPanelPrefab, canvas.transform);
+                effectsPanelObject.name = "EffectsPanel";
+
+                // Get and store the EffectsPanel component
+                effectsPanelInstance = effectsPanelObject.GetComponent<EffectsPanel>();
+
+                if (effectsPanelInstance != null)
+                {
+                    Debug.Log("EffectsPanel instantiated and component found successfully");
+                }
+                else
+                {
+                    Debug.LogError("EffectsPanel GameObject created but EffectsPanel component not found!");
+
+                    // Debug what components are on the GameObject
+                    Component[] components = effectsPanelObject.GetComponents<Component>();
+                    Debug.Log($"Components on EffectsPanel GameObject: {components.Length}");
+                    foreach (var comp in components)
+                    {
+                        Debug.Log($" - {comp.GetType().Name}");
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("Canvas not found in the scene.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("EffectsPanelPrefab is not assigned in the GameManager.");
+        }
+
         GameEvents.OnGameInitialized.Raise();
         Debug.Log("===== !!! THE GAME INITIALIZED !!!=====");
     }
@@ -142,7 +207,17 @@ public class GameManager : MonoBehaviour
     }
     public void OnCurrentEffectsButtonClicked()
     {
-        EffectsPanel effectsPanel = UnityEngine.Object.FindFirstObjectByType<EffectsPanel>();
+        // First try the stored reference
+        if (effectsPanelInstance != null)
+        {
+            effectsPanelInstance.OpenPanel();
+            return;
+        }
+
+        // Fallback to searching (with debug info)
+        Debug.Log("Stored reference is null, searching for EffectsPanel...");
+
+        EffectsPanel effectsPanel = FindFirstObjectByType<EffectsPanel>();
         if (effectsPanel != null)
         {
             effectsPanel.OpenPanel();
@@ -150,6 +225,23 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.LogWarning("EffectsPanel not found in scene!");
+
+            // Check if the GameObject exists
+            GameObject effectsPanelGO = GameObject.Find("EffectsPanel");
+            if (effectsPanelGO != null)
+            {
+                Debug.Log("EffectsPanel GameObject found, but component missing!");
+                Component[] components = effectsPanelGO.GetComponents<Component>();
+                Debug.Log($"Components on EffectsPanel GameObject: {components.Length}");
+                foreach (var comp in components)
+                {
+                    Debug.Log($"- {comp.GetType().Name}");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("EffectsPanel GameObject not found in scene!");
+            }
         }
     }
 }

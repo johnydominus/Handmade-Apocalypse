@@ -46,6 +46,13 @@ public class InvestmentSphereRelay : MonoBehaviour
         this.sphereOwner = sphereOwner;
         this.investor = investor;
 
+        if (sphereName != null && sphereIndex >= 0 && sphereIndex < sphereOwner.investments.Count)
+        {
+            var label = sphereOwner.investments[sphereIndex].sphereName.ToString();
+            sphereName.text = label;
+            gameObject.name = label; 
+        }
+
         Debug.Log("The context for InvestmentSphereRelay is set!");
     }
 

@@ -12,7 +12,7 @@ public class SoECounteractionCommand : ICommand
     {
         this.effect = effect;
         this.player = player;
-        this.tokensAdded = effect.value;
+        this.tokensAdded = (int)effect.value;
     }
 
     public void Execute()

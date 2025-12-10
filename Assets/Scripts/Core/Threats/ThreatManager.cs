@@ -7,41 +7,28 @@ public class ThreatManager
 {
     public GlobalThreatTracker threatTracker { get; private set; } = new();
     private List<Threat> threats = new();
+    BuildType buildType;
     
-    public void Initialize(List<ThreatType> threatList, BuildType buildType)
+    public void Initialize(List<ThreatType> threatList, BuildType bType)
     {
         Debug.Log($"Build type is {buildType.ToString()}");
+        buildType = bType;
 
         switch (buildType)
         {
             case BuildType.FullGame:
-                if (threatList.Count > 0)
-                {
-                    // Select a random threat
-                    int randomIndex = UnityEngine.Random.Range(0, threatList.Count);
-                    ThreatType randomThreat = threatList[randomIndex];
-
-                    // Directly add the theat without using commands
-                    // (since we're still in initialization)
-                    threats.Add(new Threat(randomThreat, 50));
-                    threatTracker.RegisterThreatActivation(randomThreat);
-
-                    Debug.Log($"Initialized with single random threat: {randomThreat}");
-                }
+                InitializeThreatsAndStartOne(threatList);
+                // Additional functionality can be added here for full game
                 break;
 
             case BuildType.BasicPrototype:
-                foreach (var threat in threatList)
-                {
-                    threats.Add(new Threat(threat, 50));
-                    // Register with tracker
-                    threatTracker.RegisterThreatActivation(threat);
-                    Debug.Log($"Initialized with threat: {threat}");
-                }
+                InitializeThreatsAndStartOne(threatList);
+                // Additional functionality can be added here for basic prototype
                 break;
 
             case BuildType.AdvancedPrototype:
-                // Add functionality if needed
+                InitializeThreatsAndStartOne(threatList);
+                // Additional functionality can be added here for advanced prototype
                 break;
         }
 
@@ -158,6 +145,34 @@ public class ThreatManager
             {
                 GameEvents.OnVictory.Raise();
             }
+        }
+    }
+
+    public void InitializeThreatsAndStartOne(List<ThreatType> threatList)
+    {
+        if (threatList.Count > 0)
+        {
+            // Select a random threat
+            int randomIndex = UnityEngine.Random.Range(0, threatList.Count);
+            ThreatType randomThreat = threatList[randomIndex];
+
+            // Directly add the theat without using commands
+            // (since we're still in initialization)
+            threats.Add(new Threat(randomThreat, 50));
+            threatTracker.RegisterThreatActivation(randomThreat);
+
+            Debug.Log($"Initialized with single random threat: {randomThreat}");
+        }
+    }
+
+    public void StartAllThreatsAtValue(List<ThreatType> threatList, int value)
+    {
+        foreach (var threat in threatList)
+        {
+            threats.Add(new Threat(threat, value));
+            // Register with tracker
+            threatTracker.RegisterThreatActivation(threat);
+            Debug.Log($"Started threat: {threat}");
         }
     }
 }

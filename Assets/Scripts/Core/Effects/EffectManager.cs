@@ -129,7 +129,7 @@ public class EffectManager
             case EffectTarget.ThreatLevel:
                 // Get the threat type for this sphere
                 var threatType = EmergencyMapping.GetBySphere(effect.sphereType).threat;
-                GameServices.Instance.threatManager.ApplyThreatChange(threatType, effect.value);
+                GameServices.Instance.threatManager.ApplyThreatChange(threatType, (int)effect.value);
                 Debug.Log($"Applied threat change of {effect.value} to {threatType}");
                 break;
 
@@ -144,9 +144,9 @@ public class EffectManager
                         if (emergency != null)
                         {
                             if (effect.value > 0)
-                                emergency.Increase(effect.value);
+                                emergency.Increase((int)effect.value);
                             else
-                                emergency.Decrease(effect.value);
+                                emergency.Decrease((int)effect.value);
 
                             Debug.Log($"Applied emergency change of {effect.value} to {emergencyType} for {player.playerName}");
                         }

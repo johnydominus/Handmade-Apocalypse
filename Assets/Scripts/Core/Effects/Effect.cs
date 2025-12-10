@@ -12,7 +12,7 @@ using UnityEngine;
     public EffectType effectType;           // Add, multiply or block
     public SphereType sphereType;           // Sphere that the effect is related to (Medicine, Ecology, etc.)
     public EffectTiming effectTiming;       // Default value for effect timing
-    public int value;                       // Value of the effect - how much it adds/
+    public float value;                       // Value of the effect - how much it adds
     [NonSerialized] PlayerController? player;
 
     public List<string> targetCardNames = new();   // List of cards to counter
@@ -42,7 +42,18 @@ using UnityEngine;
     [SerializeReference]
     public List<Effect> effectsIsNotCountered = new();
 
-    public Effect(EffectSource effectSource, EffectTarget effectTarget, EffectType effectType, SphereType sphereType, int value, PlayerController? player = null)
+    public Effect()
+    {
+        effectSource = EffectSource.GlobalEvent;
+        effectTarget = EffectTarget.General;
+        effectType = EffectType.Add;
+        sphereType = SphereType.All;
+        effectTiming = new EffectTiming();
+        effectName = "New Effect";
+        processingPhase = EffectProcessingPhase.Any;
+    }
+
+    public Effect(EffectSource effectSource, EffectTarget effectTarget, EffectType effectType, SphereType sphereType, float value, PlayerController? player = null)
     {
         this.effectSource = effectSource;
         this.effectTarget = effectTarget;

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class InvestmentManager
 {
@@ -53,9 +54,13 @@ public class InvestmentManager
     }
 
 
-    public void TickInvestments()
+    public void TickInvestments(PlayerController owner = null)
     {
-        foreach (var player in GameServices.Instance.turnManager.GetAllPlayers())
+        var owners = owner != null
+            ? new List<PlayerController> { owner }
+            : GameServices.Instance.turnManager.GetAllPlayers();
+
+        foreach (var player in owners)
         {
             foreach (var slot in player.investments)
             {
