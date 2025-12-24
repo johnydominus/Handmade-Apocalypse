@@ -60,6 +60,12 @@ public class EffectCondition
                     return invested >= requiredValue;
                 });
 
+            case EffectConditionType.AnySoEIsActive:
+                return player.emergencies.Any(e => e.stateOfEmergency != null && e.stateOfEmergency.isActive);
+
+            case EffectConditionType.NoSoEIsActive:
+                return !player.emergencies.Any(e => e.stateOfEmergency != null && e.stateOfEmergency.isActive);
+
             default:
                 return true; // Default to true for unknown conditions
         }
@@ -78,5 +84,7 @@ public enum EffectConditionType
     SoEIsActive,
     SoEIsInactive,
     CardEffectIsActive,
-    AllPlayersInvestedMinInSphere
+    AllPlayersInvestedMinInSphere,
+    AnySoEIsActive,
+    NoSoEIsActive
 }

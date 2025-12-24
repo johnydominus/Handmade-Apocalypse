@@ -10,126 +10,61 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
-  m_Name: GE_GW-N_SeaLevelRise
+  m_Name: GE_Dip-Neg_ForbiddenNuclearTest
   m_EditorClassIdentifier: 
   cardType: 1
-  sphereType: 5
-  cardName: Sea Level Rise
-  description: You should care about the ice
-  tokenCost: 1
+  sphereType: 2
+  cardName: Forbidden Nuclear Test
+  description: A rogue nation conducts illegal nuclear testing, poisoning the environment
+    and escalating global tensions
+  tokenCost: 0
   artWork: {fileID: 0}
   effects:
-  - effectName: Tokens/2
+  - effectName: DecreaseEcologyEffects
     effectSource: 0
-    effectTarget: 7
-    effectType: 1
-    sphereType: 0
-    effectTiming:
-      effectTimingType: 0
-      duration: 0
-      delay: 0
-      interval: 0
-      turnsElapsed: 0
-    value: 0.5
-    targetCardNames: []
-    counterScope: 0
-    counterType: 0
-    counterValue: 0
-    sourceCardName: 
-    sourceCardType: 0
-    processingPhase: 0
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 0
-    hasCondition: 0
-    condition:
-      conditionType: 0
-      targetSphere: 0
-      requiredValue: 0
-      targetCardName: 
-    alternativeEffects: []
-    isCounterable: 0
-    tokensRequiredToCounter: 0
-    counteractionDescription: 
-    effectsIsNotCountered: []
-  - effectName: DividendsBlock
-    effectSource: 0
-    effectTarget: 1
-    effectType: 2
-    sphereType: 0
-    effectTiming:
-      effectTimingType: 0
-      duration: 0
-      delay: 0
-      interval: 0
-      turnsElapsed: 0
-    value: 0
-    targetCardNames: []
-    counterScope: 0
-    counterType: 0
-    counterValue: 0
-    sourceCardName: 
-    sourceCardType: 0
-    processingPhase: 0
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 0
-    hasCondition: 0
-    condition:
-      conditionType: 0
-      targetSphere: 0
-      requiredValue: 0
-      targetCardName: 
-    alternativeEffects: []
-    isCounterable: 0
-    tokensRequiredToCounter: 0
-    counteractionDescription: 
-    effectsIsNotCountered: []
-  - effectName: HungerRaise
-    effectSource: 0
-    effectTarget: 3
-    effectType: 0
-    sphereType: 3
-    effectTiming:
-      effectTimingType: 0
-      duration: 0
-      delay: 0
-      interval: 0
-      turnsElapsed: 0
-    value: 3
-    targetCardNames: []
-    counterScope: 0
-    counterType: 0
-    counterValue: 0
-    sourceCardName: 
-    sourceCardType: 0
-    processingPhase: 0
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 0
-    hasCondition: 0
-    condition:
-      conditionType: 7
-      targetSphere: 3
-      requiredValue: 0
-      targetCardName: 
-    alternativeEffects: []
-    isCounterable: 0
-    tokensRequiredToCounter: 0
-    counteractionDescription: 
-    effectsIsNotCountered: []
-  - effectName: WarmingRaise
-    effectSource: 0
-    effectTarget: 3
+    effectTarget: 0
     effectType: 0
     sphereType: 5
+    value: -1
+    effectTiming:
+      effectTimingType: 1
+      duration: 0
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    processingPhase: 7
+    appliesToPositive: 0
+    appliesToNegative: 0
+    multiplierValue: 1
+    hasCondition: 0
+    condition:
+      conditionType: 0
+      targetSphere: 0
+      requiredValue: 0
+      targetCardName: 
+    alternativeEffects: []
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  - effectName: IncreaseGlobalWarmingThreat
+    effectSource: 0
+    effectTarget: 2
+    effectType: 0
+    sphereType: 5
+    value: 3
     effectTiming:
       effectTimingType: 0
       duration: 0
       delay: 0
       interval: 0
       turnsElapsed: 0
-    value: 3
     targetCardNames: []
     counterScope: 0
     counterType: 0
@@ -139,18 +74,121 @@ MonoBehaviour:
     processingPhase: 0
     appliesToPositive: 0
     appliesToNegative: 0
-    multiplierValue: 0
-    hasCondition: 0
+    multiplierValue: 1
+    hasCondition: 1
     condition:
-      conditionType: 7
+      conditionType: 3
       targetSphere: 5
-      requiredValue: 0
+      requiredValue: 1
       targetCardName: 
     alternativeEffects: []
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  - effectName: DecreaseMedicineEffects
+    effectSource: 0
+    effectTarget: 0
+    effectType: 0
+    sphereType: 1
+    value: -1
+    effectTiming:
+      effectTimingType: 1
+      duration: 0
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    processingPhase: 7
+    appliesToPositive: 0
+    appliesToNegative: 0
+    multiplierValue: 1
+    hasCondition: 0
+    condition:
+      conditionType: 3
+      targetSphere: 5
+      requiredValue: 1
+      targetCardName: 
+    alternativeEffects: []
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  - effectName: IncreaseNuclearWarThreat
+    effectSource: 0
+    effectTarget: 2
+    effectType: 0
+    sphereType: 2
+    value: 10
+    effectTiming:
+      effectTimingType: 0
+      duration: 0
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    processingPhase: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    multiplierValue: 1
+    hasCondition: 1
+    condition:
+      conditionType: 3
+      targetSphere: 2
+      requiredValue: 1
+      targetCardName: 
+    alternativeEffects:
+    - rid: 9139456763798749244
     isCounterable: 0
     tokensRequiredToCounter: 0
     counteractionDescription: 
     effectsIsNotCountered: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 9139456763798749244
+      type: {class: Effect, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: ActivateMartialLawSoE
+        effectSource: 0
+        effectTarget: 4
+        effectType: 0
+        sphereType: 2
+        value: 1
+        effectTiming:
+          effectTimingType: 0
+          duration: 0
+          delay: 0
+          interval: 0
+          turnsElapsed: 0
+        targetCardNames: []
+        counterScope: 0
+        counterType: 0
+        counterValue: 0
+        sourceCardName: 
+        sourceCardType: 0
+        processingPhase: 0
+        appliesToPositive: 0
+        appliesToNegative: 0
+        multiplierValue: 1
+        hasCondition: 0
+        condition:
+          conditionType: 0
+          targetSphere: 0
+          requiredValue: 0
+          targetCardName: 
+        alternativeEffects: []
+        isCounterable: 0
+        tokensRequiredToCounter: 0
+        counteractionDescription: 
+        effectsIsNotCountered: []

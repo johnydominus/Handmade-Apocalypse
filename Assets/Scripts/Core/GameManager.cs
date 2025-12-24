@@ -114,9 +114,7 @@ public class GameManager : MonoBehaviour
             _                           => selectedThreats.ToList()
         };
 
-        var sphereNames = EmergencyMapping.GetSphereTypesByThreat(effectiveThreats)
-            .Where(s => EmergencyMapping.GetBySphere(s).emergency != null)
-            .ToList();        
+        var sphereNames = EmergencyMapping.GetSphereTypesByThreat(effectiveThreats).ToList();
 
         foreach (var player in players)
             player.Initialize(sphereNames, players);

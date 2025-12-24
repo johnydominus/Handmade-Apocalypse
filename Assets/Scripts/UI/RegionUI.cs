@@ -48,7 +48,9 @@ public class RegionUI : MonoBehaviour
     
     private void OnSoEActivated(SoEContext context)
     {
-        for (int i = 0; i < currentPlayer.emergencies.Count; i++)
+        int max = Mathf.Min(currentPlayer.emergencies.Count, soECounteractionUIs.Length);
+
+        for (int i = 0; i < max; i++)
         {
             var emergency = currentPlayer.emergencies[i];
 

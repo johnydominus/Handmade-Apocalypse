@@ -11,8 +11,8 @@ using UnityEngine;
     public EffectTarget effectTarget;       // What it affects - dividends, threat level, etc.
     public EffectType effectType;           // Add, multiply or block
     public SphereType sphereType;           // Sphere that the effect is related to (Medicine, Ecology, etc.)
-    public EffectTiming effectTiming;       // Default value for effect timing
     public float value;                       // Value of the effect - how much it adds
+    public EffectTiming effectTiming;       // Default value for effect timing
     [NonSerialized] PlayerController? player;
 
     public List<string> targetCardNames = new();   // List of cards to counter
