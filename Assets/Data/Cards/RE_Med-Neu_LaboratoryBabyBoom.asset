@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
-  m_Name: RE_Med-Neg_AntibioticsEfficiencyDecreased
+  m_Name: RE_Med-Neu_LaboratoryBabyBoom
   m_EditorClassIdentifier: 
   cardType: 2
   sphereType: 1
-  cardName: Antibiotics Efficiency Decreased
-  description: Widespread antibiotic resistance threatens to make common infections
-    deadly again
+  cardName: Laboratory-Born Baby Boom
+  description: Advances in reproductive medicine spark ethical debates while boosting
+    the medical sector
   tokenCost: 0
   artWork: {fileID: 0}
   effects:
-  - effectName: AntibioticResistanceCrisis
+  - effectName: IncreaseDarkAgesThreat
     effectSource: 2
-    effectTarget: 11
+    effectTarget: 2
     effectType: 0
-    sphereType: 1
-    value: 0
+    sphereType: 4
+    value: 10
     effectTiming:
-      effectTimingType: 3
+      effectTimingType: 0
       duration: 0
-      delay: 3
+      delay: 0
       interval: 0
       turnsElapsed: 0
     targetCardNames: []
@@ -37,30 +37,29 @@ MonoBehaviour:
     counterType: 0
     counterValue: 0
     sourceCardName: 
-    sourceCardType: 0
-    processingPhase: 7
+    sourceCardType: 2
+    processingPhase: 0
     appliesToPositive: 0
     appliesToNegative: 0
     multiplierValue: 0
     hasCondition: 1
     condition:
-      conditionType: 8
-      targetSphere: 1
-      requiredValue: 0
+      conditionType: 3
+      targetSphere: 4
+      requiredValue: 1
       targetCardName: 
-    alternativeEffects: []
-    isCounterable: 1
-    tokensRequiredToCounter: 12
-    counteractionDescription: 'Antibiotic Resistance: Research new treatments or
-      epidemic will erupt'
-    effectsIsNotCountered:
-    - rid: 9139456763798749248
-  - effectName: BlockEpidemicCounteration
+    alternativeEffects:
+    - rid: 9139456813309624322
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  - effectName: DoubleMedicineDividends
     effectSource: 2
-    effectTarget: 10
-    effectType: 2
+    effectTarget: 1
+    effectType: 1
     sphereType: 1
-    value: 1
+    value: 0
     effectTiming:
       effectTimingType: 1
       duration: 0
@@ -73,35 +72,34 @@ MonoBehaviour:
     counterValue: 0
     sourceCardName: 
     sourceCardType: 2
-    processingPhase: 7
+    processingPhase: 4
     appliesToPositive: 0
     appliesToNegative: 0
-    multiplierValue: 0
-    hasCondition: 1
+    multiplierValue: 2
+    hasCondition: 0
     condition:
-      conditionType: 7
-      targetSphere: 1
-      requiredValue: 0
+      conditionType: 3
+      targetSphere: 4
+      requiredValue: 1
       targetCardName: 
-    alternativeEffects: []
-    isCounterable: 1
-    tokensRequiredToCounter: 12
-    counteractionDescription: 'Antibiotic Resistance: Research new treatments or
-      epidemic will erupt'
-    effectsIsNotCountered:
-    - rid: 9139456763798749248
+    alternativeEffects:
+    - rid: 9139456813309624322
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
   references:
     version: 2
     RefIds:
-    - rid: 9139456763798749248
+    - rid: 9139456813309624322
       type: {class: Effect, ns: , asm: Assembly-CSharp}
       data:
-        effectName: ActivateEpidemicSoE
+        effectName: IncreaseEducationalCrisis
         effectSource: 2
-        effectTarget: 4
+        effectTarget: 3
         effectType: 0
-        sphereType: 1
-        value: 1
+        sphereType: 4
+        value: 5
         effectTiming:
           effectTimingType: 0
           duration: 0
@@ -113,8 +111,8 @@ MonoBehaviour:
         counterType: 0
         counterValue: 0
         sourceCardName: 
-        sourceCardType: 0
-        processingPhase: 6
+        sourceCardType: 2
+        processingPhase: 3
         appliesToPositive: 0
         appliesToNegative: 0
         multiplierValue: 1

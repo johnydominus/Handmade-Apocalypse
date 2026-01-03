@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
-  m_Name: RE_Med-Neg_AntibioticsEfficiencyDecreased
+  m_Name: RE_Med-Neu_PharmaFraudExposed
   m_EditorClassIdentifier: 
   cardType: 2
   sphereType: 1
-  cardName: Antibiotics Efficiency Decreased
-  description: Widespread antibiotic resistance threatens to make common infections
-    deadly again
+  cardName: Huge Fraud by Pharmaceutical Company Exposed
+  description: Major pharmaceutical scandal rewards whistleblowers but damages public
+    trust in science
   tokenCost: 0
   artWork: {fileID: 0}
   effects:
-  - effectName: AntibioticResistanceCrisis
+  - effectName: WhistleblowerReward
     effectSource: 2
-    effectTarget: 11
+    effectTarget: 7
     effectType: 0
     sphereType: 1
-    value: 0
+    value: 3
     effectTiming:
-      effectTimingType: 3
+      effectTimingType: 0
       duration: 0
-      delay: 3
+      delay: 0
       interval: 0
       turnsElapsed: 0
     targetCardNames: []
@@ -42,25 +42,23 @@ MonoBehaviour:
     appliesToPositive: 0
     appliesToNegative: 0
     multiplierValue: 0
-    hasCondition: 1
+    hasCondition: 0
     condition:
-      conditionType: 8
-      targetSphere: 1
+      conditionType: 0
+      targetSphere: 0
       requiredValue: 0
       targetCardName: 
     alternativeEffects: []
-    isCounterable: 1
-    tokensRequiredToCounter: 12
-    counteractionDescription: 'Antibiotic Resistance: Research new treatments or
-      epidemic will erupt'
-    effectsIsNotCountered:
-    - rid: 9139456763798749248
-  - effectName: BlockEpidemicCounteration
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  - effectName: ZeroMedicineDividends
     effectSource: 2
-    effectTarget: 10
-    effectType: 2
+    effectTarget: 1
+    effectType: 1
     sphereType: 1
-    value: 1
+    value: 0
     effectTiming:
       effectTimingType: 1
       duration: 0
@@ -73,34 +71,33 @@ MonoBehaviour:
     counterValue: 0
     sourceCardName: 
     sourceCardType: 2
-    processingPhase: 7
+    processingPhase: 4
     appliesToPositive: 0
     appliesToNegative: 0
     multiplierValue: 0
     hasCondition: 1
     condition:
-      conditionType: 7
-      targetSphere: 1
-      requiredValue: 0
+      conditionType: 3
+      targetSphere: 4
+      requiredValue: 1
       targetCardName: 
-    alternativeEffects: []
-    isCounterable: 1
-    tokensRequiredToCounter: 12
-    counteractionDescription: 'Antibiotic Resistance: Research new treatments or
-      epidemic will erupt'
-    effectsIsNotCountered:
-    - rid: 9139456763798749248
+    alternativeEffects:
+    - rid: 9139456813309624321
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
   references:
     version: 2
     RefIds:
-    - rid: 9139456763798749248
+    - rid: 9139456813309624321
       type: {class: Effect, ns: , asm: Assembly-CSharp}
       data:
-        effectName: ActivateEpidemicSoE
+        effectName: IncreaseEducationalCrisis
         effectSource: 2
-        effectTarget: 4
+        effectTarget: 3
         effectType: 0
-        sphereType: 1
+        sphereType: 4
         value: 1
         effectTiming:
           effectTimingType: 0
@@ -113,8 +110,8 @@ MonoBehaviour:
         counterType: 0
         counterValue: 0
         sourceCardName: 
-        sourceCardType: 0
-        processingPhase: 6
+        sourceCardType: 2
+        processingPhase: 3
         appliesToPositive: 0
         appliesToNegative: 0
         multiplierValue: 1

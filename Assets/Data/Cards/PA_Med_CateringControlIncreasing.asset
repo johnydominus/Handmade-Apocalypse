@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
+  m_Name: PA_Med_CateringControlIncreasing
+  m_EditorClassIdentifier: 
+  cardType: 0
+  sphereType: 0
+  cardName: Increasing control over compliance with sanitary standards in the catering
+    sector
+  description: 
+  tokenCost: 4
+  artWork: {fileID: 0}
+  effects:
+  - effectName: PandemicsLowered
+    effectSource: 3
+    effectTarget: 2
+    effectType: 0
+    sphereType: 1
+    value: -5
+    effectTiming:
+      effectTimingType: 0
+      duration: 0
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    processingPhase: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    multiplierValue: 0
+    hasCondition: 1
+    condition:
+      conditionType: 3
+      targetSphere: 1
+      requiredValue: 1
+      targetCardName: 
+    alternativeEffects:
+    - rid: 9139456813309624323
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 9139456813309624323
+      type: {class: Effect, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: EpidemicsEmergencyLowered
+        effectSource: 2
+        effectTarget: 3
+        effectType: 0
+        sphereType: 1
+        value: -2
+        effectTiming:
+          effectTimingType: 0
+          duration: 0
+          delay: 0
+          interval: 0
+          turnsElapsed: 0
+        targetCardNames: []
+        counterScope: 0
+        counterType: 0
+        counterValue: 0
+        sourceCardName: 
+        sourceCardType: 0
+        processingPhase: 2
+        appliesToPositive: 0
+        appliesToNegative: 0
+        multiplierValue: 1
+        hasCondition: 1
+        condition:
+          conditionType: 8
+          targetSphere: 1
+          requiredValue: 1
+          targetCardName: 
+        alternativeEffects:
+        - rid: 9139456813309624384
+        isCounterable: 0
+        tokensRequiredToCounter: 0
+        counteractionDescription: 
+        effectsIsNotCountered: []
+    - rid: 9139456813309624384
+      type: {class: Effect, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: EpidemicsSoECounteredBy3
+        effectSource: 2
+        effectTarget: 9
+        effectType: 0
+        sphereType: 1
+        value: 3
+        effectTiming:
+          effectTimingType: 0
+          duration: 0
+          delay: 0
+          interval: 0
+          turnsElapsed: 0
+        targetCardNames: []
+        counterScope: 0
+        counterType: 0
+        counterValue: 0
+        sourceCardName: 
+        sourceCardType: 0
+        processingPhase: 3
+        appliesToPositive: 0
+        appliesToNegative: 0
+        multiplierValue: 1
+        hasCondition: 0
+        condition:
+          conditionType: 0
+          targetSphere: 0
+          requiredValue: 0
+          targetCardName: 
+        alternativeEffects: []
+        isCounterable: 0
+        tokensRequiredToCounter: 0
+        counteractionDescription: 
+        effectsIsNotCountered: []

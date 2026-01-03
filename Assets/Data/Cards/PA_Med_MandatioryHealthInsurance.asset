@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
+  m_Name: PA_Med_MandatioryHealthInsurance
+  m_EditorClassIdentifier: 
+  cardType: 0
+  sphereType: 1
+  cardName: Mandatory Health Insurance
+  description: "Now, without properly arranged health insurance you can\u2019t get
+    a job, you can\u2019t get a driver\u2019s license, and you can\u2019t even buy
+    aspirin. People will grumble a bit, of course, but before long they won\u2019t
+    know how they ever managed without that insurance. "
+  tokenCost: 3
+  artWork: {fileID: 0}
+  effects:
+  - effectName: DecreasePandemicsThreat
+    effectSource: 3
+    effectTarget: 2
+    effectType: 0
+    sphereType: 0
+    value: 0
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 0
+    effectTiming:
+      effectTimingType: 0
+      duration: 0
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    hasCondition: 0
+    condition:
+      conditionType: 0
+      targetSphere: 0
+      requiredValue: 0
+      targetCardName: 
+    alternativeEffects: []
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  references:
+    version: 2
+    RefIds: []

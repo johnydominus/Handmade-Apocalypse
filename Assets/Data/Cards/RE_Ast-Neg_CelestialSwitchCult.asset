@@ -1,0 +1,231 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
+  m_Name: RE_Ast-Neg_CelestialSwitchCult
+  m_EditorClassIdentifier: 
+  cardType: 2
+  sphereType: 6
+  cardName: The Cult of the Great Celestial Switch
+  description: Apocalyptic cult spreads conspiracy theories about space programs,
+    undermining science and astronomy
+  tokenCost: 0
+  artWork: {fileID: 0}
+  effects:
+  - effectName: IncreaseDarkAgesThreat
+    effectSource: 2
+    effectTarget: 2
+    effectType: 0
+    sphereType: 4
+    value: 5
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 0
+    effectTiming:
+      effectTimingType: 0
+      duration: 0
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    hasCondition: 1
+    condition:
+      conditionType: 3
+      targetSphere: 4
+      requiredValue: 1
+      targetCardName: 
+    alternativeEffects:
+    - rid: 6014456226222178367
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  - effectName: BlockPositiveAstronauticsEffects
+    effectSource: 2
+    effectTarget: 0
+    effectType: 2
+    sphereType: 6
+    value: 0
+    multiplierValue: 1
+    appliesToPositive: 1
+    appliesToNegative: 0
+    processingPhase: 7
+    effectTiming:
+      effectTimingType: 1
+      duration: 0
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    hasCondition: 0
+    condition:
+      conditionType: 0
+      targetSphere: 0
+      requiredValue: 0
+      targetCardName: 
+    alternativeEffects: []
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  - effectName: AmplifyNegativeAstronauticsEffects
+    effectSource: 2
+    effectTarget: 0
+    effectType: 0
+    sphereType: 6
+    value: -2
+    multiplierValue: 1
+    appliesToPositive: 0
+    appliesToNegative: 1
+    processingPhase: 7
+    effectTiming:
+      effectTimingType: 1
+      duration: 0
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    hasCondition: 0
+    condition:
+      conditionType: 0
+      targetSphere: 0
+      requiredValue: 0
+      targetCardName: 
+    alternativeEffects: []
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  - effectName: ZeroAstronauticsDividends
+    effectSource: 2
+    effectTarget: 1
+    effectType: 1
+    sphereType: 6
+    value: 0
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 4
+    effectTiming:
+      effectTimingType: 2
+      duration: 3
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    hasCondition: 0
+    condition:
+      conditionType: 0
+      targetSphere: 0
+      requiredValue: 0
+      targetCardName: 
+    alternativeEffects: []
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 6014456226222178367
+      type: {class: Effect, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: HinderEducationCrisisCounteration
+        effectSource: 2
+        effectTarget: 9
+        effectType: 0
+        sphereType: 0
+        value: -2
+        multiplierValue: 1
+        appliesToPositive: 0
+        appliesToNegative: 0
+        processingPhase: 7
+        effectTiming:
+          effectTimingType: 0
+          duration: 0
+          delay: 0
+          interval: 0
+          turnsElapsed: 0
+        targetCardNames: []
+        counterScope: 0
+        counterType: 0
+        counterValue: 0
+        sourceCardName: 
+        sourceCardType: 0
+        hasCondition: 1
+        condition:
+          conditionType: 7
+          targetSphere: 4
+          requiredValue: 0
+          targetCardName: 
+        alternativeEffects:
+        - rid: 6014456226222178368
+        isCounterable: 0
+        tokensRequiredToCounter: 0
+        counteractionDescription: 
+        effectsIsNotCountered: []
+    - rid: 6014456226222178368
+      type: {class: Effect, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: IncreaseEducationCrisisEmergency
+        effectSource: 2
+        effectTarget: 3
+        effectType: 0
+        sphereType: 4
+        value: 1
+        multiplierValue: 1
+        appliesToPositive: 0
+        appliesToNegative: 0
+        processingPhase: 3
+        effectTiming:
+          effectTimingType: 0
+          duration: 0
+          delay: 0
+          interval: 0
+          turnsElapsed: 0
+        targetCardNames: []
+        counterScope: 0
+        counterType: 0
+        counterValue: 0
+        sourceCardName: 
+        sourceCardType: 0
+        hasCondition: 0
+        condition:
+          conditionType: 0
+          targetSphere: 0
+          requiredValue: 0
+          targetCardName: 
+        alternativeEffects: []
+        isCounterable: 0
+        tokensRequiredToCounter: 0
+        counteractionDescription: 
+        effectsIsNotCountered: []

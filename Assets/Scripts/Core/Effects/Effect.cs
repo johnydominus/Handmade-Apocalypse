@@ -12,25 +12,22 @@ using UnityEngine;
     public EffectType effectType;           // Add, multiply or block
     public SphereType sphereType;           // Sphere that the effect is related to (Medicine, Ecology, etc.)
     public float value;                       // Value of the effect - how much it adds
+    public float multiplierValue = 1.0f;    // like 2.0f (for x2), 0.5f (for halving)
+    public bool appliesToPositive;
+    public bool appliesToNegative;
+    public EffectProcessingPhase processingPhase = EffectProcessingPhase.Any;
     public EffectTiming effectTiming;       // Default value for effect timing
     [NonSerialized] PlayerController? player;
-
     public List<string> targetCardNames = new();   // List of cards to counter
     public CounterEffectScope counterScope = CounterEffectScope.CurrentRegion;
     public CounterEffectType counterType = CounterEffectType.CompleteNegation;
     public float counterValue = 0f;
 
-    // Source tracking for counter-targeting
-    public string sourceCardName = "";      // Name of the card that treated this effect
-    public CardType sourceCardType;         // Type of the source card
+    // Source tracking for counter-targeting (auto-populated at runtime)
+    [HideInInspector] public string sourceCardName = "";      // Name of the card that treated this effect
+    [HideInInspector] public CardType sourceCardType;         // Type of the source card
 
     // Property for phase-specific processing
-    public EffectProcessingPhase processingPhase = EffectProcessingPhase.Any;
-
-    public bool appliesToPositive;
-    public bool appliesToNegative;
-    public float multiplierValue = 1.0f;    // like 2.0f (for x2), 0.5f (for halving)
-    
     public bool hasCondition = false;
     public EffectCondition? condition;
     [SerializeReference]

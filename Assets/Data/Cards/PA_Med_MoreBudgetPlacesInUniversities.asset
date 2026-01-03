@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
+  m_Name: PA_Med_MoreBudgetPlacesInUniversities
+  m_EditorClassIdentifier: 
+  cardType: 0
+  sphereType: 1
+  cardName: More Budget Places in Medical Universities
+  description: To attract new specialists, you make it easier for them to enter the
+    field. After some time, the costs will pay off in full.
+  tokenCost: 5
+  artWork: {fileID: 0}
+  effects:
+  - effectName: BoostPositiveMedicineEffects
+    effectSource: 3
+    effectTarget: 0
+    effectType: 0
+    sphereType: 1
+    value: 2
+    multiplierValue: 1
+    appliesToPositive: 1
+    appliesToNegative: 0
+    processingPhase: 7
+    effectTiming:
+      effectTimingType: 2
+      duration: 3
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    hasCondition: 0
+    condition:
+      conditionType: 0
+      targetSphere: 0
+      requiredValue: 0
+      targetCardName: 
+    alternativeEffects: []
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  references:
+    version: 2
+    RefIds: []
