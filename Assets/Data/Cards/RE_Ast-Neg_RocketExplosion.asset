@@ -55,6 +55,39 @@ MonoBehaviour:
     tokensRequiredToCounter: 0
     counteractionDescription: 
     effectsIsNotCountered: []
+  - effectName: DevoidAstroDividends
+    effectSource: 2
+    effectTarget: 1
+    effectType: 1
+    sphereType: 4
+    value: 0
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 4
+    effectTiming:
+      effectTimingType: 0
+      duration: 0
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    hasCondition: 0
+    condition:
+      conditionType: 3
+      targetSphere: 4
+      requiredValue: 1
+      targetCardName: 
+    alternativeEffects: []
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
   references:
     version: 2
     RefIds:
@@ -87,43 +120,6 @@ MonoBehaviour:
         condition:
           conditionType: 7
           targetSphere: 4
-          requiredValue: 0
-          targetCardName: 
-        alternativeEffects:
-        - rid: 6014456226222178370
-        isCounterable: 0
-        tokensRequiredToCounter: 0
-        counteractionDescription: 
-        effectsIsNotCountered: []
-    - rid: 6014456226222178370
-      type: {class: Effect, ns: , asm: Assembly-CSharp}
-      data:
-        effectName: NestedAlternative
-        effectSource: 0
-        effectTarget: 0
-        effectType: 0
-        sphereType: 0
-        value: 0
-        multiplierValue: 1
-        appliesToPositive: 0
-        appliesToNegative: 0
-        processingPhase: 7
-        effectTiming:
-          effectTimingType: 0
-          duration: 0
-          delay: 0
-          interval: 0
-          turnsElapsed: 0
-        targetCardNames: []
-        counterScope: 0
-        counterType: 0
-        counterValue: 0
-        sourceCardName: 
-        sourceCardType: 0
-        hasCondition: 0
-        condition:
-          conditionType: 0
-          targetSphere: 0
           requiredValue: 0
           targetCardName: 
         alternativeEffects: []

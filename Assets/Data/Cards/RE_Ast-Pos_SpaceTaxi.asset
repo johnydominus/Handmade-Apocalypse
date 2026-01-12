@@ -10,26 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
-  m_Name: RE_Ast-Neg_EngineersMistake
+  m_Name: RE_Ast-Pos_SpaceTaxi
   m_EditorClassIdentifier: 
-  cardType: 0
+  cardType: 2
   sphereType: 6
-  cardName: Engineer's mistake
-  description: Due to an error in the calculations for a critical mission, we have
-    to start everything from scratch
+  cardName: Space Taxi
+  description: "A private space company has launched a new type of orbital transport
+    \u2014 a \u201Cspace taxi.\u201D This vehicle has made sending people and medium-sized
+    cargo to orbit no more difficult than traveling to a neighboring city. The innovation
+    has greatly accelerated work in orbit and attracted a stream of money from investors
+    and customers. "
   tokenCost: 0
   artWork: {fileID: 0}
   effects:
-  - effectName: DevoidAstronauticsDividends
+  - effectName: AsteroidCounteraction
     effectSource: 2
-    effectTarget: 1
-    effectType: 1
+    effectTarget: 12
+    effectType: 0
     sphereType: 6
-    value: 0
+    value: 7
     multiplierValue: 0
     appliesToPositive: 0
     appliesToNegative: 0
-    processingPhase: 4
+    processingPhase: 0
     effectTiming:
       effectTimingType: 1
       duration: 0
@@ -53,18 +56,18 @@ MonoBehaviour:
     tokensRequiredToCounter: 0
     counteractionDescription: 
     effectsIsNotCountered: []
-  - effectName: LoseTokens
+  - effectName: DividendsDoubled
     effectSource: 2
-    effectTarget: 7
-    effectType: 0
+    effectTarget: 1
+    effectType: 1
     sphereType: 6
-    value: -3
-    multiplierValue: 1
+    value: 0
+    multiplierValue: 2
     appliesToPositive: 0
     appliesToNegative: 0
-    processingPhase: 7
+    processingPhase: 4
     effectTiming:
-      effectTimingType: 0
+      effectTimingType: 1
       duration: 0
       delay: 0
       interval: 0

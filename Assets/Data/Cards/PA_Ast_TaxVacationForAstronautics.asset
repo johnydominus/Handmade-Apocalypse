@@ -10,29 +10,63 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
-  m_Name: PA_Med_CateringControlIncreasing
+  m_Name: PA_Ast_TaxVacationForAstronautics
   m_EditorClassIdentifier: 
   cardType: 0
   sphereType: 1
-  cardName: Increasing control over compliance with sanitary standards in the catering
-    sector
-  description: 
+  cardName: Tax Vacation for Astronautics
+  description: 'You exempt space enterprises from tax payments for the current reporting
+    period. The sector becomes more profitable, which attracts short-term investment.
+    Some companies channel the freed-up funds into research on pressing "space" problems. '
   tokenCost: 4
   artWork: {fileID: 0}
   effects:
-  - effectName: PandemicsLowered
+  - effectName: DoubleAstronauticsDividends
     effectSource: 3
-    effectTarget: 2
-    effectType: 0
-    sphereType: 1
-    value: -5
-    multiplierValue: 0
+    effectTarget: 1
+    effectType: 1
+    sphereType: 6
+    value: 0
+    multiplierValue: 2
     appliesToPositive: 0
     appliesToNegative: 0
-    processingPhase: 0
+    processingPhase: 4
+    effectTiming:
+      effectTimingType: 2
+      duration: 6
+      delay: 1
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: Tax Vacation for Medicine
+    sourceCardType: 0
+    hasCondition: 0
+    condition:
+      conditionType: 0
+      targetSphere: 0
+      requiredValue: 0
+      targetCardName: 
+    alternativeEffects: []
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  - effectName: IncreaseAsteroidThreatCounteracion
+    effectSource: 3
+    effectTarget: 12
+    effectType: 0
+    sphereType: 1
+    value: 6
+    multiplierValue: 1
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 7
     effectTiming:
       effectTimingType: 0
-      duration: 0
+      duration: 1
       delay: 0
       interval: 0
       turnsElapsed: 0
@@ -40,7 +74,7 @@ MonoBehaviour:
     counterScope: 0
     counterType: 0
     counterValue: 0
-    sourceCardName: 
+    sourceCardName: Tax Vacation for Medicine
     sourceCardType: 0
     hasCondition: 1
     condition:
@@ -49,7 +83,7 @@ MonoBehaviour:
       requiredValue: 1
       targetCardName: 
     alternativeEffects:
-    - rid: 9139456813309624323
+    - rid: 6014456226222178365
     isCounterable: 0
     tokensRequiredToCounter: 0
     counteractionDescription: 
@@ -57,19 +91,19 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 9139456813309624323
+    - rid: 6014456226222178365
       type: {class: Effect, ns: , asm: Assembly-CSharp}
       data:
-        effectName: EpidemicsEmergencyLowered
-        effectSource: 2
-        effectTarget: 3
+        effectName: SoECounteractionOrEmergencyDecrease
+        effectSource: 3
+        effectTarget: 9
         effectType: 0
         sphereType: 1
-        value: -2
+        value: 3
         multiplierValue: 1
         appliesToPositive: 0
         appliesToNegative: 0
-        processingPhase: 2
+        processingPhase: 7
         effectTiming:
           effectTimingType: 0
           duration: 0
@@ -84,25 +118,25 @@ MonoBehaviour:
         sourceCardType: 0
         hasCondition: 1
         condition:
-          conditionType: 8
+          conditionType: 7
           targetSphere: 1
-          requiredValue: 1
+          requiredValue: 0
           targetCardName: 
         alternativeEffects:
-        - rid: 9139456813309624384
+        - rid: 6014456226222178366
         isCounterable: 0
         tokensRequiredToCounter: 0
         counteractionDescription: 
         effectsIsNotCountered: []
-    - rid: 9139456813309624384
+    - rid: 6014456226222178366
       type: {class: Effect, ns: , asm: Assembly-CSharp}
       data:
-        effectName: EpidemicsSoECounteredBy3
-        effectSource: 2
-        effectTarget: 9
+        effectName: DecreaseEpidemicEmergency
+        effectSource: 3
+        effectTarget: 3
         effectType: 0
         sphereType: 1
-        value: 3
+        value: -3
         multiplierValue: 1
         appliesToPositive: 0
         appliesToNegative: 0

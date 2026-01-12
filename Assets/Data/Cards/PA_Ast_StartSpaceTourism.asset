@@ -10,63 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
-  m_Name: RE_Ast-Neg_EngineersMistake
+  m_Name: PA_Ast_StartSpaceTourism
   m_EditorClassIdentifier: 
   cardType: 0
   sphereType: 6
-  cardName: Engineer's mistake
-  description: Due to an error in the calculations for a critical mission, we have
-    to start everything from scratch
-  tokenCost: 0
+  cardName: Start space tourism
+  description: The chance to see our little planet from orbit pulled in a ton of
+    money
+  tokenCost: 3
   artWork: {fileID: 0}
   effects:
-  - effectName: DevoidAstronauticsDividends
-    effectSource: 2
+  - effectName: DoubleAstroDivsNextTurn
+    effectSource: 3
     effectTarget: 1
     effectType: 1
     sphereType: 6
     value: 0
-    multiplierValue: 0
+    multiplierValue: 2
     appliesToPositive: 0
     appliesToNegative: 0
     processingPhase: 4
     effectTiming:
-      effectTimingType: 1
-      duration: 0
-      delay: 0
-      interval: 0
-      turnsElapsed: 0
-    targetCardNames: []
-    counterScope: 0
-    counterType: 0
-    counterValue: 0
-    sourceCardName: 
-    sourceCardType: 0
-    hasCondition: 0
-    condition:
-      conditionType: 0
-      targetSphere: 0
-      requiredValue: 0
-      targetCardName: 
-    alternativeEffects: []
-    isCounterable: 0
-    tokensRequiredToCounter: 0
-    counteractionDescription: 
-    effectsIsNotCountered: []
-  - effectName: LoseTokens
-    effectSource: 2
-    effectTarget: 7
-    effectType: 0
-    sphereType: 6
-    value: -3
-    multiplierValue: 1
-    appliesToPositive: 0
-    appliesToNegative: 0
-    processingPhase: 7
-    effectTiming:
-      effectTimingType: 0
-      duration: 0
-      delay: 0
+      effectTimingType: 3
+      duration: 1
+      delay: 1
       interval: 0
       turnsElapsed: 0
     targetCardNames: []

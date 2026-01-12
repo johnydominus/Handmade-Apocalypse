@@ -139,6 +139,10 @@ public class ApplyEffectCommand : ICommand
             case EffectTarget.DelayedCounterable:
                 GameServices.Instance.commandManager.ExecuteCommand(new DelayedCounterableEffectCommand(effect, player));
                 break;
+
+            case EffectTarget.AsteroidInvestment:
+                GameServices.Instance.commandManager.ExecuteCommand(new AsteroidInvestmentCommand(effect, player));
+                break;
         }
     }
 

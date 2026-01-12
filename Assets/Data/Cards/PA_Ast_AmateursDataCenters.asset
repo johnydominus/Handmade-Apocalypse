@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
-  m_Name: RE_Ast-Neg_EngineersMistake
+  m_Name: PA_Ast_AmateursDataCenters
   m_EditorClassIdentifier: 
   cardType: 0
   sphereType: 6
-  cardName: Engineer's mistake
-  description: Due to an error in the calculations for a critical mission, we have
-    to start everything from scratch
-  tokenCost: 0
+  cardName: Data centers for gathering info from amateur astrophysicits
+  description: "Creating an info hub that collects and organizes information from
+    evening stargazing enthusiasts will greatly \u043E\u0431\u043B\u0435\u0433\u0447\u0438\u0442\u044C
+    the work of professionals."
+  tokenCost: 3
   artWork: {fileID: 0}
   effects:
-  - effectName: DevoidAstronauticsDividends
-    effectSource: 2
-    effectTarget: 1
-    effectType: 1
-    sphereType: 6
-    value: 0
-    multiplierValue: 0
-    appliesToPositive: 0
+  - effectName: AmplifyPositiveDiplomacyEffects
+    effectTarget: 0
+    effectType: 0
+    sphereType: 2
+    value: 2
+    multiplierValue: 1
+    appliesToPositive: 1
     appliesToNegative: 0
-    processingPhase: 4
+    processingPhase: 7
     effectTiming:
       effectTimingType: 1
       duration: 0
@@ -53,18 +53,18 @@ MonoBehaviour:
     tokensRequiredToCounter: 0
     counteractionDescription: 
     effectsIsNotCountered: []
-  - effectName: LoseTokens
+  - effectName: DecreaseNegativeDiplomacyEffects
     effectSource: 2
-    effectTarget: 7
+    effectTarget: 0
     effectType: 0
-    sphereType: 6
-    value: -3
+    sphereType: 2
+    value: -2
     multiplierValue: 1
     appliesToPositive: 0
-    appliesToNegative: 0
+    appliesToNegative: 1
     processingPhase: 7
     effectTiming:
-      effectTimingType: 0
+      effectTimingType: 1
       duration: 0
       delay: 0
       interval: 0

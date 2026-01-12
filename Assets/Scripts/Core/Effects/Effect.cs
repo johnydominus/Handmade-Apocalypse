@@ -157,7 +157,8 @@ public enum EffectTarget
     CounterCardEffect,
     SoECounterAction,
     SoEBlock,
-    DelayedCounterable
+    DelayedCounterable,
+    AsteroidInvestment
 }
 
 public enum CounterEffectScope

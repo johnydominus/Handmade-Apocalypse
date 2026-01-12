@@ -10,26 +10,59 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
-  m_Name: PA_Med_CateringControlIncreasing
+  m_Name: RE_Dip-Neg_Terract
   m_EditorClassIdentifier: 
-  cardType: 0
-  sphereType: 1
-  cardName: Increasing control over compliance with sanitary standards in the catering
-    sector
-  description: 
-  tokenCost: 4
+  cardType: 2
+  sphereType: 2
+  cardName: Terract
+  description: A blast has struck your capital, leaving dozens dead. Official mourning
+    has been declared. Activists are urging a war on terrorism.
+  tokenCost: 0
   artWork: {fileID: 0}
   effects:
-  - effectName: PandemicsLowered
-    effectSource: 3
+  - effectName: DividendsHalved
+    effectSource: 2
+    effectTarget: 1
+    effectType: 1
+    sphereType: 0
+    value: 0
+    multiplierValue: 0.5
+    appliesToPositive: 0
+    appliesToNegative: 1
+    processingPhase: 4
+    effectTiming:
+      effectTimingType: 1
+      duration: 0
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    hasCondition: 0
+    condition:
+      conditionType: 0
+      targetSphere: 0
+      requiredValue: 0
+      targetCardName: 
+    alternativeEffects: []
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  - effectName: NuclearThreatIncreased
+    effectSource: 2
     effectTarget: 2
     effectType: 0
-    sphereType: 1
-    value: -5
-    multiplierValue: 0
+    sphereType: 2
+    value: 5
+    multiplierValue: 1
     appliesToPositive: 0
-    appliesToNegative: 0
-    processingPhase: 0
+    appliesToNegative: 1
+    processingPhase: 7
     effectTiming:
       effectTimingType: 0
       duration: 0
@@ -45,11 +78,11 @@ MonoBehaviour:
     hasCondition: 1
     condition:
       conditionType: 3
-      targetSphere: 1
-      requiredValue: 1
+      targetSphere: 2
+      requiredValue: 0
       targetCardName: 
     alternativeEffects:
-    - rid: 9139456813309624323
+    - rid: 6014456434135400449
     isCounterable: 0
     tokensRequiredToCounter: 0
     counteractionDescription: 
@@ -57,19 +90,19 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 9139456813309624323
+    - rid: 6014456434135400449
       type: {class: Effect, ns: , asm: Assembly-CSharp}
       data:
-        effectName: EpidemicsEmergencyLowered
+        effectName: MartialLawSoEIncreased
         effectSource: 2
-        effectTarget: 3
+        effectTarget: 9
         effectType: 0
-        sphereType: 1
-        value: -2
+        sphereType: 0
+        value: -4
         multiplierValue: 1
         appliesToPositive: 0
         appliesToNegative: 0
-        processingPhase: 2
+        processingPhase: 7
         effectTiming:
           effectTimingType: 0
           duration: 0
@@ -84,29 +117,29 @@ MonoBehaviour:
         sourceCardType: 0
         hasCondition: 1
         condition:
-          conditionType: 8
-          targetSphere: 1
-          requiredValue: 1
+          conditionType: 7
+          targetSphere: 2
+          requiredValue: 0
           targetCardName: 
         alternativeEffects:
-        - rid: 9139456813309624384
+        - rid: 6014456434135400450
         isCounterable: 0
         tokensRequiredToCounter: 0
         counteractionDescription: 
         effectsIsNotCountered: []
-    - rid: 9139456813309624384
+    - rid: 6014456434135400450
       type: {class: Effect, ns: , asm: Assembly-CSharp}
       data:
-        effectName: EpidemicsSoECounteredBy3
+        effectName: MartialLawEmergencyIncreased
         effectSource: 2
-        effectTarget: 9
+        effectTarget: 3
         effectType: 0
-        sphereType: 1
+        sphereType: 2
         value: 3
         multiplierValue: 1
         appliesToPositive: 0
         appliesToNegative: 0
-        processingPhase: 3
+        processingPhase: 7
         effectTiming:
           effectTimingType: 0
           duration: 0
