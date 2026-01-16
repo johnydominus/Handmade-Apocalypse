@@ -22,20 +22,20 @@ MonoBehaviour:
   tokenCost: 0
   artWork: {fileID: 0}
   effects:
-  - effectName: PlusTenTemporaryTokens
+  - effectName: DoubleAllDividendsNextTurn
     effectSource: 2
-    effectTarget: 7
-    effectType: 0
+    effectTarget: 1
+    effectType: 1
     sphereType: 0
-    value: 10
-    multiplierValue: 0
+    value: 0
+    multiplierValue: 2
     appliesToPositive: 0
     appliesToNegative: 0
-    processingPhase: 7
+    processingPhase: 4
     effectTiming:
-      effectTimingType: 0
-      duration: 0
-      delay: 0
+      effectTimingType: 3
+      duration: 1
+      delay: 1
       interval: 0
       turnsElapsed: 0
     targetCardNames: []
@@ -55,16 +55,49 @@ MonoBehaviour:
     tokensRequiredToCounter: 0
     counteractionDescription: 
     effectsIsNotCountered: []
-  - effectName: MinusTenTokensNextTurn
+  - effectName: HalvePositiveDiplomacyEffects
     effectSource: 2
-    effectTarget: 7
-    effectType: 0
+    effectTarget: 0
+    effectType: 1
     sphereType: 0
-    value: -10
-    multiplierValue: 0
-    appliesToPositive: 0
+    value: 0
+    multiplierValue: 0.5
+    appliesToPositive: 1
     appliesToNegative: 0
-    processingPhase: 2
+    processingPhase: 7
+    effectTiming:
+      effectTimingType: 3
+      duration: 1
+      delay: 1
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    hasCondition: 0
+    condition:
+      conditionType: 0
+      targetSphere: 0
+      requiredValue: 0
+      targetCardName: 
+    alternativeEffects: []
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  - effectName: DoubleNegativeDiplomacyEffects
+    effectSource: 2
+    effectTarget: 0
+    effectType: 1
+    sphereType: 0
+    value: 0
+    multiplierValue: 2
+    appliesToPositive: 0
+    appliesToNegative: 1
+    processingPhase: 7
     effectTiming:
       effectTimingType: 3
       duration: 1

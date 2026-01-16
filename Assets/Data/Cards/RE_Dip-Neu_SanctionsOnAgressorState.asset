@@ -1,0 +1,167 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
+  m_Name: RE_Dip-Neu_SanctionsOnAgressorState
+  m_EditorClassIdentifier: 
+  cardType: 2
+  sphereType: 2
+  cardName: Sanctions on agressor state
+  description: "The world finally stood up to the bully. It worked\u2014suddenly
+    they\u2019re more cooperative. Still, with sanctions in place, every trade and
+    financial link is frozen."
+  tokenCost: 0
+  artWork: {fileID: 0}
+  effects:
+  - effectName: DecreaseNuclearThreatBy5
+    effectSource: 2
+    effectTarget: 2
+    effectType: 0
+    sphereType: 2
+    value: -5
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 7
+    effectTiming:
+      effectTimingType: 0
+      duration: 0
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    hasCondition: 1
+    condition:
+      conditionType: 3
+      targetSphere: 2
+      requiredValue: 1
+      targetCardName: 
+    alternativeEffects:
+    - rid: 6014456526110982147
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  - effectName: DecreaseDividendsByThird
+    effectSource: 2
+    effectTarget: 1
+    effectType: 1
+    sphereType: 2
+    value: 0
+    multiplierValue: 0.6666667
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 4
+    effectTiming:
+      effectTimingType: 1
+      duration: 0
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    hasCondition: 0
+    condition:
+      conditionType: 3
+      targetSphere: 2
+      requiredValue: 1
+      targetCardName: 
+    alternativeEffects:
+    - rid: 6014456526110982147
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 6014456526110982147
+      type: {class: Effect, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: IncreaseMartialLawCounteractionBy3
+        effectSource: 2
+        effectTarget: 9
+        effectType: 0
+        sphereType: 0
+        value: 3
+        multiplierValue: 1
+        appliesToPositive: 0
+        appliesToNegative: 0
+        processingPhase: 7
+        effectTiming:
+          effectTimingType: 0
+          duration: 0
+          delay: 0
+          interval: 0
+          turnsElapsed: 0
+        targetCardNames: []
+        counterScope: 0
+        counterType: 0
+        counterValue: 0
+        sourceCardName: 
+        sourceCardType: 0
+        hasCondition: 1
+        condition:
+          conditionType: 0
+          targetSphere: 0
+          requiredValue: 0
+          targetCardName: 
+        alternativeEffects:
+        - rid: 6014456526110982148
+        isCounterable: 0
+        tokensRequiredToCounter: 0
+        counteractionDescription: 
+        effectsIsNotCountered: []
+    - rid: 6014456526110982148
+      type: {class: Effect, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: DecreaseMartialLawEmergencyBy3
+        effectSource: 2
+        effectTarget: 3
+        effectType: 0
+        sphereType: 0
+        value: -3
+        multiplierValue: 1
+        appliesToPositive: 0
+        appliesToNegative: 0
+        processingPhase: 7
+        effectTiming:
+          effectTimingType: 0
+          duration: 0
+          delay: 0
+          interval: 0
+          turnsElapsed: 0
+        targetCardNames: []
+        counterScope: 0
+        counterType: 0
+        counterValue: 0
+        sourceCardName: 
+        sourceCardType: 0
+        hasCondition: 0
+        condition:
+          conditionType: 0
+          targetSphere: 0
+          requiredValue: 0
+          targetCardName: 
+        alternativeEffects: []
+        isCounterable: 0
+        tokensRequiredToCounter: 0
+        counteractionDescription: 
+        effectsIsNotCountered: []

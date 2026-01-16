@@ -22,6 +22,7 @@ MonoBehaviour:
   artWork: {fileID: 0}
   effects:
   - effectName: AmplifyPositiveDiplomacyEffects
+    effectSource: 2
     effectTarget: 0
     effectType: 0
     sphereType: 2
