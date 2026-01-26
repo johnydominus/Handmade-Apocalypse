@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
+  m_Name: PA_Dip_TradeDeal
+  m_EditorClassIdentifier: 
+  cardType: 0
+  sphereType: 2
+  cardName: Sign a trade deal
+  description: You sign a mutually beneficial contract with a geopolitical partner,
+    which positively affects not only your budget but also the diplomatic situation.
+  tokenCost: 3
+  artWork: {fileID: 0}
+  effects:
+  - effectName: Add3Tokens
+    effectSource: 3
+    effectTarget: 7
+    effectType: 0
+    sphereType: 0
+    value: 3
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 7
+    effectTiming:
+      effectTimingType: 0
+      duration: 0
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    hasCondition: 0
+    condition:
+      conditionType: 0
+      targetSphere: 0
+      requiredValue: 0
+      targetCardName: 
+    alternativeEffects: []
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  - effectName: Add9TokensNextTurnIfEveryPlayerInvested3InDiplomacy
+    effectSource: 3
+    effectTarget: 1
+    effectType: 0
+    sphereType: 2
+    value: 9
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 4
+    effectTiming:
+      effectTimingType: 3
+      duration: 0
+      delay: 1
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    hasCondition: 1
+    condition:
+      conditionType: 10
+      targetSphere: 2
+      requiredValue: 5
+      targetCardName: 
+    alternativeEffects: []
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  references:
+    version: 2
+    RefIds: []

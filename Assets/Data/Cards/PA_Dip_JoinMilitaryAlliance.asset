@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd70b72fcbca7f44ae5f5afd6962a5f, type: 3}
+  m_Name: PA_Dip_JoinMilitaryAlliance
+  m_EditorClassIdentifier: 
+  cardType: 0
+  sphereType: 2
+  cardName: Join Military Alliance
+  description: With an international block behind you, picking a fight with you suddenly
+    looks like a bad idea
+  tokenCost: 5
+  artWork: {fileID: 0}
+  effects:
+  - effectName: ReduceNuclearThreat by 8
+    effectSource: 3
+    effectTarget: 2
+    effectType: 0
+    sphereType: 0
+    value: -7
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 7
+    effectTiming:
+      effectTimingType: 0
+      duration: 0
+      delay: 0
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    hasCondition: 1
+    condition:
+      conditionType: 3
+      targetSphere: 2
+      requiredValue: 1
+      targetCardName: 
+    alternativeEffects:
+    - rid: 6014456729722421308
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 6014456729722421308
+      type: {class: Effect, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: Add3ToMartialLawSoECounteraction
+        effectSource: 3
+        effectTarget: 9
+        effectType: 0
+        sphereType: 0
+        value: 4
+        multiplierValue: 1
+        appliesToPositive: 0
+        appliesToNegative: 0
+        processingPhase: 7
+        effectTiming:
+          effectTimingType: 0
+          duration: 0
+          delay: 0
+          interval: 0
+          turnsElapsed: 0
+        targetCardNames: []
+        counterScope: 0
+        counterType: 0
+        counterValue: 0
+        sourceCardName: 
+        sourceCardType: 0
+        hasCondition: 1
+        condition:
+          conditionType: 7
+          targetSphere: 2
+          requiredValue: 0
+          targetCardName: 
+        alternativeEffects:
+        - rid: 6014456729722421309
+        isCounterable: 0
+        tokensRequiredToCounter: 0
+        counteractionDescription: 
+        effectsIsNotCountered: []
+    - rid: 6014456729722421309
+      type: {class: Effect, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: ReduceMartialLawEmergency
+        effectSource: 3
+        effectTarget: 3
+        effectType: 0
+        sphereType: 0
+        value: -4
+        multiplierValue: 1
+        appliesToPositive: 0
+        appliesToNegative: 0
+        processingPhase: 7
+        effectTiming:
+          effectTimingType: 0
+          duration: 0
+          delay: 0
+          interval: 0
+          turnsElapsed: 0
+        targetCardNames: []
+        counterScope: 0
+        counterType: 0
+        counterValue: 0
+        sourceCardName: 
+        sourceCardType: 0
+        hasCondition: 0
+        condition:
+          conditionType: 0
+          targetSphere: 0
+          requiredValue: 0
+          targetCardName: 
+        alternativeEffects: []
+        isCounterable: 0
+        tokensRequiredToCounter: 0
+        counteractionDescription: 
+        effectsIsNotCountered: []
