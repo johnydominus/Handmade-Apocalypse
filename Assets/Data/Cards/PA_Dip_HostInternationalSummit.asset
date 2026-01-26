@@ -54,6 +54,40 @@ MonoBehaviour:
     tokensRequiredToCounter: 0
     counteractionDescription: 
     effectsIsNotCountered: []
+  - effectName: DoublePositiveDiplomacyEffectsNextTurn
+    effectSource: 3
+    effectTarget: 0
+    effectType: 1
+    sphereType: 0
+    value: 0
+    multiplierValue: 2
+    appliesToPositive: 1
+    appliesToNegative: 0
+    processingPhase: 7
+    effectTiming:
+      effectTimingType: 3
+      duration: 1
+      delay: 1
+      interval: 0
+      turnsElapsed: 0
+    targetCardNames: []
+    counterScope: 0
+    counterType: 0
+    counterValue: 0
+    sourceCardName: 
+    sourceCardType: 0
+    hasCondition: 0
+    condition:
+      conditionType: 3
+      targetSphere: 2
+      requiredValue: 1
+      targetCardName: 
+    alternativeEffects:
+    - rid: 6014456729722421312
+    isCounterable: 0
+    tokensRequiredToCounter: 0
+    counteractionDescription: 
+    effectsIsNotCountered: []
   references:
     version: 2
     RefIds:
@@ -97,12 +131,12 @@ MonoBehaviour:
     - rid: 6014456729722421313
       type: {class: Effect, ns: , asm: Assembly-CSharp}
       data:
-        effectName: NestedAlternative
-        effectSource: 0
-        effectTarget: 0
+        effectName: ReduceMartialLawEmergencyBy1
+        effectSource: 3
+        effectTarget: 3
         effectType: 0
-        sphereType: 0
-        value: 0
+        sphereType: 2
+        value: -1
         multiplierValue: 1
         appliesToPositive: 0
         appliesToNegative: 0
