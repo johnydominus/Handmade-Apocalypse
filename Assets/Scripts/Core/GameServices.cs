@@ -14,6 +14,7 @@ public class GameServices : ScriptableObject
     public InvestmentManager investmentManager;
     public SoEManager soeManager;
     public DelayedCounteractionManager delayedCounteractionManager;
+    public SphereIconConfig sphereIconConfig;
 
     public static void Initialize(GameServices asset)
     {

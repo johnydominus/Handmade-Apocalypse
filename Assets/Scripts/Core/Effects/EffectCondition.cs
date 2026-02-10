@@ -61,9 +61,21 @@ public class EffectCondition
                 });
 
             case EffectConditionType.AnySoEIsActive:
+                if (player == null)
+                {
+                    // For Global Events, check all players
+                    var allPlayers = GameServices.Instance.turnManager.GetAllPlayers();
+                    return allPlayers.Any(p => p.emergencies.Any(e => e.stateOfEmergency != null && e.stateOfEmergency.isActive));
+                }
                 return player.emergencies.Any(e => e.stateOfEmergency != null && e.stateOfEmergency.isActive);
 
             case EffectConditionType.NoSoEIsActive:
+                if (player == null)
+                {
+                    // For Global Events, check all players
+                    var allPlayers = GameServices.Instance.turnManager.GetAllPlayers();
+                    return !allPlayers.Any(p => p.emergencies.Any(e => e.stateOfEmergency != null && e.stateOfEmergency.isActive));
+                }
                 return !player.emergencies.Any(e => e.stateOfEmergency != null && e.stateOfEmergency.isActive);
 
             default:

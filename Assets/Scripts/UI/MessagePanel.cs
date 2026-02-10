@@ -9,6 +9,8 @@ public class MessagePanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI messageHeader;
     [SerializeField] private TextMeshProUGUI messageText;
     [SerializeField] private Button closeButton;
+    [SerializeField] private Image sphereIcon;
+    [SerializeField] private float borderThickness = 4f;
 
     private System.Action onClose;
 
@@ -30,11 +32,48 @@ public class MessagePanel : MonoBehaviour
         closeButton.onClick.AddListener(Close);
     }
 
-    public void Initialize(string header, string message, System.Action onClose)
+    public void Initialize(string header, string message, System.Action onClose, CardData card = null)
     {
         messageHeader.text = header;
         messageText.text = message;
         this.onClose = onClose;
+
+        if (card != null)
+        {
+            // Apply sphere background color to this panel's own Image
+            var background = GetComponent<Image>();
+            if (background != null)
+                background.color = CardVisualConfig.GetSphereColor(card.sphereType);
+
+            // Apply polarity border via Outline component
+            var outline = GetComponent<Outline>();
+            if (outline == null)
+                outline = gameObject.AddComponent<Outline>();
+            outline.effectColor = CardVisualConfig.GetPolarityColor(card.cardPolarity);
+            outline.effectDistance = new Vector2(borderThickness, borderThickness);
+            outline.enabled = true;
+
+            // Apply sphere icon
+            if (sphereIcon != null && GameServices.Instance != null && GameServices.Instance.sphereIconConfig != null)
+            {
+                Sprite icon = GameServices.Instance.sphereIconConfig.GetIconForSphere(card.sphereType);
+                if (icon != null)
+                {
+                    sphereIcon.sprite = icon;
+                    sphereIcon.enabled = true;
+                }
+                else
+                {
+                    sphereIcon.enabled = false;
+                }
+            }
+        }
+        else
+        {
+            // Hide sphere icon for non-card messages
+            if (sphereIcon != null)
+                sphereIcon.enabled = false;
+        }
     }
 
     // Structure to hold message data in the queue
@@ -44,17 +83,24 @@ public class MessagePanel : MonoBehaviour
         public string message;
         public System.Action onCloseCallback;
         public int queueId;
+        public CardData card;
 
-        public MessageData(string header, string message, System.Action onCloseCallback, int queueId)
+        public MessageData(string header, string message, System.Action onCloseCallback, int queueId, CardData card = null)
         {
             this.header = header;
             this.message = message;
             this.onCloseCallback = onCloseCallback;
             this.queueId = queueId;
+            this.card = card;
         }
     }
 
     public static void Show(string header, string message, System.Action onCloseCallback = null)
+    {
+        Show(header, message, null, onCloseCallback);
+    }
+
+    public static void Show(string header, string message, CardData card, System.Action onCloseCallback)
     {
         int id = ++queueCounter;
         Debug.Log($"[MSG #{id}] Queueing message: '{header}'");
@@ -67,7 +113,7 @@ public class MessagePanel : MonoBehaviour
         }
         else
         {
-            messageQueue.Enqueue(new MessageData(header, message, onCloseCallback, id));
+            messageQueue.Enqueue(new MessageData(header, message, onCloseCallback, id, card));
         }
 
         // Start processing the queue if not already doing so
@@ -154,7 +200,7 @@ public class MessagePanel : MonoBehaviour
             delayComponent.Setup(ProcessMessageQueue, 0.1f);
         };
 
-        panel.Initialize(data.header, data.message, wrappedCallback);
+        panel.Initialize(data.header, data.message, wrappedCallback, data.card);
     }
 
     public void Close()

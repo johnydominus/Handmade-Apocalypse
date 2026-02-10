@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     private List<PlayerController> players;
     private EffectsPanel effectsPanelInstance;
     public GameServices gameServices;
-    public BuildType buildType = BuildType.FullGame;
+    public BuildType buildType = BuildType.BasicPrototype;
     
     [SerializeField] private CardLibrary cardLibrary;
     [SerializeField] private List<ThreatType> selectedThreats;
@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
         gameServices.threatManager.Initialize(effectiveThreats, buildType);
 
         gameServices.turnManager = new();
-        gameServices.turnManager.Initialize(players, Instantiate(messagePanelPrefab), cardLibrary);
+        gameServices.turnManager.Initialize(players, Instantiate(messagePanelPrefab), cardLibrary, buildType);
 
         gameServices.cardSystem = new();
         gameServices.cardSystem.Initialize(cardLibrary);

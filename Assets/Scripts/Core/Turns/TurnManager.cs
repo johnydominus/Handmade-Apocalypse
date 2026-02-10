@@ -28,6 +28,7 @@ public class TurnManager
     private int currentPlayerIndex = 0;
     private int turnNumber = 1;
     private CardLibrary cardLibrary;
+    private BuildType buildType;
     private bool isPhaseTransitioning = false;
 
     public GameObject messagePanel;
@@ -55,13 +56,14 @@ public class TurnManager
 
     }
 
-    public void Initialize(List<PlayerController> playerList, GameObject messagePrefab, CardLibrary cardLibrary)
+public void Initialize(List<PlayerController> playerList, GameObject messagePrefab, CardLibrary cardLibrary, BuildType buildType)
     {
         this.players = playerList;
         this.currentPlayerIndex = 0;
         this.currentPlayer = players[currentPlayerIndex];
         this.messagePanel = messagePrefab;
         this.cardLibrary = cardLibrary;
+        this.buildType = buildType;
     }
 
     public void StartTurn()
@@ -192,7 +194,9 @@ public class TurnManager
                 Threat selectedThreat = threatsForRandomGrowth[randomIndex];
 
                 // Get base growth value (2-12)
-                int baseGrowth = UnityEngine.Random.Range(2, 13);
+                int baseGrowth = buildType == BuildType.FullGame 
+                    ? UnityEngine.Random.Range(2, 13) 
+                    : UnityEngine.Random.Range(1, 7);
 
                 // Convert threat type to corresponding sphere for effect processing
                 SphereType sphereType = EmergencyMapping.GetByThreat(selectedThreat.threatType).sphere;
@@ -247,11 +251,13 @@ public class TurnManager
         int random1 = random.Next(1, 6);
         int random2 = random.Next(1, 6);
 
+        CardData card = null;
+
         if (random1 == random2)
         {
             Debug.Log("Global event triggered!");
 
-            CardData card = cardLibrary.GetRandomCard(CardType.GlobalEvent);
+            card = cardLibrary.GetRandomCard(CardType.GlobalEvent);
             Debug.Log($"Global Event card name: {card.name}");
             Debug.Log($"Global Event card description: {card.description}");
             messageHeader = "GLOBAL EVENT!";
@@ -271,7 +277,7 @@ public class TurnManager
         TurnPhase nextPhase = TurnPhase.StartPlayerTurn;
         Debug.Log($"Global Events phase complete, next phase will be {nextPhase}");
 
-        MessagePanel.Show(messageHeader, messageText, () =>
+        MessagePanel.Show(messageHeader, messageText, card, () =>
         {
             Debug.Log("Global Events phase callback executed");
             currentPhase = nextPhase;
@@ -368,7 +374,7 @@ public class TurnManager
         TurnPhase nextPhase = TurnPhase.DividendPayout;
         Debug.Log($"Region Events phase complete, next phase will be {nextPhase}");
 
-        MessagePanel.Show(messageHeader, messageText, () =>
+        MessagePanel.Show(messageHeader, messageText, card, () =>
         {
             Debug.Log("Region Events phase callback executed");
             currentPhase = nextPhase;
@@ -413,7 +419,7 @@ public class TurnManager
                 EffectTarget.ThreatLevel,
                 EffectType.Add,
                 SphereType.Astronautics,
-                5,
+                buildType == BuildType.FullGame ? 5 : 2,
                 null);
 
             GameServices.Instance.commandManager.ExecuteCommand(

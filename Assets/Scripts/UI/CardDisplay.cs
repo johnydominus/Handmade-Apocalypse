@@ -10,10 +10,13 @@ public class CardDisplay : MonoBehaviour
     [SerializeField] private TextMeshPro cardNameText;
     [SerializeField] private TextMeshPro descriptionText;
     [SerializeField] private TextMeshPro cardCostText;
+    [SerializeField] private SpriteRenderer borderRenderer;
+    [SerializeField] private SpriteRenderer backgroundRenderer;
+    [SerializeField] private SpriteRenderer sphereIconRenderer;
 
     private CardData cardData;
     private PlayerController owner;
-    
+
     public void Setup(CardData data, PlayerController player)
     {
         cardData = data;
@@ -22,6 +25,29 @@ public class CardDisplay : MonoBehaviour
         cardNameText.text = cardData.cardName;
         descriptionText.text = cardData.description;
         cardCostText.text = cardData.tokenCost.ToString();
+
+        // Apply sphere background color
+        if (backgroundRenderer != null)
+            backgroundRenderer.color = CardVisualConfig.GetSphereColor(cardData.sphereType);
+
+        // Apply polarity border color (only for GE/RE cards, not Player Actions)
+        if (borderRenderer != null && cardData.cardType != CardType.PlayerAction)
+            borderRenderer.color = CardVisualConfig.GetPolarityColor(cardData.cardPolarity);
+
+        // Apply sphere icon
+        if (sphereIconRenderer != null && GameServices.Instance != null && GameServices.Instance.sphereIconConfig != null)
+        {
+            Sprite icon = GameServices.Instance.sphereIconConfig.GetIconForSphere(cardData.sphereType);
+            if (icon != null)
+            {
+                sphereIconRenderer.sprite = icon;
+                sphereIconRenderer.enabled = true;
+            }
+            else
+            {
+                sphereIconRenderer.enabled = false;
+            }
+        }
     }
 
     public CardData GetCardData()
