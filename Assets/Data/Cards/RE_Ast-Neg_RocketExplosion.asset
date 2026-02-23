@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 2
   sphereType: 6
+  cardPolarity: 1
   cardName: Rocket Explodes on Launch
   description: The country is in mourning for the fallen astronauts, and the relaunch
     has been postponed for a year. Anti-scientific sentiment is spreading among the

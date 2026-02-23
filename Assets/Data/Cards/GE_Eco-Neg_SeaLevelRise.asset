@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 1
   sphereType: 5
+  cardPolarity: 1
   cardName: Sea Level Rise
   description: You should care about the ice
   tokenCost: 1
@@ -24,23 +25,23 @@ MonoBehaviour:
     effectTarget: 7
     effectType: 1
     sphereType: 0
+    value: 0.5
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 0
     effectTiming:
       effectTimingType: 0
       duration: 0
       delay: 0
       interval: 0
       turnsElapsed: 0
-    value: 0.5
     targetCardNames: []
     counterScope: 0
     counterType: 0
     counterValue: 0
     sourceCardName: 
     sourceCardType: 0
-    processingPhase: 0
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 0
     hasCondition: 0
     condition:
       conditionType: 0
@@ -57,23 +58,23 @@ MonoBehaviour:
     effectTarget: 1
     effectType: 2
     sphereType: 0
+    value: 0
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 0
     effectTiming:
       effectTimingType: 0
       duration: 0
       delay: 0
       interval: 0
       turnsElapsed: 0
-    value: 0
     targetCardNames: []
     counterScope: 0
     counterType: 0
     counterValue: 0
     sourceCardName: 
     sourceCardType: 0
-    processingPhase: 0
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 0
     hasCondition: 0
     condition:
       conditionType: 0
@@ -90,23 +91,23 @@ MonoBehaviour:
     effectTarget: 3
     effectType: 0
     sphereType: 3
+    value: 3
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 0
     effectTiming:
       effectTimingType: 0
       duration: 0
       delay: 0
       interval: 0
       turnsElapsed: 0
-    value: 3
     targetCardNames: []
     counterScope: 0
     counterType: 0
     counterValue: 0
     sourceCardName: 
     sourceCardType: 0
-    processingPhase: 0
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 0
     hasCondition: 0
     condition:
       conditionType: 7
@@ -123,23 +124,23 @@ MonoBehaviour:
     effectTarget: 3
     effectType: 0
     sphereType: 5
+    value: 3
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 0
     effectTiming:
       effectTimingType: 0
       duration: 0
       delay: 0
       interval: 0
       turnsElapsed: 0
-    value: 3
     targetCardNames: []
     counterScope: 0
     counterType: 0
     counterValue: 0
     sourceCardName: 
     sourceCardType: 0
-    processingPhase: 0
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 0
     hasCondition: 0
     condition:
       conditionType: 7

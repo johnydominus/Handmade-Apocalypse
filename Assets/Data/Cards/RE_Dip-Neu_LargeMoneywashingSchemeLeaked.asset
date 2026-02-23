@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 2
   sphereType: 2
+  cardPolarity: 2
   cardName: Huge Moneywashing scheme leaked
   description: "The leak gave investigators everything they needed: quick probes,
     prosecutions, and confiscated dirty money. The budget got a major boost\u2014but

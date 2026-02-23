@@ -269,9 +269,9 @@ public void Initialize(List<PlayerController> playerList, GameObject messagePref
         }
         else
         {
-            Debug.Log("No global event");
-            messageHeader = "NO GLOBAL EVENT";
-            messageText = $"{random1}:{random2} No new global event this turn";
+            Debug.Log($"{random1}:{random2} No new global event this turn");
+            // messageHeader = "NO GLOBAL EVENT";
+            // messageText = $"{random1}:{random2} No new global event this turn";
         }
 
         TurnPhase nextPhase = TurnPhase.StartPlayerTurn;
@@ -315,8 +315,8 @@ public void Initialize(List<PlayerController> playerList, GameObject messagePref
 
         Debug.Log($"---\n{currentPlayer.playerName}'s turn!");
 
-        messageHeader = $"{currentPlayer.playerName}'s turn!";
-        messageText = $"Do your job, {currentPlayer.playerName}!";
+        // messageHeader = $"{currentPlayer.playerName}'s turn!";
+        // messageText = $"Do your job, {currentPlayer.playerName}!";
 
         TurnPhase nextPhase = TurnPhase.RegionEvents;
         Debug.Log($"Player Turn Start phase complete, next phase will be {nextPhase}");

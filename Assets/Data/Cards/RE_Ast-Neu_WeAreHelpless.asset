@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 2
   sphereType: 6
+  cardPolarity: 2
   cardName: 'Popular Astrophysicist: "We Are Still Helpless Against the Space"'
   description: Prominent scientist's pessimistic statement sparks public debate while
     drawing attention to space programs

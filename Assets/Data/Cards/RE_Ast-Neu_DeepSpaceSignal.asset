@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 2
   sphereType: 6
+  cardPolarity: 2
   cardName: Undefined signal from deep space is received
   description: Radio telescopes aimed into the depths of space have picked up a signal.
     So far, it has not been possible to determine whether it is a meaningful message

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 2
   sphereType: 2
+  cardPolarity: 2
   cardName: Sanctions on agressor state
   description: "The world finally stood up to the bully. It worked\u2014suddenly
     they\u2019re more cooperative. Still, with sanctions in place, every trade and

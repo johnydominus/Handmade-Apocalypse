@@ -56,6 +56,9 @@ public class ThreatUIController : MonoBehaviour
 
     private void UpdateAllThreatDisplays()
     {
+        if (GameServices.Instance == null || GameServices.Instance.threatManager == null)
+            return;
+
         // Get all activted threats
         var activeThreats = GameServices.Instance.threatManager.GetThreats();
 

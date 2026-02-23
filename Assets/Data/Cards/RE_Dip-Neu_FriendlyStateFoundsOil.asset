@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 2
   sphereType: 2
+  cardPolarity: 2
   cardName: Small friendly state founds large oil source
   description: "Tiny country, gigantic oil field. They\u2019ll sell it to you cheap\u2014until
     the neighbors start talking about \u201Chistoric homelands\u201D and \u201Ccultural

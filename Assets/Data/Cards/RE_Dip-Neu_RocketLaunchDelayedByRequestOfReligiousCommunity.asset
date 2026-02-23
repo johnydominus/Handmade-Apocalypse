@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 2
   sphereType: 2
+  cardPolarity: 2
   cardName: Rocket launch postponed by request of a religious community
   description: "They say the deity comes closest once every hundred years. The launch
     was set for that day, but believers protested, the public backed them, and the

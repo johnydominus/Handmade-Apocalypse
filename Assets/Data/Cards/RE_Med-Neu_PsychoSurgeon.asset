@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 2
   sphereType: 1
+  cardPolarity: 2
   cardName: Loud Psycho-Surgeon case shooks the publicity
   description: High-profile malpractice scandal damages scientific credibility while
     drawing public attention to healthcare
@@ -26,6 +27,10 @@ MonoBehaviour:
     effectType: 1
     sphereType: 4
     value: 0
+    multiplierValue: 0.5
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 4
     effectTiming:
       effectTimingType: 1
       duration: 0
@@ -38,10 +43,6 @@ MonoBehaviour:
     counterValue: 0
     sourceCardName: 
     sourceCardType: 2
-    processingPhase: 4
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 0.5
     hasCondition: 0
     condition:
       conditionType: 0
@@ -59,6 +60,10 @@ MonoBehaviour:
     effectType: 1
     sphereType: 1
     value: 0
+    multiplierValue: 2
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 4
     effectTiming:
       effectTimingType: 1
       duration: 0
@@ -71,10 +76,6 @@ MonoBehaviour:
     counterValue: 0
     sourceCardName: 
     sourceCardType: 2
-    processingPhase: 4
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 2
     hasCondition: 0
     condition:
       conditionType: 0

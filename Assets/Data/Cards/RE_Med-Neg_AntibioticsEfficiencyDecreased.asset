@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 2
   sphereType: 1
+  cardPolarity: 1
   cardName: Antibiotics Efficiency Decreased
   description: Widespread antibiotic resistance threatens to make common infections
     deadly again
@@ -26,6 +27,10 @@ MonoBehaviour:
     effectType: 0
     sphereType: 1
     value: 0
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 7
     effectTiming:
       effectTimingType: 3
       duration: 0
@@ -38,10 +43,6 @@ MonoBehaviour:
     counterValue: 0
     sourceCardName: 
     sourceCardType: 0
-    processingPhase: 7
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 0
     hasCondition: 1
     condition:
       conditionType: 8
@@ -61,6 +62,10 @@ MonoBehaviour:
     effectType: 2
     sphereType: 1
     value: 1
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 7
     effectTiming:
       effectTimingType: 1
       duration: 0
@@ -73,10 +78,6 @@ MonoBehaviour:
     counterValue: 0
     sourceCardName: 
     sourceCardType: 2
-    processingPhase: 7
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 0
     hasCondition: 1
     condition:
       conditionType: 7
@@ -102,6 +103,10 @@ MonoBehaviour:
         effectType: 0
         sphereType: 1
         value: 1
+        multiplierValue: 1
+        appliesToPositive: 0
+        appliesToNegative: 0
+        processingPhase: 6
         effectTiming:
           effectTimingType: 0
           duration: 0
@@ -114,10 +119,6 @@ MonoBehaviour:
         counterValue: 0
         sourceCardName: 
         sourceCardType: 0
-        processingPhase: 6
-        appliesToPositive: 0
-        appliesToNegative: 0
-        multiplierValue: 1
         hasCondition: 0
         condition:
           conditionType: 0

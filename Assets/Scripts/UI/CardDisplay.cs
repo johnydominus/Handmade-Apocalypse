@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SocialPlatforms.GameCenter;
 
 public class CardDisplay : MonoBehaviour
 {
@@ -16,6 +17,15 @@ public class CardDisplay : MonoBehaviour
 
     private CardData cardData;
     private PlayerController owner;
+    private Camera mainCamera;
+
+    private bool isExpanded = false;
+    private static CardDisplay currentlyExpandedCard = null;
+
+    private void Awake()
+    {
+        mainCamera = Camera.main;
+    }
 
     public void Setup(CardData data, PlayerController player)
     {
@@ -23,8 +33,11 @@ public class CardDisplay : MonoBehaviour
         owner = player;
 
         cardNameText.text = cardData.cardName;
-        descriptionText.text = cardData.description;
+//        descriptionText.text = cardData.description;
         cardCostText.text = cardData.tokenCost.ToString();
+
+        // Hand mode: show short description
+        RefreshDescriptionText();
 
         // Apply sphere background color
         if (backgroundRenderer != null)
@@ -38,22 +51,12 @@ public class CardDisplay : MonoBehaviour
         if (sphereIconRenderer != null && GameServices.Instance != null && GameServices.Instance.sphereIconConfig != null)
         {
             Sprite icon = GameServices.Instance.sphereIconConfig.GetIconForSphere(cardData.sphereType);
-            if (icon != null)
-            {
-                sphereIconRenderer.sprite = icon;
-                sphereIconRenderer.enabled = true;
-            }
-            else
-            {
-                sphereIconRenderer.enabled = false;
-            }
+            sphereIconRenderer.sprite = icon;
+            sphereIconRenderer.enabled = icon != null;
         }
     }
 
-    public CardData GetCardData()
-    {
-        return cardData;
-    }
+    public CardData GetCardData() => cardData;
 
     void OnMouseDown()
     {
@@ -65,12 +68,61 @@ public class CardDisplay : MonoBehaviour
             return;
         }
 
-        if (!GameServices.Instance.cardSystem.PlayCard(cardData, owner))
+        // Another card is already expanded - ignore clicks on this one
+        if (currentlyExpandedCard != null && currentlyExpandedCard != this)
         {
-            Debug.Log($"...but doesn't have enough tokens.");
-            Shake();
+            Debug.Log($"...but another card is already expanded.");
             return;
         }
+
+        if (!isExpanded)
+            Expand();
+        else
+        {
+            if (!GameServices.Instance.cardSystem.PlayCard(cardData, owner))
+            {
+                Debug.Log($"...but doesn't have enough tokens.");
+                Shake();
+            }
+        }
+    }
+
+    private string GetShortDesc()
+    {
+        if (!string.IsNullOrEmpty(cardData.shortDescription))
+            return cardData.shortDescription;
+        return CardVisualConfig.GenerateEffectSummary(cardData.effects);
+    }
+
+    private void Expand()
+    {
+        if (cardData == null) return;
+
+        if (CardPreviewPanel.Instance == null)
+        {
+            Debug.LogError("CardPreviewPanel not found in scene. Add it as a child of the Canvas.");
+            return;
+        }
+
+        isExpanded = true;
+        currentlyExpandedCard = this;
+
+        CardPreviewPanel.Instance.Show(cardData, owner, () => {
+            isExpanded = false;
+            if (currentlyExpandedCard == this) currentlyExpandedCard = null;
+        });
+    }
+
+    private void RefreshDescriptionText()
+    {
+        if (cardData == null) return;
+        descriptionText.text = GetShortDesc();
+    }
+
+    private void OnDestroy()
+    {
+        if (currentlyExpandedCard == this)
+            currentlyExpandedCard = null;
     }
 
     public void Shake()

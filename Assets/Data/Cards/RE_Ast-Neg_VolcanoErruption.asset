@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 2
   sphereType: 6
+  cardPolarity: 1
   cardName: Volcano Erruption
   description: Massive volcanic eruption fills atmosphere with ash, grounding aircraft
     and disrupting space programs

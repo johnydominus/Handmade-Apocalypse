@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 2
   sphereType: 1
+  cardPolarity: 2
   cardName: Laboratory-Born Baby Boom
   description: Advances in reproductive medicine spark ethical debates while boosting
     the medical sector
@@ -26,6 +27,10 @@ MonoBehaviour:
     effectType: 0
     sphereType: 4
     value: 10
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 0
     effectTiming:
       effectTimingType: 0
       duration: 0
@@ -38,10 +43,6 @@ MonoBehaviour:
     counterValue: 0
     sourceCardName: 
     sourceCardType: 2
-    processingPhase: 0
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 0
     hasCondition: 1
     condition:
       conditionType: 3
@@ -60,6 +61,10 @@ MonoBehaviour:
     effectType: 1
     sphereType: 1
     value: 0
+    multiplierValue: 2
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 4
     effectTiming:
       effectTimingType: 1
       duration: 0
@@ -72,10 +77,6 @@ MonoBehaviour:
     counterValue: 0
     sourceCardName: 
     sourceCardType: 2
-    processingPhase: 4
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 2
     hasCondition: 0
     condition:
       conditionType: 3
@@ -100,6 +101,10 @@ MonoBehaviour:
         effectType: 0
         sphereType: 4
         value: 5
+        multiplierValue: 1
+        appliesToPositive: 0
+        appliesToNegative: 0
+        processingPhase: 3
         effectTiming:
           effectTimingType: 0
           duration: 0
@@ -112,10 +117,6 @@ MonoBehaviour:
         counterValue: 0
         sourceCardName: 
         sourceCardType: 2
-        processingPhase: 3
-        appliesToPositive: 0
-        appliesToNegative: 0
-        multiplierValue: 1
         hasCondition: 0
         condition:
           conditionType: 0

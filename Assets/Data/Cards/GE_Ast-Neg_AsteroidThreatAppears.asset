@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 1
   sphereType: 6
+  cardPolarity: 1
   cardName: Huge asteroid is coming on Earth!
   description: A massive asteroid is detected on collision course with Earth, sparking
     global diplomatic efforts while disrupting scientific research
@@ -26,6 +27,10 @@ MonoBehaviour:
     effectType: 0
     sphereType: 6
     value: 0
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 0
     effectTiming:
       effectTimingType: 0
       duration: 0
@@ -36,12 +41,8 @@ MonoBehaviour:
     counterScope: 0
     counterType: 0
     counterValue: 0
-    sourceCardName: 
-    sourceCardType: 0
-    processingPhase: 0
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 0
+    sourceCardName: Huge asteroid is coming on Earth!
+    sourceCardType: 1
     hasCondition: 0
     condition:
       conditionType: 0
@@ -59,6 +60,10 @@ MonoBehaviour:
     effectType: 0
     sphereType: 2
     value: 2
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 7
     effectTiming:
       effectTimingType: 1
       duration: 0
@@ -69,12 +74,8 @@ MonoBehaviour:
     counterScope: 0
     counterType: 0
     counterValue: 0
-    sourceCardName: 
-    sourceCardType: 0
-    processingPhase: 7
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 0
+    sourceCardName: Huge asteroid is coming on Earth!
+    sourceCardType: 1
     hasCondition: 1
     condition:
       conditionType: 3
@@ -92,6 +93,10 @@ MonoBehaviour:
     effectType: 0
     sphereType: 2
     value: 1
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 4
     effectTiming:
       effectTimingType: 1
       duration: 0
@@ -102,12 +107,8 @@ MonoBehaviour:
     counterScope: 1
     counterType: 0
     counterValue: 0
-    sourceCardName: 
-    sourceCardType: 0
-    processingPhase: 4
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 0
+    sourceCardName: Huge asteroid is coming on Earth!
+    sourceCardType: 1
     hasCondition: 1
     condition:
       conditionType: 3
@@ -125,6 +126,10 @@ MonoBehaviour:
     effectType: 0
     sphereType: 4
     value: -2
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 7
     effectTiming:
       effectTimingType: 1
       duration: 0
@@ -135,12 +140,8 @@ MonoBehaviour:
     counterScope: 1
     counterType: 0
     counterValue: 0
-    sourceCardName: 
-    sourceCardType: 0
-    processingPhase: 7
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 0
+    sourceCardName: Huge asteroid is coming on Earth!
+    sourceCardType: 1
     hasCondition: 1
     condition:
       conditionType: 3
@@ -158,6 +159,10 @@ MonoBehaviour:
     effectType: 0
     sphereType: 4
     value: -1
+    multiplierValue: 0
+    appliesToPositive: 1
+    appliesToNegative: 0
+    processingPhase: 4
     effectTiming:
       effectTimingType: 1
       duration: 0
@@ -168,12 +173,8 @@ MonoBehaviour:
     counterScope: 1
     counterType: 0
     counterValue: 0
-    sourceCardName: 
-    sourceCardType: 0
-    processingPhase: 4
-    appliesToPositive: 1
-    appliesToNegative: 0
-    multiplierValue: 0
+    sourceCardName: Huge asteroid is coming on Earth!
+    sourceCardType: 1
     hasCondition: 1
     condition:
       conditionType: 3

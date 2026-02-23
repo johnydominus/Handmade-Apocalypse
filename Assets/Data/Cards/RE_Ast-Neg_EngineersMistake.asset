@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 0
   sphereType: 6
+  cardPolarity: 1
   cardName: Engineer's mistake
   description: Due to an error in the calculations for a critical mission, we have
     to start everything from scratch

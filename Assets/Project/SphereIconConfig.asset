@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc48ff1aa8ba40747a5834a89f2cb224, type: 3}
   m_Name: SphereIconConfig
   m_EditorClassIdentifier: 
-  medicineIcon: {fileID: 0}
-  diplomacyIcon: {fileID: 0}
-  agricultureIcon: {fileID: 0}
-  educationAndScienceIcon: {fileID: 0}
-  ecologyIcon: {fileID: 0}
-  astronauticsIcon: {fileID: 0}
+  medicineIcon: {fileID: -8625906013721215279, guid: ea638e6fb82e42f41a459b2e228d08ab, type: 3}
+  diplomacyIcon: {fileID: -2677019096938081865, guid: 1aeeccf683c6f1a44b09b009c9dcaecf, type: 3}
+  agricultureIcon: {fileID: -1413841248449187008, guid: 9708c33f5715f54459d0bb66e495bbc0, type: 3}
+  educationAndScienceIcon: {fileID: -1166106823362050847, guid: 95642ff795a01e643bbf94c4d2db0d5d, type: 3}
+  ecologyIcon: {fileID: 21300000, guid: 1e850f83d10fd9c4faf1f94588931026, type: 3}
+  astronauticsIcon: {fileID: 8149009158662877648, guid: 39baa617b11733744bb99bb7234e26f5, type: 3}

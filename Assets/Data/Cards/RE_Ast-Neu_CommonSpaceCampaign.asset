@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 2
   sphereType: 6
+  cardPolarity: 2
   cardName: Rival state proposes common space campaign
   description: 'The global community has split: some believe the initiative is commendable,
     deserves encouragement, and will benefit world science; others argue that an

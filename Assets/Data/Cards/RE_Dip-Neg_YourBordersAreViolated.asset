@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 2
   sphereType: 2
+  cardPolarity: 1
   cardName: Neighbour country invaded your borders
   description: "A once-friendly neighbor pulls a sudden power grab in a border region,
     hiding behind a pseudo-legal excuse. Diplomacy is on the brink, the world is

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 1
   sphereType: 1
+  cardPolarity: 1
   cardName: New Virus
   description: A deadly new virus emerges, threatening unprepared regions with epidemic
     and economic crisis
@@ -26,6 +27,10 @@ MonoBehaviour:
     effectType: 0
     sphereType: 1
     value: 0
+    multiplierValue: 0
+    appliesToPositive: 0
+    appliesToNegative: 0
+    processingPhase: 7
     effectTiming:
       effectTimingType: 0
       duration: 0
@@ -38,10 +43,6 @@ MonoBehaviour:
     counterValue: 0
     sourceCardName: NewVirus
     sourceCardType: 1
-    processingPhase: 7
-    appliesToPositive: 0
-    appliesToNegative: 0
-    multiplierValue: 0
     hasCondition: 1
     condition:
       conditionType: 10
@@ -67,6 +68,10 @@ MonoBehaviour:
         effectType: 0
         sphereType: 1
         value: 1
+        multiplierValue: 1
+        appliesToPositive: 0
+        appliesToNegative: 0
+        processingPhase: 7
         effectTiming:
           effectTimingType: 0
           duration: 0
@@ -79,10 +84,6 @@ MonoBehaviour:
         counterValue: 0
         sourceCardName: 
         sourceCardType: 0
-        processingPhase: 7
-        appliesToPositive: 0
-        appliesToNegative: 0
-        multiplierValue: 1
         hasCondition: 0
         condition:
           conditionType: 0
@@ -103,6 +104,10 @@ MonoBehaviour:
         effectType: 0
         sphereType: 7
         value: -3
+        multiplierValue: 1
+        appliesToPositive: 0
+        appliesToNegative: 0
+        processingPhase: 7
         effectTiming:
           effectTimingType: 0
           duration: 0
@@ -115,10 +120,6 @@ MonoBehaviour:
         counterValue: 0
         sourceCardName: 
         sourceCardType: 0
-        processingPhase: 7
-        appliesToPositive: 0
-        appliesToNegative: 0
-        multiplierValue: 1
         hasCondition: 0
         condition:
           conditionType: 0

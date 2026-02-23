@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1c0da572014ced44b9ce8db925f24f9, type: 3}
   m_Name: GameServices
   m_EditorClassIdentifier: 
-  tokenSystem: {fileID: 0}
-  investmentManager: {fileID: 0}
+  sphereIconConfig: {fileID: 11400000, guid: 37599d5004c16004eac0b2892498a50a, type: 2}

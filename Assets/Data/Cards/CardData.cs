@@ -25,6 +25,7 @@ public class CardData : ScriptableObject
     public CardPolarity cardPolarity;        // Polarity of the card (Positive, Negative, Neutral)
     public string cardName;         
     public string description;      
+    public string shortDescription;
     public int tokenCost;
     public Sprite artWork;
 

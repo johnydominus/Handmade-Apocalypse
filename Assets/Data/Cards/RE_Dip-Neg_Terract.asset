@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 2
   sphereType: 2
+  cardPolarity: 1
   cardName: Terract
   description: A blast has struck your capital, leaving dozens dead. Official mourning
     has been declared. Activists are urging a war on terrorism.

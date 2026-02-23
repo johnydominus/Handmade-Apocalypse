@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 2
   sphereType: 1
+  cardPolarity: 2
   cardName: Brain Stimulants Without Cancel Effect
   description: 'New cognitive enhancers boost productivity across all fields but
     strain healthcare resources '
