@@ -116,9 +116,6 @@ public class GameManager : MonoBehaviour
 
         var sphereNames = EmergencyMapping.GetSphereTypesByThreat(effectiveThreats).ToList();
 
-        foreach (var player in players)
-            player.Initialize(sphereNames, players);
-        
         MessagePanel.prefab = messagePanelPrefab;
         AsteroidInvestmentManager asteroidManager = AsteroidInvestmentManager.Instance;
         asteroidManager.investmentCost = 50;

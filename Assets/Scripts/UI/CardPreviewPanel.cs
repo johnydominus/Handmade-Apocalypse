@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
+using System.Collections.Generic;
 
 public class CardPreviewPanel : MonoBehaviour
 {
@@ -12,7 +14,16 @@ public class CardPreviewPanel : MonoBehaviour
     [SerializeField] private Image sphereIconImage;
     [SerializeField] private float borderThickness = 6f;
 
-    public static CardPreviewPanel Instance { get; private set; }
+    private static CardPreviewPanel _instance;
+    public static CardPreviewPanel Instance
+    {
+        get
+        {
+            if (_instance == null)
+                _instance = FindFirstObjectByType<CardPreviewPanel>(FindObjectsInactive.Include);
+            return _instance;
+        }
+    }
 
     private System.Action onDismiss;
     private CardData currentCard;
@@ -20,8 +31,8 @@ public class CardPreviewPanel : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-        gameObject.SetActive(false);
+        _instance = this;
+        // Object starts inactive in the hierarchy — no SetActive(false) needed here
     }
 
     public void Show(CardData card, PlayerController owner, System.Action onDismiss)
@@ -76,18 +87,41 @@ public class CardPreviewPanel : MonoBehaviour
             return;
         }
         
-        if (!GameServices.Instance.cardSystem.PlayCard(currentCard, currentOwner))
-        {
-            Debug.LogWarning("Not enough tokens to play this card!");
-            // oprtionally flash the cost text red here
-        }
-        // On success: CardDisplay.OnDestroy fires -> Hide()
+        if (GameServices.Instance.cardSystem.PlayCard(currentCard, currentOwner))
+            Hide();
+        else
+            Shake();
     }
 
     // Wired to Blocker button's onClick
     public void OnBlockerClicked()
     {
+        var dismiss = onDismiss;
         Hide();
-        onDismiss?.Invoke();
+        dismiss?.Invoke();
+    }
+
+    
+    public void Shake()
+    {
+        StartCoroutine(ShakeRoutine());
+    }
+
+    private IEnumerator ShakeRoutine()
+    {
+        Vector2 originalPos = ((RectTransform)transform).anchoredPosition;
+        float duration = 0.2f;
+        float strength = 8f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float offsetX = Random.Range(-1f, 1f) * strength;
+            ((RectTransform)transform).anchoredPosition = originalPos + new Vector2(offsetX, 0f);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        ((RectTransform)transform).anchoredPosition = originalPos;
     }
 }

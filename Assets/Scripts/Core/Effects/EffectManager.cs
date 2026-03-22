@@ -8,11 +8,13 @@ using UnityEngine;
 public class EffectManager
 {
     private List<ActiveEffect> activeEffects = new();
+    private List<ActiveEffect> currentTurnEffects = new();
 
     public void RegisterEffect(Effect effect, PlayerController? player)
     {
         var activeEffect = new ActiveEffect(effect, player);
         activeEffects.Add(activeEffect);
+        currentTurnEffects.Add(activeEffect);
 
         Debug.Log($"Registered effect: {effect.effectName} " +
             (player != null ? $"for {player.playerName}" : "globally") +
@@ -28,6 +30,8 @@ public class EffectManager
     public void TickTurn()
     {
         Debug.Log($"Ticking {activeEffects.Count} effects for new turn");
+
+        currentTurnEffects.Clear();
 
         foreach (var effect in activeEffects.ToList())
         {
@@ -260,6 +264,8 @@ public class EffectManager
     // Helper methods for debugging and UI
     public List<ActiveEffect> GetActiveEffects() => activeEffects.Where(e => e.isActive).ToList();
 
+    public List<ActiveEffect> GetCurrentTurnEffects() => currentTurnEffects;
+
     public List<ActiveEffect> GetActiveEffectsForPlayer(PlayerController player)
         => activeEffects.Where(e => e.isActive && e.player == player).ToList();
 
@@ -269,4 +275,8 @@ public class EffectManager
     public List<ActiveEffect> GetActiveEffectsForPhase(EffectProcessingPhase phase)
         => activeEffects.Where(e => e.isActive &&
             (e.effect.processingPhase == phase || e.effect.processingPhase == EffectProcessingPhase.Any)).ToList();
+
+    public List<ActiveEffect> GetPendingDelayedEffects() =>
+    activeEffects.Where(e => !e.isActive && !e.expired &&
+        e.timing.effectTimingType == EffectTimingType.Delayed).ToList();
 }

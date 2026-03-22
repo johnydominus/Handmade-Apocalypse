@@ -85,72 +85,47 @@ public class EffectsPanel : MonoBehaviour
         RefreshDelayedEffects();
     }
 
-    private void RefreshActiveEffects()
-    {
-        // Clear existing displays
-        foreach (Transform child in activeEffectsContainer)
-        {
-            Destroy(child.gameObject);
-        }
+private void RefreshActiveEffects()
+{
+    foreach (Transform child in activeEffectsContainer)
+        Destroy(child.gameObject);
 
-        // Get all active effects
-        var activeEffects = GameServices.Instance.effectManager.GetActiveEffects();
+    var ongoing = GameServices.Instance.effectManager.GetActiveEffects();
+    var thisTurn = GameServices.Instance.effectManager.GetCurrentTurnEffects()
+        .Where(e => !ongoing.Contains(e))   // avoid duplicates
+        .ToList();
 
-        if (activeEffects.Count == 0)
-        {
-            noActiveEffectsText.gameObject.SetActive(true);
-            return;
-        }
+    bool hasAnything = ongoing.Count > 0 || thisTurn.Count > 0;
+    noActiveEffectsText.gameObject.SetActive(!hasAnything);
+    if (!hasAnything) return;
 
-        noActiveEffectsText.gameObject.SetActive(false);
+    foreach (var effect in ongoing)
+        CreateActiveEffectDisplay(effect, effect.player?.playerName ?? "Global");
 
-        // Group effects by player for better organization
-        var globalEffects = activeEffects.Where(e => e.player == null).ToList();
-        var playerEffects = activeEffects.Where(e => e.player != null)
-                                        .GroupBy(e => e.player.playerName)
-                                        .ToList();
+    foreach (var effect in thisTurn)
+        CreateActiveEffectDisplay(effect, effect.player?.playerName ?? "Global");
+}
 
-        // Display global effects first
-        foreach (var effect in globalEffects)
-        {
-            CreateActiveEffectDisplay(effect, "Global");
-        }
+private void RefreshDelayedEffects()
+{
+    foreach (Transform child in delayedEffectsContainer)
+        Destroy(child.gameObject);
 
-        // Display player-specific effects
-        foreach (var playerGroup in playerEffects)
-        {
-            foreach (var effect in playerGroup)
-            {
-                CreateActiveEffectDisplay(effect, playerGroup.Key);
-            }
-        }
-    }
+    var counterable = GameServices.Instance.delayedCounteractionManager.GetActiveDelayedEffects();
+    var pending = GameServices.Instance.effectManager.GetPendingDelayedEffects();
 
-    private void RefreshDelayedEffects()
-    {
-        // Clear existing displays
-        foreach (Transform child in delayedEffectsContainer)
-        {
-            Destroy(child.gameObject);
-        }
+    bool hasAnything = counterable.Count > 0 || pending.Count > 0;
+    noDelayedEffectsText.gameObject.SetActive(!hasAnything);
+    if (!hasAnything) return;
 
-        // Get all active delayed effects
-        var delayedEffects = GameServices.Instance.delayedCounteractionManager.GetActiveDelayedEffects();
+    // Counterable delayed effects (existing system)
+    foreach (var effect in counterable)
+        CreateDelayedEffectDisplay(effect);
 
-        if (delayedEffects.Count == 0)
-        {
-            noDelayedEffectsText.gameObject.SetActive(true);
-            return;
-        }
-
-        noDelayedEffectsText.gameObject.SetActive(false);
-
-        // Display each delayed effect
-        foreach (var delayedEffect in delayedEffects)
-        {
-            CreateDelayedEffectDisplay(delayedEffect);
-        }
-    }
+    // Non-counterable delayed effects from effectManager
+    foreach (var effect in pending)
+        CreateActiveEffectDisplay(effect, effect.player?.playerName ?? "Global");
+}
 
     private void CreateActiveEffectDisplay(ActiveEffect effect, string targetName)
     {

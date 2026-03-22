@@ -67,6 +67,13 @@ public class MessagePanel : MonoBehaviour
                     sphereIcon.enabled = false;
                 }
             }
+
+            // Append effect summary below the lore message
+            string summary = CardVisualConfig.GenerateEffectSummary(card.effects);
+            if (!string.IsNullOrEmpty(summary))
+            {
+                messageText.text = summary + $"\n\n" + messageText.text;
+            }
         }
         else
         {
@@ -162,7 +169,10 @@ public class MessagePanel : MonoBehaviour
             return;
         }
 
-        Canvas canvas = GameObject.FindFirstObjectByType<Canvas>();
+        GameObject msgCanvasGO = GameObject.Find("MessageCanvas");
+        Canvas canvas = msgCanvasGO != null 
+            ? msgCanvasGO.GetComponent<Canvas>() 
+            : GameObject.FindFirstObjectByType<Canvas>();
         if (canvas == null)
         {
             Debug.LogError($"[MSG #{data.queueId}] Canvas not found!");

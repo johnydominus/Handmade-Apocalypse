@@ -87,11 +87,11 @@ public class DevTools : MonoBehaviour
         
         int i = 0;
 
-        foreach (var emergency in targetPlayer.emergencies)
+        int limit = Mathf.Min(targetPlayer.emergencies.Count, emergencyLabels.Length, emergencyControls.Length);
+        for (; i < limit; i++)
         {
-            emergencyLabels[i].text = emergency.emergencyType.ToString();
-            emergencyControls[i].Initialize(emergency.emergencyType, this);
-            i++;
+            emergencyLabels[i].text = targetPlayer.emergencies[i].emergencyType.ToString();
+            emergencyControls[i].Initialize(targetPlayer.emergencies[i].emergencyType, this);
         }
     }
 

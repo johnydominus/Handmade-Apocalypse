@@ -13,10 +13,24 @@ public class ActiveEffectDisplay : MonoBehaviour
 
     public void Setup(ActiveEffect effect, string targetName)
     {
-        effectNameText.text = effect.effect.effectName;
+        // Clean description from the summary generator
+        string summary = CardVisualConfig.GenerateEffectSummary(
+            new System.Collections.Generic.List<Effect> { effect.effect });
+        effectNameText.text = string.IsNullOrEmpty(summary) ? effect.effect.effectName : summary;
+        
         targetText.text = $"Target: {targetName}";
 
-        // Show duration info 
+        durationText.text = effect.timing.effectTimingType switch
+        {
+            EffectTimingType.Immediate      => "Duration: Immediate",
+            EffectTimingType.CurrentTurn    => "Duration: Current turn",
+            EffectTimingType.MultiTurn      => $"{effect.timing.duration - effect.timing.turnsElapsed} turns left",
+            EffectTimingType.Delayed        => $"Triggers in: {effect.timing.delay - effect.timing.turnsElapsed} turns",
+            EffectTimingType.Recurring      => $"Recurring: {effect.timing.interval} turn interval",
+            _ => "Duration: Unknown"
+        };
+        
+/*       // Show duration info 
         if (effect.timing.effectTimingType == EffectTimingType.Immediate)
         {
             durationText.text = "Duration: Immediate";
@@ -57,23 +71,14 @@ public class ActiveEffectDisplay : MonoBehaviour
                 valueStr = effect.effect.value.ToString();
                 break;
         }
-        valueText.text = $"Effect: {valueStr}";
+*/
 
-        // Color coding based on effect type
-        Color bgColor = Color.white;
-        if (effect.effect.value > 0 && effect.effect.effectType == EffectType.Add)
-        {
-            bgColor = new Color(0.8f, 1f, 0.8f);    // Light green for positive
-        }
-        else if (effect.effect.value < 0 && effect.effect.effectType == EffectType.Add)
-        {
-            bgColor = new Color(1f, 0.8f, 0.8f);    // Light red for negative
-        }
-        else if (effect.effect.effectType == EffectType.Block)
-        {
-            bgColor = new Color(0.9f, 0.9f, 0.9f);    // Light gray for block
-        }
+        if (valueText != null) valueText.gameObject.SetActive(false);
 
-        backgroundImage.color = bgColor;
+        backgroundImage.color = effect.effect.effectType == EffectType.Block 
+            ? new Color(0.9f, 0.9f, 0.9f)
+            : effect.effect.value > 0
+                ? new Color(0.8f, 1f, 0.8f)
+                : new Color(1f, 0.8f, 0.8f);
     }
 }

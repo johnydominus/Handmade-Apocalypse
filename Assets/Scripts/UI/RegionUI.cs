@@ -48,22 +48,8 @@ public class RegionUI : MonoBehaviour
     
     private void OnSoEActivated(SoEContext context)
     {
-        int max = Mathf.Min(currentPlayer.emergencies.Count, soECounteractionUIs.Length);
-
-        for (int i = 0; i < max; i++)
-        {
-            var emergency = currentPlayer.emergencies[i];
-
-            if (emergency.stateOfEmergency.isActive)
-            {
-                soECounteractionUIs[i].gameObject.SetActive(true);
-                soECounteractionUIs[i].Activate(new SoEContext (emergency.emergencyType, currentPlayer));
-            }
-            else
-            {
-                soECounteractionUIs[i].gameObject.SetActive(false);
-            }
-        }
+        if (currentPlayer == null) return;
+        UpdateEmergencyBars();
     }
 
     private void OnSoEDeactivated(SoEContext context)
@@ -77,19 +63,13 @@ public class RegionUI : MonoBehaviour
         regionHeader.text = $"Region: {regionOwner.playerName}";
 
         int count = currentPlayer.emergencies.Count;
-        int max = Mathf.Min(
-            emergencyBars.Length,
-            emergencyCounters.Length,
-            emergencyLabels.Length,
-            soECounteractionUIs.Length);
 
-        for (int i = 0; i < max; i++)
+        for (int i = 0; i < count; i++)
         {
-            bool active = i < count;
-            emergencyBars[i].gameObject.SetActive(active);
-            emergencyCounters[i].gameObject.SetActive(active);
-            emergencyLabels[i].gameObject.SetActive(active);
-            soECounteractionUIs[i].gameObject.SetActive(active);
+            if (i < emergencyBars.Length) emergencyBars[i].gameObject.SetActive(true);
+            if (i < emergencyCounters.Length) emergencyCounters[i].gameObject.SetActive(true);
+            if (i < emergencyLabels.Length) emergencyLabels[i].gameObject.SetActive(true);
+            if (i < soECounteractionUIs.Length) soECounteractionUIs[i].gameObject.SetActive(false);
         }
 
         UpdateEmergencyBars();
@@ -123,23 +103,27 @@ public class RegionUI : MonoBehaviour
 
     public void UpdateEmergencyBars()
     {
-        Debug.Log("Updating emergency bars");
-        Debug.Log($"There are {currentPlayer.emergencies.Count} emergencies for {currentPlayer.playerName}");
+        if (currentPlayer == null) return;
 
-        int limit = Mathf.Min(currentPlayer.emergencies.Count,
-                            emergencyBars.Length,
-                            emergencyCounters.Length,
-                            emergencyLabels.Length);
-        for (int i = 0; i < limit; i++)
+        for (int i = 0; i < currentPlayer.emergencies.Count; i++)
         {
             var emergency = currentPlayer.emergencies[i];
-            emergencyLabels[i].text = emergency.emergencyType.ToString();
-            emergencyBars[i].fillAmount = emergency.emergencyLevel / 10f;
-            emergencyCounters[i].text = emergency.stateOfEmergency.isActive
+            bool isActive = emergency.stateOfEmergency.isActive;
+
+            if (i < emergencyLabels.Length) emergencyLabels[i].text = emergency.emergencyType.ToString();
+            if (i < emergencyBars.Length) emergencyBars[i].fillAmount = emergency.emergencyLevel / 10f;
+            if (i < emergencyCounters.Length)
+            {            emergencyCounters[i].text = isActive
                 ? $"!!! {emergency.emergencyType} !!!"
                 : $"{emergency.emergencyLevel}";
-            emergencyCounters[i].color = emergency.stateOfEmergency.isActive ? Color.red : Color.black;
-            Debug.Log($"Emergency {emergency.emergencyType} updated with level {emergency.emergencyLevel}");
+            emergencyCounters[i].color = isActive ? Color.red : Color.black;
+            }
+            if (i < soECounteractionUIs.Length)
+            {
+                soECounteractionUIs[i].gameObject.SetActive(isActive);
+                if (isActive)
+                    soECounteractionUIs[i].Activate(new SoEContext(emergency.emergencyType, currentPlayer));
+            }
         }
     }
 

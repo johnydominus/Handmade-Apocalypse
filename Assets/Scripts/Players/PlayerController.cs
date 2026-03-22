@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log($"{playerName} initialized with {startingTokensAmount} tokens.");
 
         investments.Clear();
+        emergencies.Clear();
 
         foreach (var name in sphereNames)
         {            

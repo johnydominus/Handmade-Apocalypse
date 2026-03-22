@@ -19,8 +19,9 @@ public class CardDisplay : MonoBehaviour
     private PlayerController owner;
     private Camera mainCamera;
 
-    private bool isExpanded = false;
     private static CardDisplay currentlyExpandedCard = null;
+    private static float dismissTime = -1f;
+    private const float dismissIgnoreWindow = 0.15f;
 
     private void Awake()
     {
@@ -68,23 +69,17 @@ public class CardDisplay : MonoBehaviour
             return;
         }
 
-        // Another card is already expanded - ignore clicks on this one
-        if (currentlyExpandedCard != null && currentlyExpandedCard != this)
+        // Ignore clickes right after a dissmiss (blocker click propagates to world-space)
+        if (Time.time - dismissTime < dismissIgnoreWindow) return;
+
+        // A card is already expanded (this one or another) - do nothing
+        if (currentlyExpandedCard != null)
         {
             Debug.Log($"...but another card is already expanded.");
             return;
         }
 
-        if (!isExpanded)
-            Expand();
-        else
-        {
-            if (!GameServices.Instance.cardSystem.PlayCard(cardData, owner))
-            {
-                Debug.Log($"...but doesn't have enough tokens.");
-                Shake();
-            }
-        }
+        Expand();
     }
 
     private string GetShortDesc()
@@ -104,11 +99,9 @@ public class CardDisplay : MonoBehaviour
             return;
         }
 
-        isExpanded = true;
         currentlyExpandedCard = this;
 
         CardPreviewPanel.Instance.Show(cardData, owner, () => {
-            isExpanded = false;
             if (currentlyExpandedCard == this) currentlyExpandedCard = null;
         });
     }
@@ -123,28 +116,5 @@ public class CardDisplay : MonoBehaviour
     {
         if (currentlyExpandedCard == this)
             currentlyExpandedCard = null;
-    }
-
-    public void Shake()
-    {
-        StartCoroutine(ShakeRoutine());
-    }
-
-    private IEnumerator ShakeRoutine()
-    {
-        Vector3 originalPos = transform.localPosition;
-        float shakeDuration = 0.2f;
-        float shakeStrength = 0.5f;
-        float elapsed = 0f;
-
-        while (elapsed < shakeDuration)
-        {
-            float offsetX = Random.Range(-1f, 1f) * shakeStrength;
-            transform.localPosition = originalPos + new Vector3(offsetX, 0f, 0f);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        transform.localPosition = originalPos;
     }
 }
