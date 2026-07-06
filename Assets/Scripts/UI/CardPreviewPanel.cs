@@ -20,7 +20,7 @@ public class CardPreviewPanel : MonoBehaviour
         get
         {
             if (_instance == null)
-                _instance = FindFirstObjectByType<CardPreviewPanel>(FindObjectsInactive.Include);
+                _instance = FindAnyObjectByType<CardPreviewPanel>(FindObjectsInactive.Include);
             return _instance;
         }
     }

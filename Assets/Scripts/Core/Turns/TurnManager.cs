@@ -32,7 +32,7 @@ public class TurnManager
     private bool isPhaseTransitioning = false;
 
     public GameObject messagePanel;
-    private Canvas canvas = GameObject.FindFirstObjectByType<Canvas>();
+    private Canvas canvas = GameObject.FindAnyObjectByType<Canvas>();
 
     public void OnEnable()
     {

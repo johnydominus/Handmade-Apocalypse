@@ -13,13 +13,13 @@ public class SoECounteractionUI : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEvents.OnTokenSpent.RegisterListener(OnTokenSpent);
+        GameEvents.OnTokensChanged.RegisterListener(OnTokensChanged);
         GameEvents.OnTurnStarted.RegisterListener(OnTurnStarted);
     }
 
     private void OnDisable()
     {
-        GameEvents.OnTokenSpent.UnregisterListener(OnTokenSpent);
+        GameEvents.OnTokensChanged.UnregisterListener(OnTokensChanged);
         GameEvents.OnTurnStarted.UnregisterListener(OnTurnStarted);
     }
 
@@ -50,7 +50,7 @@ public class SoECounteractionUI : MonoBehaviour
             var emergency = currentPlayer.emergencies.Find(e => e.emergencyType == currentEmergency);
             if (emergency != null && emergency.stateOfEmergency.isActive)
             {
-                UpdateCounterUI(emergency.stateOfEmergency.tokensPut);
+                UpdateCounterUI(emergency.stateOfEmergency.tokensPut, emergency.stateOfEmergency.tokensToDeactive);
             }
             else
             {
@@ -59,7 +59,7 @@ public class SoECounteractionUI : MonoBehaviour
         }
     }
 
-    private void OnTokenSpent(PlayerController player)
+    private void OnTokensChanged(PlayerController player)
     {
         if (player == currentPlayer && currentEmergency != null)
         {
@@ -67,7 +67,7 @@ public class SoECounteractionUI : MonoBehaviour
             var emergency = currentPlayer.emergencies.Find(e => e.emergencyType == currentEmergency);
             if (emergency != null && emergency.stateOfEmergency.isActive)
             {
-                UpdateCounterUI(emergency.stateOfEmergency.tokensPut);
+                UpdateCounterUI(emergency.stateOfEmergency.tokensPut, emergency.stateOfEmergency.tokensToDeactive);
             }
             else
             {
@@ -98,7 +98,7 @@ public class SoECounteractionUI : MonoBehaviour
                 }
                 else
                 {
-                    UpdateCounterUI(emergency.stateOfEmergency.tokensPut);
+                    UpdateCounterUI(emergency.stateOfEmergency.tokensPut, emergency.stateOfEmergency.tokensToDeactive);
                     Debug.Log($"SoE is still active. Tokens put: {emergency.stateOfEmergency.tokensPut}");
                 }
             }
@@ -108,15 +108,15 @@ public class SoECounteractionUI : MonoBehaviour
     private void ShowCounteractionUI(Emergency emergency)
     {
         gameObject.SetActive(true);
-        UpdateCounterUI(emergency.stateOfEmergency.tokensPut);
+        UpdateCounterUI(emergency.stateOfEmergency.tokensPut, emergency.stateOfEmergency.tokensToDeactive);
 
         // Update button interactability based on whether player has tokens
         addTokenButton.interactable = currentPlayer.tokenManager.GetTokens() > 0;
     }
 
-    private void UpdateCounterUI(int tokenCount)
+    private void UpdateCounterUI(int tokenCount, int tokensToDeactivate)
     {
-        counterText.text = $"{tokenCount}";
+        counterText.text = $"{tokenCount} / {tokensToDeactivate}";
 
         // Update button interactability
         addTokenButton.interactable = currentPlayer.tokenManager.GetTokens() > 0;

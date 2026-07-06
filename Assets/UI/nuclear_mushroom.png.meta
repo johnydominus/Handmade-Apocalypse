@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      nuclear_mushroom_0: -2677019096938081865
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -11,7 +11,7 @@ public class StateOfEmergency
     public int blockedTurnsRemaining { get; private set; } = 0;     // Turns remaining for block
 
     private Emergency parent;
-    private int tokensToDeactive = 12;
+    public int tokensToDeactive { get; private set; } = 12;
 
     public StateOfEmergency(Emergency parent)
     {

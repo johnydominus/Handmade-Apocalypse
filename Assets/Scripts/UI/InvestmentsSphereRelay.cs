@@ -10,6 +10,7 @@ public class InvestmentSphereRelay : MonoBehaviour
     public InvestmentForecastDisplay forecastDisplay;
 
     [System.NonSerialized] private InvestmentManager investmentManager;
+    [SerializeField] private UnityEngine.UI.Button addButton;
     private PlayerController investor;
     private PlayerController sphereOwner;
 
@@ -18,17 +19,32 @@ public class InvestmentSphereRelay : MonoBehaviour
     public void OnEnable()
     {
         GameEvents.OnTurnStarted.RegisterListener(OnTurnStarted);
+        GameEvents.OnTokensChanged.RegisterListener(OnTokensChanged);
     }
 
     public void OnDisable()
     {
         GameEvents.OnTurnStarted.UnregisterListener(OnTurnStarted);
+        GameEvents.OnTokensChanged.UnregisterListener(OnTokensChanged);
+    }
+
+    public void OnTokensChanged(PlayerController player)
+    {
+        if (player == investor)
+        {
+            if (addButton != null)
+                addButton.interactable = investor.tokenManager.GetTokens() > 0;
+    
+            UpdateAmountText();
+        }
     }
 
     private void OnTurnStarted(TurnContext turnContext)
     {
         SetContext(turnContext.player, turnContext.player);
         UpdateAmountText();
+        if (addButton != null)
+            addButton.interactable = investor.tokenManager.GetTokens() > 0;
     }
 
     public void Setup()
@@ -77,6 +93,12 @@ public class InvestmentSphereRelay : MonoBehaviour
         Debug.Log("Minus clicked");
         tokenUI.UpdateDisplay(investor);
         Debug.Log("Forecast updated for sphere " + sphereIndex);
+    }
+
+
+    public void OnTokensChanged()
+    {
+        
     }
 
     public void UpdateAmountText()
