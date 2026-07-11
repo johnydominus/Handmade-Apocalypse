@@ -15,10 +15,25 @@ public class ModifyThreatCommand : ICommand
     {
         Debug.Log($"Modifying threat by {effect.value} for {effect.sphereType}");
         var threatManager = GameServices.Instance.threatManager;
-        var targetThreat = EmergencyMapping.GetBySphere(effect.sphereType).threat;
 
-        originalThreatLevel = threatManager.GetThreatValue(targetThreat);
-        threatManager.ApplyThreatChange(targetThreat, (int)effect.value);
+        if (effect.sphereType == SphereType.All)
+        {
+            foreach (var entry in EmergencyMapping.GetAll())
+            {
+                threatManager.ApplyThreatChange(entry.threat, (int)effect.value);
+            }
+            return;
+        }
+
+        var mapping = EmergencyMapping.GetBySphere(effect.sphereType);
+        if (mapping == null)
+        {
+            Debug.LogError($"No mapping found for sphere type {effect.sphereType}");
+            return;
+        }
+
+        originalThreatLevel = threatManager.GetThreatValue(mapping.threat);
+        threatManager.ApplyThreatChange(mapping.threat, (int)effect.value);
     }
 
     public void Undo()

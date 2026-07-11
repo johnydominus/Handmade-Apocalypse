@@ -9,6 +9,7 @@ public class UIWInLossMessage : MonoBehaviour
 
     public void SetMessage(bool win, ThreatType? fatalThreat)
     {
+        transform.SetAsLastSibling(); // Ensure the message panel is on top of other UI elements
         if (win)
         {
             messageHeader.text = "!!! YOU WIN !!!";

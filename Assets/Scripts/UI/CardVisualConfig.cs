@@ -58,14 +58,19 @@ public static class CardVisualConfig
 
         string targetStr = e.effectTarget switch
         {
-            EffectTarget.ThreatLevel      => $"{valStr} {SphereToThreatLabel(e.sphereType)} Threat",
-            EffectTarget.Dividends        => $"{valStr} {e.sphereType} Dividends",
-            EffectTarget.EmergencyLevel   => $"{valStr} Emergency ({e.sphereType})",
-            EffectTarget.PlayerTokens     => $"{valStr} Tokens",
-            EffectTarget.ActivateThreat   => $"Activate {SphereToThreatLabel(e.sphereType)} Threat",
-            EffectTarget.DeactivateThreat => $"Deactivate {SphereToThreatLabel(e.sphereType)} Threat",
-            EffectTarget.SoE              => "State of Emergency",
-            _                             => ""
+            EffectTarget.ThreatLevel        => $"{valStr} {SphereToThreatLabel(e.sphereType)} Threat",
+            EffectTarget.Dividends          => $"{valStr} {e.sphereType} Dividends",
+            EffectTarget.EmergencyLevel     => $"{valStr} Emergency ({e.sphereType})",
+            EffectTarget.PlayerTokens       => $"{valStr} Tokens",
+            EffectTarget.ActivateThreat     => $"Activate {SphereToThreatLabel(e.sphereType)} Threat",
+            EffectTarget.DeactivateThreat   => $"Deactivate {SphereToThreatLabel(e.sphereType)} Threat",
+            EffectTarget.SoE                => "State of Emergency",
+            EffectTarget.SoECounterAction   => $"Spend {e.tokensRequiredToCounter} tokens to counter SoE",
+            EffectTarget.SoEBlock           => $"Block SoE counteraction for {e.effectTiming.duration}T",
+            EffectTarget.DelayedCounterable => $"Delayed threat - counter for {e.tokensRequiredToCounter} tokens",
+            EffectTarget.AsteroidInvestment => "Invest in Astronautics",
+            EffectTarget.CounterCardEffect  => "Counter a card effect", 
+            _                               => ""
         };
 
         if (string.IsNullOrEmpty(targetStr)) return "";

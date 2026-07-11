@@ -82,10 +82,13 @@ public class ProcessNewEffectCommand : ICommand
         }
 
         // Original logic for other effect targets
-        if (!(effect.effectTiming.effectTimingType == EffectTimingType.Immediate))
+        bool isModifierEffect = effect.effectTarget == EffectTarget.Dividends
+                            || effect.effectTarget == EffectTarget.General;
+
+        if (isModifierEffect || effect.effectTiming.effectTimingType != EffectTimingType.Immediate)
             GameServices.Instance.effectManager.RegisterEffect(effect, player);
 
-        if (!(effect.effectTiming.effectTimingType == EffectTimingType.Delayed))
+        if (effect.effectTiming.effectTimingType != EffectTimingType.Delayed)
             GameServices.Instance.effectManager.ApplyEffect(effect, player);
     }
 

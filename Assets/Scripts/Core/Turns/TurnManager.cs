@@ -70,9 +70,6 @@ public void Initialize(List<PlayerController> playerList, GameObject messagePref
     {
         currentPlayer = players[currentPlayerIndex];
 
-        // Process turn-level effects at the start of a turn
-        GameServices.Instance.effectManager.TickTurn();
-
         Debug.Log($"Turn {turnNumber} started for player {currentPlayer.playerName}");
         Debug.Log($"Starting with phase: {currentPhase}");
 
@@ -88,6 +85,7 @@ public void Initialize(List<PlayerController> playerList, GameObject messagePref
             GameEvents.OnTurnEnd.Raise();
             turnNumber++;
             currentPhase = TurnPhase.GlobalThreats;
+            GameServices.Instance.effectManager.TickTurn();
 
             Debug.Log($"The last player played! Turn {turnNumber - 1} ended, starting Turn {turnNumber}");
         }
@@ -369,7 +367,12 @@ public void Initialize(List<PlayerController> playerList, GameObject messagePref
         messageHeader = $"REGION EVENT FOR {currentPlayer.playerName}!";
         messageText = $"{card.cardName}:\n{card.description}";
 
-        // TODO: Execute region event card effects
+        //Execute region event card effects
+        foreach (var effect in card.effects)
+        {
+            ICommand effectCommand = new ProcessNewEffectCommand(effect, currentPlayer, card);
+            GameServices.Instance.commandManager.ExecuteCommand(effectCommand);
+        }
 
         TurnPhase nextPhase = TurnPhase.DividendPayout;
         Debug.Log($"Region Events phase complete, next phase will be {nextPhase}");

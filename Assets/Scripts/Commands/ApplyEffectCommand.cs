@@ -29,20 +29,21 @@ public class ApplyEffectCommand : ICommand
                 // Apply emergency level effect
                 if (player != null)
                 {
-                    var emergencyType = EmergencyMapping.GetBySphere(effect.sphereType).emergency;
+                    var mapping = EmergencyMapping.GetBySphere(effect.sphereType);
+                    if(mapping == null) break;
 
-                    if(emergencyType != null)
+                    var emergencyType = mapping.emergency;
+                    if (emergencyType != null)
                     {
                         var emergency = player.emergencies.FirstOrDefault(e => e.emergencyType == emergencyType);
-
-                        if (emergency != null)
+                        if(emergency != null)
                         {
-                            if (effect.value > 0)
-                                emergency.Increase((int)effect.value);
-                            else
-                                emergency.Decrease((int)effect.value);
+                        if (effect.value > 0)
+                            emergency.Increase((int)effect.value);
+                        else
+                            emergency.Decrease((int)effect.value);
 
-                            Debug.Log($"Applied emergency change of {effect.value} to {emergencyType} for {player.playerName}");
+                        Debug.Log($"Applied emergency change of {effect.value} to {emergencyType} for {player.playerName}");
                         }
                     }
                 }
@@ -52,8 +53,11 @@ public class ApplyEffectCommand : ICommand
                 // Handle State of Emergency effects
                 if (player != null)
                 {
-                    var emergencyType = EmergencyMapping.GetBySphere(effect.sphereType).emergency;
-                    if (emergencyType != null)
+                    var mapping = EmergencyMapping.GetBySphere(effect.sphereType);
+                    if (mapping == null) break;
+                        
+                    var emergencyType = mapping.emergency;
+                    if(emergencyType != null)
                     {
                         var emergency = player.emergencies.FirstOrDefault(e => e.emergencyType == emergencyType);
                         if (emergency != null && emergency.stateOfEmergency != null)
@@ -68,7 +72,7 @@ public class ApplyEffectCommand : ICommand
                                 emergency.stateOfEmergency.Deactivate();
                                 Debug.Log($"Deactivated SoE for {emergencyType} in {player.playerName}'s region");
                             }
-                        }
+                        }                        
                     }
                 }
                 else
